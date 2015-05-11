@@ -30,15 +30,15 @@ CCode::~CCode()
 
 void CCode::execute()
 {
-  // protected region execute code on begin
-	if (this->CCode_aVariable == -1 || this->CCode_bVariable == -1)
-		exit();
-	else {
-		printf("Receiving: CCode_aVariable: \t'%c'\n", this->CCode_aVariable);
-		printf("Receiving: CCode_bVariable: \t'%c'\n", this->CCode_bVariable);
+	static int counter = 1;
 
-		printf("\n");
-	}
+  // protected region execute code on begin
+	/*if (this->CCode_aVariable == -1 || this->CCode_bVariable == -1)
+		exit();*/
+
+	printf("(%d) Receiving: \t\t'%c'\n", counter, this->CCode_aVariable);
+	printf("(%d) Receiving: \t\t'%c'\n", counter++, this->CCode_bVariable);
+
   // protected region execute code end
 }
 
