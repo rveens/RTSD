@@ -8,7 +8,6 @@
  */
 
 #include "Producer12/PCode.h"
-#include "string.h"
 // protected region additional headers on begin
 // Each additional header should get a corresponding dependency in the Makefile
 // protected region additional headers end
@@ -31,22 +30,21 @@ PCode::~PCode()
 
 void PCode::execute()
 {
-  // protected region execute code on begin
+	static int counter = 1;
 
+  // protected region execute code on begin
 	static int index = 0;
 
-	char *stuff = "Appelflap";
+	char *stuff = "ABCDEFGHIJKLMNOP";
 
-	if (index == strlen(stuff)) {
-		this->PCode_someValue = -1;
-		this->PCode_anotherValue = -1;
-	} else {
-		this->PCode_someValue = stuff[index];
-		this->PCode_anotherValue = stuff[index++];
+	this->PCode_someValue = stuff[index];
+	this->PCode_anotherValue = stuff[index++];
 
-		printf("Sending: PCode_someValue: \t'%c'\n", this->PCode_someValue);
-		printf("Sending: PCode_anotherValue: \t'%c'\n", this->PCode_anotherValue);
-	}
+	if (index == strlen(stuff))
+		index = 0;
+
+	printf("(%d) Sending: \t\t'%c'\n", counter, this->PCode_someValue);
+	printf("(%d) Sending: \t\t'%c'\n", counter++, this->PCode_anotherValue);
 
 
   // protected region execute code end
