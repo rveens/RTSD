@@ -16,27 +16,28 @@ namespace MainModel { namespace consumer {
 
 
 
-consumer::consumer(GuardedChannelOut<int> *ch1, GuardedChannelOut<int> *ch2, GuardedChannelOut<int> *ch3) :
-    Alternative()
+consumer::consumer(ChannelOut<int> *ch1, ChannelOut<int> *ch2, ChannelOut<int> *ch3) :
+    Parallel(NULL)
 {
   SETNAME(this, "consumer");
 
   // Initialize model objects
-  mych1Code = new ch1Code::ch1Code();
+  mych1Code = new ch1Code::ch1Code(data);
   SETNAME(mych1Code, "ch1Code");
-  mych2Code = new ch2Code::ch2Code();
+  mych2Code = new ch2Code::ch2Code(data);
   SETNAME(mych2Code, "ch2Code");
-  mych3Code = new ch3Code::ch3Code();
+  mych3Code = new ch3Code::ch3Code(data);
   SETNAME(mych3Code, "ch3Code");
-  myr1 = new GuardedReader<int>(&data, ch1);
+  myr1 = new Reader<int>(&data, ch1);
   SETNAME(myr1, "r1");
-  myr2 = new GuardedReader<int>(&data, ch2);
+  myr2 = new Reader<int>(&data, ch2);
   SETNAME(myr2, "r2");
-  myr3 = new GuardedReader<int>(&data, ch3);
+  myr3 = new Reader<int>(&data, ch3);
   SETNAME(myr3, "r3");
 
   // Create SEQUENTIAL_C1 group
   mySEQUENTIAL_C1 = new Sequential(
+    (CSPConstruct *) myr1,
     (CSPConstruct *) mych1Code,
     NULL
   );
@@ -44,6 +45,7 @@ consumer::consumer(GuardedChannelOut<int> *ch1, GuardedChannelOut<int> *ch2, Gua
 
   // Create SEQUENTIAL_C2 group
   mySEQUENTIAL_C2 = new Sequential(
+    (CSPConstruct *) myr2,
     (CSPConstruct *) mych2Code,
     NULL
   );
@@ -51,23 +53,19 @@ consumer::consumer(GuardedChannelOut<int> *ch1, GuardedChannelOut<int> *ch2, Gua
 
   // Create SEQUENTIAL_C3 group
   mySEQUENTIAL_C3 = new Sequential(
+    (CSPConstruct *) myr3,
     (CSPConstruct *) mych3Code,
     NULL
   );
   SETNAME(mySEQUENTIAL_C3, "SEQUENTIAL_C3");
 
-  // Register sequential groups to Channel Guarded Processes
-  myr1->setToActivate(mySEQUENTIAL_C1);
-  myr2->setToActivate(mySEQUENTIAL_C2);
-  myr3->setToActivate(mySEQUENTIAL_C3);
 
   // Register model objects
-  this->append_child(myr2);
-  this->append_child(myr3);
-  this->append_child(myr1);
+  this->append_child(mySEQUENTIAL_C2);
+  this->append_child(mySEQUENTIAL_C3);
+  this->append_child(mySEQUENTIAL_C1);
 
   // protected region constructor on begin
-
   // protected region constructor end
 }
 
@@ -76,7 +74,6 @@ consumer::~consumer()
   // TODO Properly destroy all additional objects that got defined in the constructor
 
   // protected region destructor on begin
-
   // protected region destructor end
 
   // Destroy model groups
@@ -96,7 +93,6 @@ consumer::~consumer()
 
 
 // protected region additional functions on begin
-
 // protected region additional functions end
 
 // Close namespace(s)

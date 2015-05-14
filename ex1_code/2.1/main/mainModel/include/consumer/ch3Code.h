@@ -23,14 +23,17 @@ class ch3Code : public CodeBlock
 
 public:
   // Define constructor and destructor
-  ch3Code();
+  ch3Code(int &appel);
   virtual ~ch3Code();
 
   void execute();
 
 private:
-  // protected region additional class members or functions on begin
 
+  // Class variables
+  int &appel;
+
+  // protected region additional class members or functions on begin
   // protected region additional class members or functions end
 };
 

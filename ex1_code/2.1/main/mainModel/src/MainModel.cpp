@@ -44,7 +44,6 @@ MainModel::MainModel() :
   this->append_child(myconsumerRecursion);
 
   // protected region constructor on begin
-
   // protected region constructor end
 }
 
@@ -53,7 +52,6 @@ MainModel::~MainModel()
   // TODO Properly destroy all additional objects that got defined in the constructor
 
   // protected region destructor on begin
-
   // protected region destructor end
 
   // Destroy model objects
@@ -69,7 +67,6 @@ MainModel::~MainModel()
 
 
 // protected region additional functions on begin
-
 // protected region additional functions end
 
 // Close namespace(s)

@@ -9,6 +9,9 @@
 
 #include "Producer/PCode.h"
 // protected region additional headers on begin
+#include <stdio.h>
+#include <iostream>
+#include <algorithm>
 // Each additional header should get a corresponding dependency in the Makefile
 // protected region additional headers end
 
@@ -20,25 +23,47 @@ PCode::PCode(int &peer) :
 
   // protected region constructor on begin
 
+  while (!initialize()) {
+		printf("Numbers not distinct.\n");
+  }
+
   // protected region constructor end
 }
 
 PCode::~PCode()
 {
   // protected region destructor on begin
-
   // protected region destructor end
 }
 
 void PCode::execute()
 {
   // protected region execute code on begin
+	static int index = 0;
 
+	printf("P1->Sending %d\n", vars[index]);
+	this->peer = vars[index++];
+	if (index > 2)
+		index = 0;
   // protected region execute code end
 }
 
 // protected region additional functions on begin
+bool PCode::initialize(void)
+{
+	printf("Enter 3 numbers\n");
+	while (scanf("%i", &vars[0]) != 1) {}
+	while (scanf("%i", &vars[1]) != 1) {}
+	while (scanf("%i", &vars[2]) != 1) {}
 
+	std::sort(vars, vars+3);
+
+	printf("I got: %i, %i, %i\n", vars[0], vars[1], vars[2]);
+	if (vars[0] == vars[1] || vars[0] == vars[2] || vars[1] == vars[2])
+		return false;
+	else
+		return true;
+}
 // protected region additional functions end
 
 // Close namespace(s)

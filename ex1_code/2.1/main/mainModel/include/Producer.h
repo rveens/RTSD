@@ -27,10 +27,14 @@ class Producer : public Sequential
 
 public:
   // Define constructor and destructor
-  Producer(GuardedChannelIn<int> *ch1, GuardedChannelIn<int> *ch2, GuardedChannelIn<int> *ch3);
+  Producer(ChannelIn<int> *ch1, ChannelIn<int> *ch2, ChannelIn<int> *ch3);
   virtual ~Producer();
 
 
+  // Guard evaluation functions
+  bool w1GuardEvaluate();
+  bool w2GuardEvaluate();
+  bool w3GuardEvaluate();
 
 private:
 
@@ -39,15 +43,14 @@ private:
 
   // Model objects
   PCode::PCode *myPCode;
-  GuardedWriter<int> *myw1;
-  GuardedWriter<int> *myw2;
-  GuardedWriter<int> *myw3;
+  Writer<int> *myw1;
+  Writer<int> *myw2;
+  Writer<int> *myw3;
 
   // Model groups
   Alternative *myALTERNATIVE;
 
   // protected region additional class members or functions on begin
-
   // protected region additional class members or functions end
 };
 
