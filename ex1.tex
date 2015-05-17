@@ -307,16 +307,16 @@ Next, the writers in the producer cannot write to the channels, because the read
 Now, the readers and writers do their thing and, again, either the producer's \cpp code can be executed, or the consumer's. We see for the complete initial part of the run that the producer's \cpp code is executed before the consumer's \cpp code.
 
 \subsubsection{}
-ProBE is an interpreter for CSPm scripts, the user can manually inspect the different execution paths that are possible. When a process is deadlock free, its execution paths are infinite. ProBE will never see the end of these executionpaths, nor will it know whether it has an end. FDR recognises this infinite behaviour, or more precise, it recognises finite behaviour. When it finds the process is able to terminate, it can show that the process fails the deadlock free-test. Similarly it can check for other properties without needing to simulate the complete execution paths likes ProBE does. ProBE can be used to inspect how a process deadlocks.
+ProBE is an interpreter for CSPm scripts, the user can manually inspect the possible execution paths. When a process is deadlock free, its execution paths are infinite. ProBE will never see the end of these executionpaths, nor will it know whether it has an end. FDR recognises this infinite behaviour, or rather, it recognises finite behaviour. When it finds the process is able to terminate, it shows that the process fails the deadlock free-test. Similarly it can check for other properties without needing to simulate the complete execution paths likes ProBE does. ProBE can be used to inspect how a process deadlocks.
 
 \subsubsection{}
-If we addapt the \cpp code of the producer to start at the beginning of the word again when all characters have been sent, we can observe the behaviour of the process when it runs longer. We saw previously that the consumer only executed when the producer had to wait. This does not seem fair parallel. But when we watch what happens when the code runs longer, we occasionally see the consumer receive four values in a row, meaning that its \cpp code executed before the producer's \cpp code could prepare its next two values for the writers. So when both processes can execute, the parallel composition does not consistently execute one the them before the other. This seems fair.
+If we addapt the \cpp code of the producer to start at the beginning of the word again when all characters have been sent, we can observe the behaviour of the process when it runs for a while. We saw previously that the consumer only continued when the producer had to wait. This does not seem fair parallel. But when we watch what happens when the code runs for a while, we occasionally see the consumer receiving four values in a row, meaning that its \cpp code executed before the producer's \cpp code could prepare the next two values for the writers. So when both processes can execute, the parallel composition does not consistently execute one of them before the other. This seems fair.
 
 \color{red}
 Give proof that it is fair using the tools
 \color{black}
 
 \subsubsection{}
-The composition $A ||| B$ does not deadlock. Whichever process gets to execute its \cpp code first, it will need to wait for the other process directly after. When both have executed their \cpp code, execution can continue by writing and reading on the channels.
+The composition $A ||| B$ does not deadlock. Whichever process gets to execute its \cpp code first, it will need to wait for the other process directly after. When both have executed their \cpp code, execution can continue by writing and reading on the channels. At no point do the processes wait for the other.
 
 \end{document}
