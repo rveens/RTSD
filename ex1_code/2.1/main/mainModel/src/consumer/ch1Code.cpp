@@ -14,31 +14,28 @@
 
 namespace MainModel { namespace consumer { namespace ch1Code { 
 
-ch1Code::ch1Code() :
-    CodeBlock(){
+ch1Code::ch1Code(int &appel) :
+    CodeBlock(), appel(appel){
   SETNAME(this, "ch1Code");
 
   // protected region constructor on begin
-
   // protected region constructor end
 }
 
 ch1Code::~ch1Code()
 {
   // protected region destructor on begin
-
   // protected region destructor end
 }
 
 void ch1Code::execute()
 {
   // protected region execute code on begin
-
+	printf("C1->Receiving %d\n", this->appel);
   // protected region execute code end
 }
 
 // protected region additional functions on begin
-
 // protected region additional functions end
 
 // Close namespace(s)

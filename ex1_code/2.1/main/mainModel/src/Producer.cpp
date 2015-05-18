@@ -14,29 +14,62 @@
 
 namespace MainModel { namespace Producer { 
 
+/*
+ * Global variable to access the model instance
+ * TODO This fails when Producer is used multiple times!
+ */
+Producer* g_Producer;
 
+// Wrapper function of evaluate function for the w1 guard
+bool myw1GuardEvaluateWrapper()
+{
+  // Just call the class function
+  return g_Producer->w1GuardEvaluate();
+}
 
-Producer::Producer(GuardedChannelIn<int> *ch1, GuardedChannelIn<int> *ch2, GuardedChannelIn<int> *ch3) :
+// Wrapper function of evaluate function for the w2 guard
+bool myw2GuardEvaluateWrapper()
+{
+  // Just call the class function
+  return g_Producer->w2GuardEvaluate();
+}
+
+// Wrapper function of evaluate function for the w3 guard
+bool myw3GuardEvaluateWrapper()
+{
+  // Just call the class function
+  return g_Producer->w3GuardEvaluate();
+}
+
+Producer::Producer(ChannelIn<int> *ch1, ChannelIn<int> *ch2, ChannelIn<int> *ch3) :
     Sequential(NULL)
 {
   SETNAME(this, "Producer");
+  g_Producer = this;
 
   // Initialize model objects
   myPCode = new PCode::PCode(data);
   SETNAME(myPCode, "PCode");
-  myw1 = new GuardedWriter<int>(&data, ch1);
+  myw1 = new Writer<int>(&data, ch1);
   SETNAME(myw1, "w1");
-  myw2 = new GuardedWriter<int>(&data, ch2);
+  myw2 = new Writer<int>(&data, ch2);
   SETNAME(myw2, "w2");
-  myw3 = new GuardedWriter<int>(&data, ch3);
+  myw3 = new Writer<int>(&data, ch3);
   SETNAME(myw3, "w3");
 
+  // Set conditions for the guarded objects that are not in a Sequential group
+  AltIfOption<int>* myw1_guard = new AltIfOption<int>(myw1, myw1GuardEvaluateWrapper);
+  SETNAME(myw1_guard, "w1-guard");
+  AltIfOption<int>* myw2_guard = new AltIfOption<int>(myw2, myw2GuardEvaluateWrapper);
+  SETNAME(myw2_guard, "w2-guard");
+  AltIfOption<int>* myw3_guard = new AltIfOption<int>(myw3, myw3GuardEvaluateWrapper);
+  SETNAME(myw3_guard, "w3-guard");
   // Create ALTERNATIVE group
   myALTERNATIVE = new Alternative(
     true,
-    (CSPConstruct *) myw1,
-    (CSPConstruct *) myw2,
-    (CSPConstruct *) myw3,
+    (CSPConstruct *) myw1_guard,
+    (CSPConstruct *) myw2_guard,
+    (CSPConstruct *) myw3_guard,
     NULL
   );
   SETNAME(myALTERNATIVE, "ALTERNATIVE");
@@ -47,7 +80,6 @@ Producer::Producer(GuardedChannelIn<int> *ch1, GuardedChannelIn<int> *ch2, Guard
   this->append_child(myALTERNATIVE);
 
   // protected region constructor on begin
-
   // protected region constructor end
 }
 
@@ -56,7 +88,6 @@ Producer::~Producer()
   // TODO Properly destroy all additional objects that got defined in the constructor
 
   // protected region destructor on begin
-
   // protected region destructor end
 
   // Destroy model groups
@@ -69,10 +100,22 @@ Producer::~Producer()
   delete myPCode;
 }
 
+bool Producer::w1GuardEvaluate()
+{
+  return data < 10;
+}
 
+bool Producer::w2GuardEvaluate()
+{
+  return data > 10;
+}
+
+bool Producer::w3GuardEvaluate()
+{
+  return data == 10;
+}
 
 // protected region additional functions on begin
-
 // protected region additional functions end
 
 // Close namespace(s)

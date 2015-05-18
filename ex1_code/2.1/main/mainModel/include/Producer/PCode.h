@@ -34,7 +34,8 @@ private:
   int &peer;
 
   // protected region additional class members or functions on begin
-
+  int vars[3];
+  bool initialize(void);
   // protected region additional class members or functions end
 };
 
