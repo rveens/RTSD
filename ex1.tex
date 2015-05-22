@@ -319,7 +319,9 @@ Give proof that it is fair using the tools
 \subsubsection{}
 The composition $A ||| B$ does not deadlock. Whichever process gets to execute its \cpp code first, it will need to wait for the other process directly after. When both have executed their \cpp code, execution can continue by writing and reading on the channels. At no point do the processes wait for the other.
 
+\FloatBarrier
 \subsection{}
+\FloatBarrier
 \subsubsection{}
 See Figure~\ref{fig:typicalcspoverview} and Figure~\ref{fig:typicalcsp} (a, b, c) for some screenshots of the model.
 We chose to implement three channels.
