@@ -157,8 +157,11 @@ We extended the producer consumer (DF) model from figure~\ref{fig:SystemDF} with
 
 \begin{figure}
  \centering
+ \begin{subfigure}{\textwidth}
+  \centering
   \includegraphics[scale=0.8]{./images/1_2-SystemDF+_main.png}
   \caption{Overview diagram of the producer consumer system.}
+ \end{subfigure}
  \begin{subfigure}{0.5\textwidth}
   \centering
 	\includegraphics[width=\textwidth]{./images/1_2-SystemDF+_prod.png}
@@ -319,28 +322,20 @@ Give proof that it is fair using the tools
 \subsubsection{}
 The composition $A ||| B$ does not deadlock. Whichever process gets to execute its \cpp code first, it will need to wait for the other process directly after. When both have executed their \cpp code, execution can continue by writing and reading on the channels. At no point do the processes wait for the other.
 
+\FloatBarrier
 \subsection{}
+\FloatBarrier
 \subsubsection{}
-Figure~\ref{fig:typicalcspoverview} and Figure~\ref{fig:typicalcsp} (a, b, c) 
-reveal the solution for exercise 2.1. An overview is presented, along with the 
-producer and consumer sub-models.
-Furthermore, a screendump of the result of FDR after checking said model is added.
-\subsubsection{}
-Figure~\ref{fig:typicalcspoutput} shows the output of the program.
-\subsubsection{}
-Figure~\ref{fig:typicalcspoutputrobust} shows that the prompt makes sure that distinct values are entered.
-\subsubsection{}
-It is useful to implement and test the process structure first before doing the
-programming functionality, for the reason that a change in the process structure
-could influence the implementation.
-At the start of a project, the model is expected to change frequently.
-\subsubsection{}
+Figure~\ref{fig:typicalcsp} and \ref{fig:2_1_DF} reveal the solution for exercise 2.1. An overview is presented, along with the producer and consumer sub-models. Furthermore, a screendump of the result of FDR after checking said model is added.
 
 \begin{figure}
  \centering
- \includegraphics[scale=0.7]{./images/2-1_overview.png}
- \caption{Overview diagram of the multiple channel producer consumer system.}
- \label{fig:typicalcspoverview}
+ \begin{subfigure}{\textwidth}
+  \centering
+	\includegraphics[scale=0.5]{./images/2-1_overview.png}
+	\caption{Overview diagram of the multiple channel producer consumer system.}
+	\label{fig:typicalcspoverview}
+ \end{subfigure}
  \begin{subfigure}{0.5\textwidth}
   \centering
   \includegraphics[width=\textwidth]{./images/2-1_producer.png}
@@ -351,14 +346,19 @@ At the start of a project, the model is expected to change frequently.
   \includegraphics[width=\textwidth]{./images/2-1_consumer.png}
   \caption{The consumer process.}
  \end{subfigure}
- \begin{subfigure}{0.7\textwidth}
-	 \centering
-	 \includegraphics[width=\textwidth]{./images/2-1_fdr.png}
-	 \caption{Deadlock free.}
- \end{subfigure}
  \caption{The CSP model of exercise 1.2.}
  \label{fig:typicalcsp}
 \end{figure}
+
+\begin{figure}
+ \centering
+ \includegraphics[width=\textwidth]{./images/2-1_fdr.png}
+ \caption{Deadlock free.}
+ \label{fig:2_1_DF}
+\end{figure}
+
+\subsubsection{}
+Figure~\ref{fig:typicalcspoutput} shows the output of the program.
 
 \begin{figure}
 	\begin{subfigure}{0.5\textwidth}
@@ -375,6 +375,9 @@ At the start of a project, the model is expected to change frequently.
 	\label{fig:typicalcspoutput}
 \end{figure}
 
+\subsubsection{}
+Figure~\ref{fig:typicalcspoutputrobust} shows that the prompt makes sure that distinct values are entered.
+
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{./images/2-3-robust.png}
@@ -382,5 +385,11 @@ At the start of a project, the model is expected to change frequently.
 	\label{fig:typicalcspoutputrobust}
 \end{figure}
 
+\subsubsection{}
+It is useful to implement and test the process structure first before doing the
+programming functionality, for the reason that a change in the process structure
+could influence the implementation.
+At the start of a project, the model is expected to change frequently.
+\subsubsection{}
 
 \end{document}
