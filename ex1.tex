@@ -157,8 +157,11 @@ We extended the producer consumer (DF) model from figure~\ref{fig:SystemDF} with
 
 \begin{figure}
  \centering
+ \begin{subfigure}{\textwidth}
+  \centering
   \includegraphics[scale=0.8]{./images/1_2-SystemDF+_main.png}
   \caption{Overview diagram of the producer consumer system.}
+ \end{subfigure}
  \begin{subfigure}{0.5\textwidth}
   \centering
 	\includegraphics[width=\textwidth]{./images/1_2-SystemDF+_prod.png}
@@ -323,49 +326,48 @@ The composition $A ||| B$ does not deadlock. Whichever process gets to execute i
 \subsection{}
 \FloatBarrier
 \subsubsection{}
-See Figure~\ref{fig:typicalcspoverview} and Figure~\ref{fig:typicalcsp} (a, b, c) for some screenshots of the model.
+See Figure~\ref{fig:2_1-model} for some screenshots of the model.
 We chose to implement three channels.
 
 \subsubsection{}
-See Codeblock~\ref{code:2_1PCode} for the code of C++ code block PCode. The other code blocks in the program are of no interest, because they merely print their input variable.
+See Codeblock~\ref{code:2_1PCode} for the code of \cpp code block PCode. The other code blocks in the program are of no interest, because they merely print their input variable.
 \smallskip
 
-Figure~\ref{fig:typicalcspoutput} shows some of the output of the program after extending it with C++ code.
+Figure~\ref{fig:2_1-output} shows some of the output of the program after extending it with \cpp code.
 
 The decision was made to have the program send each of the three values once. 
 After sending the prompt appears again.
 
-The guards on the producer side (see Figure~\ref{fig:typicalcsp} a) are configured 
-in the model in such a way that a value '1' gets send to channel 1, value '2' to channel 2 and value '3' to channel 3.
-Any other value that is entered will result in the "Prullenbak" C++ code being executed.
+The guards on the producer side (see Figure~\ref{fig:2_1-model:producer}) are configured 
+in the model in such a way that a value `1' gets send to channel 1, value `2' to channel 2 and value `3' to channel 3.
+Any other value that is entered will result in the ``Prullenbak'' \cpp code being executed.
 
 Note that some of the messages are out of order, the same stuff is happening as discussed in exercise 1.1.3.
 
 In short, order we see occurs because the top producer and consumer process are linked in parallel.
-The communication of the consumer/producer processes are synchronized, but not the code being executed in their internal C++ code blocks.
+The communication of the consumer/producer processes are synchronized, but not the code being executed in their internal \cpp code blocks.
 
 \subsubsection{}
-Note that in Figure~\ref{fig:typicalcsp}a a C++ codeblock is added called "Prullenbak".
-
-This "Prullenbak" C++ code block is executed only when none of the other guard expressions in the ALTERNATIVE block apply.
-The function of "Prullenbak" is to catch and print input data that is not to be send to the consumer, it is a garbage can.
+Note that in Figure~\ref{fig:2_1-model:producer} a \cpp codeblock is added called ``Prullenbak''.
+This ``Prullenbak'' \cpp code block is executed only when none of the other guard expressions in the ALTERNATIVE block apply.
+The function of ``Prullenbak'' is to catch and print input data that is not to be send to the consumer, it is a garbage can.
 
 
 \subsubsection{}
-It is wise to start with the process-structure before implementing C++ code.
+It is wise to start with the process-structure before implementing \cpp code.
 
-Generally, if you have to choose, you want most of the functionality in the model instead of in C++ code blocks.
-The model also serves as documentation. Making sure the model is of decent quality first helps in containing most of the functionality in the model instead of the C++ code.
+Generally, if you have to choose, you want most of the functionality in the model instead of in \cpp code blocks.
+The model also serves as documentation. Making sure the model is of decent quality first helps in containing most of the functionality in the model instead of the \cpp code.
 
 \subsubsection{}
 The method we chose to implement is to add another guard that is triggered when none of the other guards are triggered. It is a garbage bin exit.
 \smallskip
 
-Another possible method is to copy the guard logic of the alternative blocks in the producer (see Figure~\ref{fig:typicalcsp}) to the "PCode" C++ code block, 
+Another possible method is to copy the guard logic of the alternative blocks in the producer to the ``PCode'' \cpp code block, 
 and do a check on the input data to make sure it it checks out with your guard logic.
-This idea is less desired, because now you have the guard logic in \textit{two} places: in the model and in the C++ code.
+This idea is less desired, because now you have the guard logic in \emph{two} places: in the model and in the \cpp code.
 
-You could also remove the alternative structure, have only one instead of three channels, and put all your guard logic in the first C++ code block (PCode).
+You could also remove the alternative structure, have only one instead of three channels, and put all your guard logic in the first \cpp code block (PCode).
 This idea makes the program harder to understand, so not recommended.
 
 \begin{lstlisting}[caption=Producer/PCode.cpp, label=code:2_1PCode, language=C++]
@@ -442,37 +444,42 @@ bool PCode::initialize(void)
 
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.7]{./images/2-1_overview.png}
-	\caption{Overview diagram of the multiple channel producer consumer system.}
-	\label{fig:typicalcspoverview}
+	\begin{subfigure}{\textwidth}
+	 \centering
+	 \includegraphics[scale=0.7]{./images/2-1_overview.png}
+	 \caption{Overview diagram of the multiple channel producer consumer system.}
+	 \label{fig:2_1-model:overview}
+	\end{subfigure}
 	\begin{subfigure}{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{./images/2-1_producer.png}
 		\caption{The producer process.}
+		\label{fig:2_1-model:producer}
 	\end{subfigure}%
 	\begin{subfigure}{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{./images/2-1_consumer.png}
 		\caption{The consumer process.}
-	\end{subfigure}
-	\begin{subfigure}{0.7\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{./images/2-1_fdr.png}
-		\caption{Deadlock free.}
-		\label{fig:2_1_DF}
+		\label{fig:2_1-model:consumer}
 	\end{subfigure}
 	\caption{The CSP model of exercise 1.2.}
-	\label{fig:typicalcsp}
+	\label{fig:2_1-model}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{./images/2-1_fdr.png}
+	\caption{Deadlock free.}
+	\label{fig:2_1_DF}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{./images/2-1_output.png}
 	\caption{Output of the program exercise 1.2.}
-	\label{fig:typicalcspoutput}
+	\label{fig:2_1-output}
 \end{figure}
-
-\newpage
 
 \subsection{}
 
