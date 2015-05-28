@@ -459,6 +459,7 @@ bool PCode::initialize(void)
 		\centering
 		\includegraphics[width=\textwidth]{./images/2-1_fdr.png}
 		\caption{Deadlock free.}
+		\label{fig:2_1_DF}
 	\end{subfigure}
 	\caption{The CSP model of exercise 1.2.}
 	\label{fig:typicalcsp}
@@ -471,5 +472,106 @@ bool PCode::initialize(void)
 	\label{fig:typicalcspoutput}
 \end{figure}
 
+\newpage
+
+\subsection{}
+
+\subsection{}
+Figure~\ref{fig:4_1_model} presents the JIWY controller model as presented in 
+the slides, with the addition of extra readers and writers that: simulate the 
+input of the joystick, the output to the robot and the feedback from the robot.
+
+This is added because otherwise it was not possible to generate CSPm: one 
+cannot leave input and output ports unconnected in the top model.
+
+Figure~\ref{fig:4_1_fdr} informs us that the model results in a deadlock in FDR.
+
+\subsubsection{}
+Figure~\ref{sub:4_2_check} shows the small fix to remove the deadlock and this 
+is proven with a screenshot of FDR as seen in Figure~\ref{sub:4_2_check}. 
+
+In the deadlock situation, observe the following:
+
+\begin{itemize}
+	\item The Check process must read from the Vertical process first,
+		before it can read from the Horizontal process.
+
+	\item The Vertical process must read from the Horizontal process before
+	       	it can write to the Check process.
+
+	\item The Horizontal process must first write to the Check process before 
+		it can write to the Vertical process.
+\end{itemize}
+This results in the deadlock, we have a loop.
+\smallskip
+
+Making sure that the Check process has to read first from the Horizontal process 
+instead of the Vertical process will fix the problem.
+
+If the Check process first reads from the Horizontal process and then to the Vertical
+process; the Horizontal Process is first able to write to the Check process and 
+then to the Vertical process 
+(which is waiting on Horizontal), and this in turn alows the Vertical process to write to the Check process.
+
+The Check process is able to receive the write from the Vertical process because it first reads from Horizontal and then from Vertical.
+
+\smallskip
+So this small change fixes the deadlock, see Figure~\ref{sub:4_2_check}.
+Note the arrow is actually in the wrong direction, this is a visual bug in TERRA.
+
+
+\begin{figure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-1_overview.png}
+		\caption{Overview diagram of JIWY model.}
+		\label{sub:4_1_overview}
+	\end{subfigure}%
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-1_hor.png}
+		\caption{Inside the Horizontal process.}
+		\label{sub:4_1_hor}
+	\end{subfigure}%
+
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-1_ver.png}
+		\caption{Inside the Vertical process.}
+		\label{sub:4_1_vert}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-1_contr.png}
+		\caption{Inside the Check process.}
+		\label{sub:4_1_check}
+	\end{subfigure}
+	\caption{JIWY controller model (deadlock).}
+	\label{fig:4_1_model}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{./images/4-1_fdr.png}
+	\caption{The model deadlocks.}
+	\label{fig:4_1_fdr}
+\end{figure}
+
+\begin{figure}
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-2_contr.png}
+		\caption{Minimal deadlock fix.}
+		\label{sub:4_2_check}
+	\end{subfigure}
+
+	\begin{subfigure}{0.8\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-2_fdr.png}
+		\caption{No deadlock according to FDR.}
+		\label{sub:4_2_fdr}
+	\end{subfigure}
+	\caption{Fixing the deadlock.}
+\end{figure}
 
 \end{document}
