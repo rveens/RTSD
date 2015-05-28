@@ -4,7 +4,7 @@
 # protected region document description on begin
 # protected region document description end
 
-SOURCE_FILES=src/main.cpp src/MainModel.cpp src/Producer.cpp src/Producer/PCode.cpp src/consumer.cpp src/consumer/ch1Code.cpp src/consumer/ch2Code.cpp src/consumer/ch3Code.cpp
+SOURCE_FILES=src/main.cpp src/MainModel.cpp src/Producer.cpp src/Producer/PCode.cpp src/Producer/Prullenbak.cpp src/consumer.cpp src/consumer/ch1Code.cpp src/consumer/ch2Code.cpp src/consumer/ch3Code.cpp
 
 # Targets are expanded a second time, just before the rule is used
 .SECONDEXPANSION:
@@ -59,8 +59,9 @@ $(eval $(call DirectoryTarget))
 # Dependencies
 obj/main.o: include/MainModel.h
 obj/MainModel.o: include/MainModel.h include/Producer.h include/consumer.h
-obj/Producer.o: include/Producer.h include/Producer/PCode.h
+obj/Producer.o: include/Producer.h include/Producer/PCode.h include/Producer/Prullenbak.h
 obj/Producer/PCode.o: include/Producer/PCode.h
+obj/Producer/Prullenbak.o: include/Producer/Prullenbak.h
 obj/consumer.o: include/consumer.h include/consumer/ch1Code.h include/consumer/ch2Code.h include/consumer/ch3Code.h
 obj/consumer/ch1Code.o: include/consumer/ch1Code.h
 obj/consumer/ch2Code.o: include/consumer/ch2Code.h

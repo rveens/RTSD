@@ -20,6 +20,7 @@ mainModel/mainModel: mainModel/src/main.cpp
 mainModel/mainModel: mainModel/src/MainModel.cpp mainModel/include/MainModel.h
 mainModel/mainModel: mainModel/src/Producer.cpp mainModel/include/Producer.h
 mainModel/mainModel: mainModel/src/Producer/PCode.cpp mainModel/include/Producer/PCode.h
+mainModel/mainModel: mainModel/src/Producer/Prullenbak.cpp mainModel/include/Producer/Prullenbak.h
 mainModel/mainModel: mainModel/src/consumer.cpp mainModel/include/consumer.h
 mainModel/mainModel: mainModel/src/consumer/ch1Code.cpp mainModel/include/consumer/ch1Code.h
 mainModel/mainModel: mainModel/src/consumer/ch2Code.cpp mainModel/include/consumer/ch2Code.h

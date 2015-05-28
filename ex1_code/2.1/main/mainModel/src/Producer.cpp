@@ -20,6 +20,13 @@ namespace MainModel { namespace Producer {
  */
 Producer* g_Producer;
 
+// Wrapper function of evaluate function for the Prullenbak guard
+bool myPrullenbakGuardEvaluateWrapper()
+{
+  // Just call the class function
+  return g_Producer->PrullenbakGuardEvaluate();
+}
+
 // Wrapper function of evaluate function for the w1 guard
 bool myw1GuardEvaluateWrapper()
 {
@@ -50,6 +57,8 @@ Producer::Producer(ChannelIn<int> *ch1, ChannelIn<int> *ch2, ChannelIn<int> *ch3
   // Initialize model objects
   myPCode = new PCode::PCode(data);
   SETNAME(myPCode, "PCode");
+  myPrullenbak = new Prullenbak::Prullenbak(data);
+  SETNAME(myPrullenbak, "Prullenbak");
   myw1 = new Writer<int>(&data, ch1);
   SETNAME(myw1, "w1");
   myw2 = new Writer<int>(&data, ch2);
@@ -58,6 +67,8 @@ Producer::Producer(ChannelIn<int> *ch1, ChannelIn<int> *ch2, ChannelIn<int> *ch3
   SETNAME(myw3, "w3");
 
   // Set conditions for the guarded objects that are not in a Sequential group
+  AltIfOption<int>* myPrullenbak_guard = new AltIfOption<int>(myPrullenbak, myPrullenbakGuardEvaluateWrapper);
+  SETNAME(myPrullenbak_guard, "Prullenbak-guard");
   AltIfOption<int>* myw1_guard = new AltIfOption<int>(myw1, myw1GuardEvaluateWrapper);
   SETNAME(myw1_guard, "w1-guard");
   AltIfOption<int>* myw2_guard = new AltIfOption<int>(myw2, myw2GuardEvaluateWrapper);
@@ -67,9 +78,10 @@ Producer::Producer(ChannelIn<int> *ch1, ChannelIn<int> *ch2, ChannelIn<int> *ch3
   // Create ALTERNATIVE group
   myALTERNATIVE = new Alternative(
     true,
-    (CSPConstruct *) myw1_guard,
     (CSPConstruct *) myw2_guard,
     (CSPConstruct *) myw3_guard,
+    (CSPConstruct *) myPrullenbak_guard,
+    (CSPConstruct *) myw1_guard,
     NULL
   );
   SETNAME(myALTERNATIVE, "ALTERNATIVE");
@@ -97,22 +109,28 @@ Producer::~Producer()
   delete myw3;
   delete myw2;
   delete myw1;
+  delete myPrullenbak;
   delete myPCode;
+}
+
+bool Producer::PrullenbakGuardEvaluate()
+{
+  return data != 1 && data != 2 && data != 3;
 }
 
 bool Producer::w1GuardEvaluate()
 {
-  return data < 10;
+  return data == 1;
 }
 
 bool Producer::w2GuardEvaluate()
 {
-  return data > 10;
+  return data == 2;
 }
 
 bool Producer::w3GuardEvaluate()
 {
-  return data == 10;
+  return data == 3;
 }
 
 // protected region additional functions on begin

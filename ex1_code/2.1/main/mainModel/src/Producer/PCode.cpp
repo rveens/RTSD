@@ -22,11 +22,6 @@ PCode::PCode(int &peer) :
   SETNAME(this, "PCode");
 
   // protected region constructor on begin
-
-  while (!initialize()) {
-		printf("Numbers not distinct.\n");
-  }
-
   // protected region constructor end
 }
 
@@ -39,12 +34,16 @@ PCode::~PCode()
 void PCode::execute()
 {
   // protected region execute code on begin
-	static int index = 0;
+	static int index = 3;
 
+	if (index > 2) {
+		index = 0;
+		while (!initialize()) {
+			printf("Numbers not distinct.\n");
+		}
+	}
 	printf("P1->Sending %d\n", vars[index]);
 	this->peer = vars[index++];
-	if (index > 2)
-		index = 0;
   // protected region execute code end
 }
 

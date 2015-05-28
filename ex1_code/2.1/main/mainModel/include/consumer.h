@@ -24,12 +24,12 @@ using namespace LUNA::CSP;
 
 namespace MainModel { namespace consumer { 
 
-class consumer : public Parallel
+class consumer : public Recursion<CSProcess>
 {
 
 public:
   // Define constructor and destructor
-  consumer(ChannelOut<int> *ch1, ChannelOut<int> *ch2, ChannelOut<int> *ch3);
+  consumer(GuardedChannelOut<int> *ch1, GuardedChannelOut<int> *ch2, GuardedChannelOut<int> *ch3);
   virtual ~consumer();
 
 
@@ -43,11 +43,12 @@ private:
   ch1Code::ch1Code *mych1Code;
   ch2Code::ch2Code *mych2Code;
   ch3Code::ch3Code *mych3Code;
-  Reader<int> *myr1;
-  Reader<int> *myr2;
-  Reader<int> *myr3;
+  GuardedReader<int> *myr1;
+  GuardedReader<int> *myr2;
+  GuardedReader<int> *myr3;
 
   // Model groups
+  Alternative *myALTERNATIVE;
   Sequential *mySEQUENTIAL_C1;
   Sequential *mySEQUENTIAL_C2;
   Sequential *mySEQUENTIAL_C3;
