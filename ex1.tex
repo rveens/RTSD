@@ -481,8 +481,53 @@ bool PCode::initialize(void)
 	\label{fig:2_1-output}
 \end{figure}
 
+\FloatBarrier
 \subsection{}
+\subsubsection{}
+\begin{itemize}
+ \item We simulated the execution of the model in 20-sim, results shown in figure~\ref{fig:3_1-simulation}. As expected, after $stepTime$ seconds, the input increases, and directly after $x$ increases with the value of the input $u$. After that we see $x$ increase again, but this time the increment is dampened by $x$ having a non-zero value. As $x$ increases, the increment decreases, until $u - 0.3x = 0 \Leftrightarrow x=\frac{10}{3}$. This equilibrium will, in theory, never be reached. In figure~\ref{fig:3_1-simulation} we see $x$ reach a point between $3$ and $3.33...$.
+ 
+ \item 
+\end{itemize}
 
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.5\textwidth}
+	 \centering
+	 \includegraphics[width=\textwidth]{./images/3_1-20sim-model.png}
+	 \caption{Model in 20-sim.}
+	 \label{fig:3_1-20sim-model:model}
+	\end{subfigure}%
+	\begin{subfigure}{0.5\textwidth}
+	 \centering
+	 \includegraphics[width=\textwidth]{./images/3_1-20sim-plant.png}
+	 \caption{Configuration of the linear system.}
+	 \label{fig:3_1-20sim-model:plant}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+	 \centering
+	 \includegraphics[width=\textwidth]{./images/3_1-20sim-model-stepfunction.png}
+	 \caption{The definition of the step function.}
+	 \label{fig:3_1-20sim-model:step}
+	\end{subfigure}%
+	\begin{subfigure}{0.5\textwidth}
+	 \centering
+	 \includegraphics[width=\textwidth]{./images/3_1-20sim-model-controller.png}
+	 \caption{The definition of the loop controller.}
+	 \label{fig:3_1-20sim-model:cont}
+	\end{subfigure}
+	\caption{The model in 20 sim.}
+	\label{fig:3_1-20sim-model}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{./images/3_1-simulation.png}
+	\caption{Simulation in 20-sim of the model shown in figure~\ref{fig:3_1-20sim-model}. Blue line: $x$, green line: $u$.}
+	\label{fig:3_1-simulation}
+\end{figure}
+
+\FloatBarrier
 \subsection{}
 Figure~\ref{fig:4_1_model} presents the JIWY controller model as presented in 
 the slides, with the addition of extra readers and writers that: simulate the 
