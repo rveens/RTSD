@@ -490,6 +490,13 @@ bool PCode::initialize(void)
  \item 
 \end{itemize}
 
+\textit{The configuration of the linear system is as follows:
+\begin{align}
+ x_n &= 1\cdot x+1 \cdot u\nonumber\\
+ y   &= 1\cdot x+0 \cdot u\nonumber
+\end{align}
+where we use $u$ to for $dx$, calculated in the controller (see figure~\ref{fig:3_1-20sim-model:cont})}
+
 \begin{figure}
 	\centering
 	\begin{subfigure}{0.5\textwidth}
@@ -501,7 +508,7 @@ bool PCode::initialize(void)
 	\begin{subfigure}{0.5\textwidth}
 	 \centering
 	 \includegraphics[width=\textwidth]{./images/3_1-20sim-plant.png}
-	 \caption{Configuration of the linear system.}
+	 \caption{Configuration of the linear system. Could not be fully shown because of a persistent error that crashes 20-sim.}
 	 \label{fig:3_1-20sim-model:plant}
 	\end{subfigure}
 	\begin{subfigure}{0.5\textwidth}
