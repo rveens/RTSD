@@ -484,6 +484,7 @@ bool PCode::initialize(void)
 \subsection{}
 
 \subsection{}
+\subsubsection{}
 Figure~\ref{fig:4_1_model} presents the JIWY controller model as presented in 
 the slides, with the addition of extra readers and writers that: simulate the 
 input of the joystick, the output to the robot and the feedback from the robot.
@@ -525,7 +526,6 @@ The Check process is able to receive the write from the Vertical process because
 \smallskip
 So this small change fixes the deadlock, see Figure~\ref{sub:4_2_check}.
 Note the arrow is actually in the wrong direction, this is a visual bug in TERRA.
-
 
 \begin{figure}
 	\begin{subfigure}{0.5\textwidth}
@@ -579,6 +579,49 @@ Note the arrow is actually in the wrong direction, this is a visual bug in TERRA
 		\label{sub:4_2_fdr}
 	\end{subfigure}
 	\caption{Fixing the deadlock.}
+\end{figure}
+
+\subsubsection{}
+Figure~\ref{fig:4_3_model} shows the IO SEQ pattern used on the JIWY model and 
+Figure~\ref{fig:4_3_fdr} displays the output of FDR, which does not deadlock.
+
+\subsubsection{}
+
+\begin{figure}
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-3_overview.png}
+		\caption{Overview diagram of JIWY model.}
+		\label{sub:4_3_overview}
+	\end{subfigure}%
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-3_hor.png}
+		\caption{Inside the Horizontal process.}
+		\label{sub:4_3_hor}
+	\end{subfigure}%
+
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-3_ver.png}
+		\caption{Inside the Vertical process.}
+		\label{sub:4_3_vert}
+	\end{subfigure}
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-3_check.png}
+		\caption{Inside the Check process.}
+		\label{sub:4_3_check}
+	\end{subfigure}
+	\caption{JIWY controller model IO SEQ pattern.}
+	\label{fig:4_3_model}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{./images/4-3_fdr.png}
+	\caption{No deadlock with the IO SEQ pattern.}
+	\label{fig:4_3_fdr}
 \end{figure}
 
 \end{document}
