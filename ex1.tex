@@ -315,9 +315,6 @@ ProBE is an interpreter for CSPm scripts, the user can manually inspect the poss
 \subsubsection{}
 If we adapt the \cpp code of the producer to start at the beginning of the word again when all characters have been sent, we can observe the behaviour of the process when it runs for a while. We saw previously that the consumer only continued when the producer had to wait. This does not seem fair parallel. But when we watch what happens when the code runs for a while, we occasionally see the consumer receiving four values in a row, meaning that its \cpp code executed before the producer's \cpp code could prepare the next two values for the writers. So when both processes can execute, the parallel composition does not consistently execute one of them before the other. This seems fair.
 
-\color{red}
-Give proof that it is fair using the tools
-\color{black}
 
 \subsubsection{}
 The composition $A ||| B$ does not deadlock. Whichever process gets to execute its \cpp code first, it will need to wait for the other process directly after. When both have executed their \cpp code, execution can continue by writing and reading on the channels. At no point do the processes wait for the other.
@@ -506,8 +503,12 @@ bool PCode::initialize(void)
 
 		The result of the program is the same as the simulation.
 \end{itemize}
-
-<<<<<<< HEAD
+\textit{The configuration of the linear system is as follows:
+\begin{align}
+ x_n &= 1\cdot x+1 \cdot u\nonumber\\
+ y   &= 1\cdot x+0 \cdot u\nonumber
+\end{align}
+where we use $u$ to for $dx$, calculated in the controller (see figure~\ref{fig:3_1-20sim-model:cont})}
 \subsubsection{}
 Figure~\ref{fig:3_2_model} depicts the model after implementing the new display 
 process and Figure~\ref{fig:3_2_output} shows the output after running the TERRA 
@@ -543,14 +544,6 @@ To name a few:
 	\item External models (imported 20sim models). Have to be generated separately.
 \end{itemize}
 
-=======
-\textit{The configuration of the linear system is as follows:
-\begin{align}
- x_n &= 1\cdot x+1 \cdot u\nonumber\\
- y   &= 1\cdot x+0 \cdot u\nonumber
-\end{align}
-where we use $u$ to for $dx$, calculated in the controller (see figure~\ref{fig:3_1-20sim-model:cont})}
->>>>>>> 32b79e0ddb8a217c16772584df7e6f9dfdafe3e7
 
 \begin{figure}
 	\centering
