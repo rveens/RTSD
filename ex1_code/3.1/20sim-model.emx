@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Document>
  <Model version="4.5" build="4.5.1.5561">
-  <Sidops><![CDATA[model 128.1 184
+  <Sidops><![CDATA[model 128 184
  description '<Information>
  <Description>
     <Version>4.5</Version>
 <IsMainModel>0</IsMainModel>
   <KeepParameterValues>False</KeepParameterValues>
     <LibraryPath>Z:\home\rtsd\repo\RTSD\ex1_code\3.1\20sim-model.emx</LibraryPath>
-  <TimeStamp>2015-5-28 17:02:41</TimeStamp>
+  <TimeStamp>2015-5-29 11:45:50</TimeStamp>
 </Description>
 </Information>';
  type 'Mainmodel-model'
