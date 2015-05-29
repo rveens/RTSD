@@ -507,6 +507,7 @@ bool PCode::initialize(void)
 		The result of the program is the same as the simulation.
 \end{itemize}
 
+<<<<<<< HEAD
 \subsubsection{}
 Figure~\ref{fig:3_2_model} depicts the model after implementing the new display 
 process and Figure~\ref{fig:3_2_output} shows the output after running the TERRA 
@@ -542,6 +543,14 @@ To name a few:
 	\item External models (imported 20sim models). Have to be generated separately.
 \end{itemize}
 
+=======
+\textit{The configuration of the linear system is as follows:
+\begin{align}
+ x_n &= 1\cdot x+1 \cdot u\nonumber\\
+ y   &= 1\cdot x+0 \cdot u\nonumber
+\end{align}
+where we use $u$ to for $dx$, calculated in the controller (see figure~\ref{fig:3_1-20sim-model:cont})}
+>>>>>>> 32b79e0ddb8a217c16772584df7e6f9dfdafe3e7
 
 \begin{figure}
 	\centering
@@ -554,7 +563,7 @@ To name a few:
 	\begin{subfigure}{0.5\textwidth}
 	 \centering
 	 \includegraphics[width=\textwidth]{./images/3_1-20sim-plant.png}
-	 \caption{Configuration of the linear system.}
+	 \caption{Configuration of the linear system. Could not be fully shown because of a persistent error that crashes 20-sim.}
 	 \label{fig:3_1-20sim-model:plant}
 	\end{subfigure}
 	\begin{subfigure}{0.5\textwidth}
@@ -881,13 +890,13 @@ So, having the inputs/outputs in parallel is the main advantage of 1.4.3.
 \subsubsection{}
 One might choose to use the JIWY\_Controller model in other TERRA systems, where only the input and outputs are different.
 
-If you use the "submodel under test" approach you clearly separate the model and you make the interfaces to the model more clear.
+If you use the ``submodel under test'' approach you clearly separate the model and you make the interfaces to the model more clear.
 
-In the case of large models with a lot of inputs and outputs, in can become very confusing if you need to change all the inputs/outputs from temporary test inputs/outputs (readers/writers) to say, C++ code blocks.
+In the case of large models with a lot of inputs and outputs, in can become very confusing if you need to change all the inputs/outputs from temporary test inputs/outputs (readers/writers) to say, \cpp code blocks.
 
 \subsubsection{}
-The method of using "simple generator submodels" and "readers in the submodel 
-that consumes the outputs" assumes that there is always incoming data to the model and always a possibility that output data of the model can be read.
+The method of using ``simple generator submodels'' and ``readers in the submodel 
+that consumes the outputs'' assumes that there is always incoming data to the model and always a possibility that output data of the model can be read.
 
 In its realization, however, problems might occur if the system does not get input at all, or if the output buffers are full.
 
