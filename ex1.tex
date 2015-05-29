@@ -484,6 +484,11 @@ bool PCode::initialize(void)
 \FloatBarrier
 \subsection{}
 \subsubsection{}
+\begin{itemize}
+ \item We simulated the execution of the model in 20-sim, results shown in figure~\ref{fig:3_1-simulation}. As expected, after $stepTime$ seconds, the input increases, and directly after $x$ increases with the value of the input $u$. After that we see $x$ increase again, but this time the increment is dampened by $x$ having a non-zero value. As $x$ increases, the increment decreases, until $u - 0.3x = 0 \Leftrightarrow x=\frac{10}{3}$. This equilibrium will, in theory, never be reached. In figure~\ref{fig:3_1-simulation} we see $x$ reach a point between $3$ and $3.33...$.
+ 
+ \item 
+\end{itemize}
 
 \begin{figure}
 	\centering
