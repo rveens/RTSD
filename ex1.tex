@@ -118,7 +118,7 @@ We modelled the deadlock free system as show in figure~\ref{fig:SystemDF}, and t
 \begin{figure}
  \centering
  \includegraphics[width=\textwidth]{./images/1_1-SystemDF.png}
- \caption{Succesfully passes tests in FDR.}
+ \caption{Successfully passes tests in FDR.}
  \label{fig:FDR_DF}
 \end{figure}
 
@@ -172,7 +172,7 @@ We extended the producer consumer (DF) model from figure~\ref{fig:SystemDF} with
 	\includegraphics[width=\textwidth]{./images/1_2-SystemDF+_cons.png}
 	\caption{The consumer process.}
  \end{subfigure}
- \caption{The producer-consuder (DF) model extended with code.}
+ \caption{The producer-consumer (DF) model extended with code.}
  \label{fig:SystemDF+}
 \end{figure}
 
@@ -313,7 +313,7 @@ Now, the readers and writers do their thing and, again, either the producer's \c
 ProBE is an interpreter for CSPm scripts, the user can manually inspect the possible execution paths. When a process is deadlock free, its execution paths are infinite. ProBE will never see the end of these executionpaths, nor will it know whether it has an end. FDR recognises this infinite behaviour, or rather, it recognises finite behaviour. When it finds the process is able to terminate, it shows that the process fails the deadlock free-test. Similarly it can check for other properties without needing to simulate the complete execution paths likes ProBE does. ProBE can be used to inspect how a process deadlocks.
 
 \subsubsection{}
-If we addapt the \cpp code of the producer to start at the beginning of the word again when all characters have been sent, we can observe the behaviour of the process when it runs for a while. We saw previously that the consumer only continued when the producer had to wait. This does not seem fair parallel. But when we watch what happens when the code runs for a while, we occasionally see the consumer receiving four values in a row, meaning that its \cpp code executed before the producer's \cpp code could prepare the next two values for the writers. So when both processes can execute, the parallel composition does not consistently execute one of them before the other. This seems fair.
+If we adapt the \cpp code of the producer to start at the beginning of the word again when all characters have been sent, we can observe the behaviour of the process when it runs for a while. We saw previously that the consumer only continued when the producer had to wait. This does not seem fair parallel. But when we watch what happens when the code runs for a while, we occasionally see the consumer receiving four values in a row, meaning that its \cpp code executed before the producer's \cpp code could prepare the next two values for the writers. So when both processes can execute, the parallel composition does not consistently execute one of them before the other. This seems fair.
 
 \color{red}
 Give proof that it is fair using the tools
@@ -536,6 +536,7 @@ where we use $u$ to for $dx$, calculated in the controller (see figure~\ref{fig:
 
 \FloatBarrier
 \subsection{}
+\subsubsection{}
 Figure~\ref{fig:4_1_model} presents the JIWY controller model as presented in 
 the slides, with the addition of extra readers and writers that: simulate the 
 input of the joystick, the output to the robot and the feedback from the robot.
@@ -547,7 +548,7 @@ Figure~\ref{fig:4_1_fdr} informs us that the model results in a deadlock in FDR.
 
 \subsubsection{}
 Figure~\ref{sub:4_2_check} shows the small fix to remove the deadlock and this 
-is proven with a screenshot of FDR as seen in Figure~\ref{sub:4_2_check}. 
+is proven with a screenshot of FDR as seen in Figure~\ref{sub:4_2_fdr}. 
 
 In the deadlock situation, observe the following:
 
@@ -570,14 +571,13 @@ instead of the Vertical process will fix the problem.
 If the Check process first reads from the Horizontal process and then to the Vertical
 process; the Horizontal Process is first able to write to the Check process and 
 then to the Vertical process 
-(which is waiting on Horizontal), and this in turn alows the Vertical process to write to the Check process.
+(which is waiting on Horizontal), and this in turn allows the Vertical process to write to the Check process.
 
 The Check process is able to receive the write from the Vertical process because it first reads from Horizontal and then from Vertical.
 
 \smallskip
 So this small change fixes the deadlock, see Figure~\ref{sub:4_2_check}.
 Note the arrow is actually in the wrong direction, this is a visual bug in TERRA.
-
 
 \begin{figure}
 	\begin{subfigure}{0.5\textwidth}
@@ -632,5 +632,102 @@ Note the arrow is actually in the wrong direction, this is a visual bug in TERRA
 	\end{subfigure}
 	\caption{Fixing the deadlock.}
 \end{figure}
+\begin{figure}
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-3_overview.png}
+		\caption{Overview diagram of JIWY model.}
+		\label{sub:4_3_overview}
+	\end{subfigure}%
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-3_hor.png}
+		\caption{Inside the Horizontal process.}
+		\label{sub:4_3_hor}
+	\end{subfigure}%
+
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-3_ver.png}
+		\caption{Inside the Vertical process.}
+		\label{sub:4_3_vert}
+	\end{subfigure}
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-3_check.png}
+		\caption{Inside the Check process.}
+		\label{sub:4_3_check}
+	\end{subfigure}
+	\caption{JIWY controller model IO SEQ pattern.}
+	\label{fig:4_3_model}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{./images/4-3_fdr.png}
+	\caption{No deadlock with the IO SEQ pattern.}
+	\label{fig:4_3_fdr}
+\end{figure}
+
+\subsubsection{}
+Figure~\ref{fig:4_3_model} shows the IO SEQ pattern used on the JIWY model and 
+Figure~\ref{fig:4_3_fdr} displays the output of FDR, which does not deadlock.
+
+\subsubsection{}
+Figure~\ref{fig:4_4_model} presents the TERRA system that we made to test the JIWY\_Controller.
+
+Figure~\ref{sub:4_4_controller} shows us the JIWY controller model with unconnected inputs and outputs that is being tested,
+and Figure~\ref{sub:4_4_overview} depicts a higher level of the system with JIWY\_Controller model of Figure~\ref{sub:4_4_controller} as a process.  
+
+Figure~\ref{fig:4_4_fdr} proofs that the model is deadlock free.
+
+\begin{figure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-4_overview.png}
+		\caption{JIWY\_Controller is "under test".}
+		\label{sub:4_4_overview}
+	\end{subfigure}
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{./images/4-4_controller.png}
+		\caption{Inside the JIWY\_Controller process.}
+		\label{sub:4_4_controller}
+	\end{subfigure}
+	\caption{"Submodel under test".}
+	\label{fig:4_4_model}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{./images/4-4_fdr.png}
+	\caption{No deadlock with model under test TERRA System.}
+	\label{fig:4_4_fdr}
+\end{figure}
+
+\subsubsection{}
+The solution of 1.4.2 expects that data will always be available from the inputs 
+to the model, and if this is not the case then the system waits until data is written, 
+because of the sequential reader-writer structure.
+
+Solution 1.4.3 does not have this problem because the inputs and outputs are in parallel.
+
+So, having the inputs/outputs in parallel is the main advantage of 1.4.3.
+
+\subsubsection{}
+One might choose to use the JIWY\_Controller model in other TERRA systems, where only the input and outputs are different.
+
+If you use the "submodel under test" approach you clearly separate the model and you make the interfaces to the model more clear.
+
+In the case of large models with a lot of inputs and outputs, in can become very confusing if you need to change all the inputs/outputs from temporary test inputs/outputs (readers/writers) to say, C++ code blocks.
+
+\subsubsection{}
+The method of using "simple generator submodels" and "readers in the submodel 
+that consumes the outputs" assumes that there is always incoming data to the model and always a possibility that output data of the model can be read.
+
+In its realization, however, problems might occur if the system does not get input at all, or if the output buffers are full.
+
+Implementing \cpp code blocks that simulate reading and writing,
+but with momentary (random) intervals of pausing, might more closely resemble a real feedback-control system.
 
 \end{document}
