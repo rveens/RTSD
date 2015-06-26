@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csp:CSPDiagram file-version="3" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cpc="http:///nl/utwente/ce/terra/cpc/model/cpc.ecore" xmlns:csp="http:///nl/utwente/ce/terra/csp/model/csp.ecore">
+  <objects xsi:type="csp:CSPPort" link="//@links.0" name="testport" constraints="666,217,10,10"/>
+  <objects xsi:type="csp:CSPWriter" name="testwr" constraints="485,208,40,40" link="//@links.0" variable="//@properties.0/@variables.0"/>
+  <properties xsi:type="csp:CSPVariablesProperty">
+    <variables name="test" type="//@properties.1/@units.0"/>
+  </properties>
+  <properties xsi:type="cpc:CPCUnitsProperty">
+    <units name="test" unit="test"/>
+  </properties>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.1 //@objects.0"/>
+</csp:CSPDiagram>
