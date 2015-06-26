@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DocumentRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http:///nl/utwente/ram/xxsim/xml/model/xml.ecore">
+<modelConfiguration>
+	<schemeVersion>
+		<major>1</major>
+		<minor>0</minor>
+		<revision>0</revision>
+		<patch>0</patch>
+	</schemeVersion>
+	<general>
+		<name>LinearSystem</name>
+		<description>&lt;Description&gt;&lt;Version&gt;4.0&lt;/Version&gt;&lt;IsMainModel&gt;1&lt;/IsMainModel&gt;&lt;KeepParameterValues&gt;False&lt;/KeepParameterValues&gt;
+   &lt;LibraryPath&gt;Signal\Discrete\LinearSystem.emx&lt;/LibraryPath&gt;
+  &lt;TimeStamp&gt;2007-9-27 15:20:24&lt;/TimeStamp&gt;
+  &lt;AllowLibraryUpdate&gt;False&lt;/AllowLibraryUpdate&gt;
+&lt;/Description&gt;</description>
+		<creationDate>2015-05-29T18:07:07.0Z</creationDate>
+		<modelDir></modelDir>
+		<originalModel>LinearSystem</originalModel>
+		<additional>Universiteit Twente , 20-sim 4.5 Campus Licentie</additional>
+			<version>
+				<major>4</major>
+				<minor>5</minor>
+				<revision>1</revision>
+				<patch>5561</patch>
+			</version>
+	</general>
+	<run>
+		<startTime>0.0</startTime>
+		<finishTime>10.0</finishTime>
+		<stepSize>1.0</stepSize>
+	</run>
+	<modelVariables count="4">
+		<modelVariable id="1">
+			<name>u</name>
+			<kind>input</kind>
+			<type>real</type>
+			<value>0.0</value>
+			<description></description>
+			<storage>
+				<name>V</name>
+				<index>0</index>
+			</storage>
+			<iconIndex>1</iconIndex>
+		</modelVariable>
+		<modelVariable id="2">
+			<name>y</name>
+			<kind>output</kind>
+			<type>real</type>
+			<value>0.0</value>
+			<description></description>
+			<storage>
+				<name>V</name>
+				<index>1</index>
+			</storage>
+			<iconIndex>1</iconIndex>
+		</modelVariable>
+		<modelVariable id="3">
+			<name>x_next</name>
+			<kind>rate</kind>
+			<type>real</type>
+			<value>0.0</value>
+			<pair>x</pair>
+			<storage>
+				<name>R</name>
+				<index>0</index>
+			</storage>
+		</modelVariable>
+		<modelVariable id="4">
+			<name>x</name>
+			<kind>state</kind>
+			<type>real</type>
+			<value>0.0</value>
+			<description></description>
+			<pair>x_next</pair>
+			<storage>
+				<name>s</name>
+				<index>0</index>
+			</storage>
+			<iconIndex>1</iconIndex>
+		</modelVariable>
+	</modelVariables>
+	<storage>
+		<name>ivc_LinearSystem</name>
+		<size>64</size>
+		<tables>
+			<table>
+				<name>s</name>
+				<size>8</size>
+				<kind>real</kind>
+				<kindSize>8</kindSize>
+				<count>1</count>
+			</table>
+			<table>
+				<name>V</name>
+				<size>16</size>
+				<kind>real</kind>
+				<kindSize>8</kindSize>
+				<count>2</count>
+			</table>
+			<table>
+				<name>R</name>
+				<size>8</size>
+				<kind>real</kind>
+				<kindSize>8</kindSize>
+				<count>1</count>
+			</table>
+			<table>
+				<name>I</name>
+				<size>8</size>
+				<kind>real</kind>
+				<kindSize>8</kindSize>
+				<count>1</count>
+			</table>
+			<table>
+				<name>P</name>
+				<size>24</size>
+				<kind>real</kind>
+				<kindSize>8</kindSize>
+				<count>3</count>
+			</table>
+		</tables>
+	</storage>
+	<icons>
+		<icon>89504e470d0a1a0a0000000d49484452000000100000001008060000001ff3ff6100000006624b474400ff00ff00ffa0bda793000000097048597300000ec400000ec401952b0e1b000001f949444154388d9593bd4a2b4114c77f677633d96b2088a55a9842024250c1c657d02685958defe19bd8069b2058696527682f6a238aa020221189c6ddecceec9e5bac7aa3f75ec1038799f3f59f33e74354550186c3213fa5288a08f33c677f7f9fdbdbdb0f83315014e55d0482a094df75a55e989c9c24ccb28cabab2bd6d7d75155c2b0743406bc2f9d1f1f0db59a52af17a4a92002c6183a9d0e4644b0d6a2aa18a33c3fc3d6d618a7a721131339474796eded5fecee46dcdf1b2a1545b5646b2d66f44f61084f4fc2c14195cbcb106b95c140508524115e5f0511fd54872f00caf97985e5e58cbb3b43bf6f50853c2f59b5acc9a7985121cb606a2a677535e5ec2ce4e5455858c84812617a3aa7d1f0a4a97c07202c2e3abc17e6e7dd47e0c6c62bde0b71fce5f9af0000de0b4501fdbea1562bc832a128842411aa552508fe74e72f80208034859d9d317a3dc3da5ac2dc9c636f2fe2f8b84aa3e169b713acfd4f11ad858b8b903c87cdcd176ab572721e1e0ced768c48691f05f894812a4451d9b293930a51a40481a72884ebeb903816a2a8f4fb67065906cda66376d6737868a9d70b92c4d06a396e6e426666729a4d47967d938173c2caca9020803816060343abe5595a7278cf4727dee72154559c731863785b4c461733084a50e7de5236efa7c1398778efb5dbedd2ebf5f8098908e3e3e3fc06cbccf488d36193800000000049454e44ae426082</icon>
+	</icons>
+</modelConfiguration>
+</DocumentRoot>
+
