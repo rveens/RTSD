@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<arch:ArchitectureDiagram file-version="0" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:arch="http:///nl/utwente/ce/terra/arch/model/architecture.ecore" xmlns:cpc="http:///nl/utwente/ce/terra/cpc/model/cpc.ecore" xmlns:hwanyio="http:///nl/utwente/ce/terra/arch/model/hw/anyio/hwanyio.ecore">
+  <objects xsi:type="arch:ArchExternalModel" name="PWMtester" constraints="105,181,97,60" externalSubmodel="/linkdriver/model/PWMtester.cspm">
+    <objects xsi:type="arch:ArchPort" direction="OUTGOING" link="//@links.0" unitType="//@properties.0/@units.1" name="pwmport" constraints="87,18,10,10"/>
+  </objects>
+  <objects xsi:type="arch:ArchHWPort" link="//@links.0" name="pwmport" constraints="346,212,10,10">
+    <configuration xsi:type="hwanyio:AnyioPWMConfiguration"/>
+  </objects>
+  <properties xsi:type="cpc:CPCUnitsProperty">
+    <units name="test" unit="test"/>
+    <units name="test" type="unsigned 16 bit" unit="test"/>
+  </properties>
+  <links xsi:type="arch:ArchLink" ports="//@objects.0/@objects.0 //@objects.1"/>
+</arch:ArchitectureDiagram>
