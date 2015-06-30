@@ -17,7 +17,8 @@
 \newcommand{\ch}{\mathcal{CH}}
 \newcommand{\cpp}{{\tt C++} }
 
-\newcommand{\solution}[1]{\noindent{\bf Solution to Exercise #1:}}
+\newcommand{\solution}[1][todo]{\noindent{\bf Solution to Exercise #1:}}
+\newcommand{\todo}[1]{\textcolor{red}{#1}}
 
 \renewcommand{\lstlistingname}{Codeblock}
 \captionsetup[lstlisting]{font={small,tt}}
@@ -91,5 +92,78 @@ backgroundcolor=\color{lbcolor},
 \maketitle
 
 \section{Timers}
+\subsection{Model}
+\todo{Plaatjes/uitleg over gebruikte model/code?}
+
+\subsection{Questions}
+\begin{enumerate}
+ \item Measured over \todo{$n$} intervals, the variation is \todo{$\sigma$}. See figure~\ref{fig:interval-jitter} for the exact distribution.
+ 
+ \item This jitter is the result of simulating a real time OS in an environment that is not real time. Realtime requirements are not met. \todo{Meer uitleg?} Additionally, the way we measure the intervals can also introduce more jitter in the results than there actually is. \todo{Meer uitleg}
+ 
+ \item \todo{depends on the variation, it's probably too big}
+ 
+ \item No. Our host system has different priorities, it does not guarantee to meet real time requirements. \todo{Meer uitleg? Is ``No'' wel het goeie antwoord eigenlijk?}
+ 
+ 
+\end{enumerate}
+
+\begin{figure}
+ \centering
+ \includegraphics{./img/interval-jitter.png}
+ \caption{Distribution of intervals.}
+ \label{fig:interval-jitter}
+\end{figure}
+
+\subsection{Validation}
+\todo{Uitleg}
+
+\subsection{Questions}
+\begin{enumerate}
+ \item \todo{todo}
+ \item \todo{todo}
+ \item \todo{todo}
+\end{enumerate}
+
+\section{JIWYIO Linkdrivers}
+\subsection{JIWYIO driver components}
+\todo{Uitleg}
+
+\subsection{Questions}
+\begin{enumerate}
+ \item \todo{todo}
+ \item \todo{What!? ... You want us to tell you how the tool should work? This isn't software specification, and even worse, the tool is not the subject, it's the tool...}
+ \item \todo{Zucht...}
+\end{enumerate}
+
+\subsection{JIWYIO driver componenets in the lab}
+\todo{report}
+
+\subsection{Questions}
+\begin{enumerate}
+ \item \todo{todo}
+ \item \todo{todo}
+\end{enumerate}
+
+\section{Controlling JIWY with QNX \& CSP}
+\subsection{Test at the lab}
+\todo{report}
+
+\subsection{Questions}
+\begin{enumerate}
+ \item \todo{todo}
+ \item \todo{todo}
+\end{enumerate}
+
+\subsection{Further functionality}
+\todo{explain we didn't have time and it's not our fault}
+
+\subsection{Questions}
+\begin{enumerate}
+ \item \todo{todo}
+ \item \todo{todo}
+ \item \todo{todo}
+ \item \todo{todo}
+\end{enumerate}
 
 \end{document}
