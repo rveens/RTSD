@@ -11,7 +11,7 @@
   </objects>
   <objects xsi:type="csp:CSPWriter" name="pwmwriter" constraints="355,226,40,40" compositionalRelations="//@compositionalRelations.0" link="//@links.0" variable="//@properties.2/@variables.0"/>
   <objects xsi:type="csp:CSPCompositionalGroup" name="SEQUENTIAL" constraints="169,196,251,100" relations="//@compositionalRelations.0"/>
-  <properties xsi:type="cpc:CPCSharedDiagramProperty" componentName="pwmtestersub"/>
+  <properties xsi:type="cpc:CPCSharedDiagramProperty" componentName="PWMTester"/>
   <properties xsi:type="cpc:CPCUnitsProperty">
     <units name="test" type="unsigned 16 bit" unit="test"/>
   </properties>
