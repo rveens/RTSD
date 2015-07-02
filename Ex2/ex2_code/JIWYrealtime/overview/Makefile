@@ -71,11 +71,11 @@ $(eval $(call DirectoryTarget))
 
 # Dependencies
 overview: ../JIWY/lib/libJIWY.a
-overview: ../PositionControllerTilt/lib/libPositionControllerTilt.a
-overview: ../PositionControllerPan/lib/libPositionControllerPan.a
 overview: ../Joystick/lib/libJoystick.a
 overview: ../Encoder_convert/lib/libEncoder_convert.a
 overview: ../Encoder_convert/lib/libEncoder_convert.a
+overview: ../PositionControllerTilt/lib/libPositionControllerTilt.a
+overview: ../PositionControllerPan/lib/libPositionControllerPan.a
 obj/main.o: include/MainModel.h
 obj/MainModel.o: include/MainModel.h ../Encoder_convert/include/Encoder_convert/Encoder_convert.h ../Encoder_convert/include/Encoder_convert/Encoder_convert.h ../JIWY/include/JIWY/JIWY.h ../Joystick/include/Joystick/Joystick.h ../PositionControllerTilt/include/PositionControllerTilt/PositionControllerTilt.h ../PositionControllerPan/include/PositionControllerPan/PositionControllerPan.h
 

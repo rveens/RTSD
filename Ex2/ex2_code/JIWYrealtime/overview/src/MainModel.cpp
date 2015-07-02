@@ -30,9 +30,9 @@ MainModel::MainModel() :
   // Initialize hardware channels
   AnyIO::AnyioPWMSettings myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings;
   myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.deviceNr = 0;
-  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.pwmNr = 0;
+  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.pwmNr = 2;
   myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.interlaced = false;
-  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.bridge_type = 0; //Bert H-Bridge 
+  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.bridge_type = 1; //Thiemo H-Bridge 
   myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.baseAddress = 0x30;
   myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.registerSize = 2;
   myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.baseControlAddress = 0x40;
@@ -43,9 +43,9 @@ MainModel::MainModel() :
 
   AnyIO::AnyioPWMSettings myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings;
   myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.deviceNr = 0;
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.pwmNr = 0;
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.pwmNr = 3;
   myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.interlaced = false;
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.bridge_type = 0; //Bert H-Bridge 
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.bridge_type = 1; //Thiemo H-Bridge 
   myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.baseAddress = 0x30;
   myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.registerSize = 2;
   myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.baseControlAddress = 0x40;
@@ -56,24 +56,24 @@ MainModel::MainModel() :
 
   AnyIO::AnyioEncoderSettings myencoder_hor_robot_to_Encoder_horinputportChannelSettings;
   myencoder_hor_robot_to_Encoder_horinputportChannelSettings.deviceNr = 0;
-  myencoder_hor_robot_to_Encoder_horinputportChannelSettings.encoderNr = 0;
+  myencoder_hor_robot_to_Encoder_horinputportChannelSettings.encoderNr = 2;
   myencoder_hor_robot_to_Encoder_horinputportChannelSettings.baseAddress = 0x0;
   myencoder_hor_robot_to_Encoder_horinputportChannelSettings.registerSize = 4;
   myencoder_hor_robot_to_Encoder_horinputportChannelSettings.baseControlAddress = 0x20;
   myencoder_hor_robot_to_Encoder_horinputportChannelSettings.controlRegisterSize = 2;
   myencoder_hor_robot_to_Encoder_horinputportChannelSettings.gModeAddress = 0x52;
-  myencoder_hor_robot_to_Encoder_horinputportChannelSettings.encoderEnableBit = 0;
+  myencoder_hor_robot_to_Encoder_horinputportChannelSettings.encoderEnableBit = 1;
   myencoder_hor_robot_to_Encoder_horinputportChannel = new AnyIO::AnyioEncoderLinkDriver<uint32_t>(myencoder_hor_robot_to_Encoder_horinputportChannelSettings);
 
   AnyIO::AnyioEncoderSettings myencoder_ver_robot_to_Encoder_verinputportChannelSettings;
   myencoder_ver_robot_to_Encoder_verinputportChannelSettings.deviceNr = 0;
-  myencoder_ver_robot_to_Encoder_verinputportChannelSettings.encoderNr = 0;
+  myencoder_ver_robot_to_Encoder_verinputportChannelSettings.encoderNr = 3;
   myencoder_ver_robot_to_Encoder_verinputportChannelSettings.baseAddress = 0x0;
   myencoder_ver_robot_to_Encoder_verinputportChannelSettings.registerSize = 4;
   myencoder_ver_robot_to_Encoder_verinputportChannelSettings.baseControlAddress = 0x20;
   myencoder_ver_robot_to_Encoder_verinputportChannelSettings.controlRegisterSize = 2;
   myencoder_ver_robot_to_Encoder_verinputportChannelSettings.gModeAddress = 0x52;
-  myencoder_ver_robot_to_Encoder_verinputportChannelSettings.encoderEnableBit = 0;
+  myencoder_ver_robot_to_Encoder_verinputportChannelSettings.encoderEnableBit = 1;
   myencoder_ver_robot_to_Encoder_verinputportChannel = new AnyIO::AnyioEncoderLinkDriver<uint32_t>(myencoder_ver_robot_to_Encoder_verinputportChannelSettings);
 
   // Initialize model objects
