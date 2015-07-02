@@ -12,7 +12,7 @@
 #include "csp/CSP.h"
 
 // Hardware Channels
-#include "anyio/AnyioEncoderLinkDriver.h"
+#include "anyio/AnyioEncoderLinkDriverSim.h"
 
 // Models
 #include "encodertestersubmodel/encodertestersubmodel.h"
@@ -32,7 +32,7 @@ public:
 private:
 
   // Channel definitions
-  AnyIO::AnyioEncoderLinkDriver<uint32_t> *myEncoderTesterport_to_encoderportChannel;
+  AnyIO::AnyioEncoderLinkDriverSim<uint32_t> *myEncoderTesterport_to_encoderportChannel;
 
   // Model objects
   encodertestersubmodel::encodertestersubmodel *myEncoderTester;

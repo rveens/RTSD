@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csp:CSPDiagram file-version="3" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cpc="http:///nl/utwente/ce/terra/cpc/model/cpc.ecore" xmlns:csp="http:///nl/utwente/ce/terra/csp/model/csp.ecore" xmlns:xxsim="http:///nl/utwente/ce/terra/xxsim/model/xxsim.ecore">
+  <objects xsi:type="csp:CSPModel" name="Check" constraints="496,208,50,50" compositionalRelations="//@compositionalRelations.1 //@compositionalRelations.2">
+    <objects xsi:type="csp:CSPPort" link="//@links.7" name="hor_check_in" constraints="0,0,10,10">
+      <properties xsi:type="cpc:CPCInterfaceObjectProperty" interfacedObject="//@objects.0/@submodel/@objects.4"/>
+    </objects>
+    <objects xsi:type="csp:CSPPort" link="//@links.8" name="vert_check_in" constraints="0,33,10,10">
+      <properties xsi:type="cpc:CPCInterfaceObjectProperty" interfacedObject="//@objects.0/@submodel/@objects.5"/>
+    </objects>
+    <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.0" name="hor_robot_out" constraints="40,0,10,10">
+      <properties xsi:type="cpc:CPCInterfaceObjectProperty" interfacedObject="//@objects.0/@submodel/@objects.6"/>
+    </objects>
+    <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.1" name="vert_robot_out" constraints="40,40,10,10">
+      <properties xsi:type="cpc:CPCInterfaceObjectProperty" interfacedObject="//@objects.0/@submodel/@objects.7"/>
+    </objects>
+    <submodel xsi:type="csp:CSPDiagram">
+      <objects xsi:type="csp:CSPModel" name="ChckHorCalc" constraints="237,163,102,53" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.0 //@objects.0/@submodel/@compositionalRelations.2">
+        <submodel xsi:type="csp:CSPDiagram">
+          <properties xsi:type="csp:CSPVariablesProperty">
+            <variables name="hor_in" type="//@properties.0/@units.0" linkedParent="//@objects.0/@submodel/@properties.0/@variables.0"/>
+            <variables name="hor_out" linkedParent="//@objects.0/@submodel/@properties.0/@variables.0"/>
+          </properties>
+        </submodel>
+      </objects>
+      <objects xsi:type="csp:CSPModel" name="ChkVerCalc" constraints="230,352,99,52" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.1 //@objects.0/@submodel/@compositionalRelations.3">
+        <submodel xsi:type="csp:CSPDiagram">
+          <properties xsi:type="csp:CSPVariablesProperty">
+            <variables name="ver_in" type="//@properties.0/@units.1" linkedParent="//@objects.0/@submodel/@properties.0/@variables.0"/>
+            <variables name="ver_out" linkedParent="//@objects.0/@submodel/@properties.0/@variables.2"/>
+          </properties>
+        </submodel>
+      </objects>
+      <objects xsi:type="csp:CSPReader" name="horizontal_horchk_reader" constraints="112,166,40,40" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.0" link="//@objects.0/@submodel/@links.0" variable="//@objects.0/@submodel/@properties.0/@variables.0"/>
+      <objects xsi:type="csp:CSPReader" name="vertical_verticalchk_reader" constraints="120,368,40,40" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.1" link="//@objects.0/@submodel/@links.1" variable="//@objects.0/@submodel/@properties.0/@variables.1"/>
+      <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@objects.0/@submodel/@links.0" name="hor_check_in" constraints="36,165,10,10"/>
+      <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@objects.0/@submodel/@links.1" name="vert_check_in" constraints="33,383,10,10"/>
+      <objects xsi:type="csp:CSPPort" link="//@objects.0/@submodel/@links.2" name="hor_robot_out" constraints="538,158,10,10"/>
+      <objects xsi:type="csp:CSPPort" link="//@objects.0/@submodel/@links.3" name="vert_robot_out" constraints="551,388,10,10"/>
+      <objects xsi:type="csp:CSPWriter" name="hor_out_writer" constraints="401,180,40,40" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.2" link="//@objects.0/@submodel/@links.2" variable="//@objects.0/@submodel/@properties.0/@variables.3"/>
+      <objects xsi:type="csp:CSPWriter" name="ver_out_writer" constraints="406,371,40,40" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.3" link="//@objects.0/@submodel/@links.3" variable="//@objects.0/@submodel/@properties.0/@variables.2"/>
+      <objects xsi:type="csp:CSPCompositionalGroup" name="SEQUENTIAL1" constraints="87,138,379,107" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.4" relations="//@objects.0/@submodel/@compositionalRelations.0 //@objects.0/@submodel/@compositionalRelations.2"/>
+      <objects xsi:type="csp:CSPCompositionalGroup" name="SEQUENTIAL" constraints="95,327,376,109" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.4" relations="//@objects.0/@submodel/@compositionalRelations.3 //@objects.0/@submodel/@compositionalRelations.1"/>
+      <objects xsi:type="csp:CSPCompositionalGroup" name="PARALLEL" constraints="62,113,434,348" relations="//@objects.0/@submodel/@compositionalRelations.4"/>
+      <properties xsi:type="csp:CSPVariablesProperty">
+        <variables name="hor_in" type="//@properties.0/@units.1"/>
+        <variables name="ver_in" type="//@properties.0/@units.1"/>
+        <variables name="ver_out" type="//@properties.0/@units.0"/>
+        <variables name="hor_out" type="//@properties.0/@units.0"/>
+      </properties>
+      <links xsi:type="csp:CSPChannel" ports="//@objects.0/@submodel/@objects.4 //@objects.0/@submodel/@objects.2"/>
+      <links xsi:type="csp:CSPChannel" ports="//@objects.0/@submodel/@objects.5 //@objects.0/@submodel/@objects.3"/>
+      <links xsi:type="csp:CSPChannel" ports="//@objects.0/@submodel/@objects.8 //@objects.0/@submodel/@objects.6"/>
+      <links xsi:type="csp:CSPChannel" ports="//@objects.0/@submodel/@objects.9 //@objects.0/@submodel/@objects.7"/>
+      <compositionalRelations compositeObjects="//@objects.0/@submodel/@objects.2 //@objects.0/@submodel/@objects.0" type="SEQUENTIAL" compositionalGroup="//@objects.0/@submodel/@objects.10"/>
+      <compositionalRelations compositeObjects="//@objects.0/@submodel/@objects.3 //@objects.0/@submodel/@objects.1" type="SEQUENTIAL" compositionalGroup="//@objects.0/@submodel/@objects.11"/>
+      <compositionalRelations compositeObjects="//@objects.0/@submodel/@objects.0 //@objects.0/@submodel/@objects.8" type="SEQUENTIAL" compositionalGroup="//@objects.0/@submodel/@objects.10"/>
+      <compositionalRelations compositeObjects="//@objects.0/@submodel/@objects.1 //@objects.0/@submodel/@objects.9" type="SEQUENTIAL" compositionalGroup="//@objects.0/@submodel/@objects.11"/>
+      <compositionalRelations compositeObjects="//@objects.0/@submodel/@objects.10 //@objects.0/@submodel/@objects.11" compositionalGroup="//@objects.0/@submodel/@objects.12"/>
+    </submodel>
+  </objects>
+  <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.4" name="robot_hor_feedback" constraints="266,34,10,10"/>
+  <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.5" name="joystick_hor_in" constraints="69,164,10,10"/>
+  <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.3" name="robot_ver_feedback" constraints="265,475,10,10"/>
+  <objects xsi:type="csp:CSPPort" link="//@links.0" name="robot_hor_out" constraints="661,188,10,10"/>
+  <objects xsi:type="csp:CSPPort" link="//@links.1" name="robot_ver_out" constraints="667,307,10,10"/>
+  <objects xsi:type="csp:CSPExternalModel" name="Vertical" constraints="234,280,86,69" compositionalRelations="//@compositionalRelations.0 //@compositionalRelations.2" externalSubmodel="/JIWYrealtime/PositionControllerTilt/model/PositionControllerTilt.cspm">
+    <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.8" name="out" constraints="76,50,10,10"/>
+    <objects xsi:type="csp:CSPPort" link="//@links.2" unitType="//@properties.0/@units.1" name="corr" constraints="36,0,10,10"/>
+    <objects xsi:type="csp:CSPPort" link="//@links.6" unitType="//@properties.0/@units.1" name="in" constraints="0,26,10,10"/>
+    <objects xsi:type="csp:CSPPort" link="//@links.3" unitType="//@properties.0/@units.1" name="position" constraints="36,59,10,10"/>
+    <configuration xsi:type="xxsim:XXSimConfiguration"/>
+  </objects>
+  <objects xsi:type="csp:CSPExternalModel" name="Horizontal" constraints="222,98,88,74" compositionalRelations="//@compositionalRelations.0 //@compositionalRelations.1" externalSubmodel="/JIWYrealtime/PositionControllerPan/model/PositionControllerPan.cspm">
+    <objects xsi:type="csp:CSPPort" link="//@links.4" unitType="//@properties.0/@units.1" name="position" constraints="40,0,10,10"/>
+    <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.7" name="out" constraints="78,48,10,10"/>
+    <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.2" name="corr" constraints="30,64,10,10"/>
+    <objects xsi:type="csp:CSPPort" link="//@links.5" unitType="//@properties.0/@units.1" name="in" constraints="0,11,10,10"/>
+    <configuration xsi:type="xxsim:XXSimConfiguration"/>
+  </objects>
+  <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.6" name="joystick_vert_in" constraints="70,313,10,10"/>
+  <objects xsi:type="csp:CSPCompositionalGroup" name="PARALLEL" constraints="197,73,374,301" relations="//@compositionalRelations.1 //@compositionalRelations.2 //@compositionalRelations.0"/>
+  <properties xsi:type="cpc:CPCUnitsProperty">
+    <units name="16" type="unsigned 16 bit" unit="bit"/>
+    <units name="IO" type="unsigned 32-bit" unit="xxsim"/>
+  </properties>
+  <properties xsi:type="csp:CSPVariablesProperty">
+    <variables name="Test" type="//@properties.0/@units.0"/>
+  </properties>
+  <properties xsi:type="cpc:CPCSharedDiagramProperty" componentName="JIWY"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.0/hor_robot_out //@objects.4"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.0/vert_robot_out //@objects.5"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.7/corr //@objects.6/corr"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.3 //@objects.6/position"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.1 //@objects.7/position"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.2 //@objects.7/in"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.8 //@objects.6/in"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.7/out //@objects.0/hor_check_in"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.6/out //@objects.0/vert_check_in"/>
+  <compositionalRelations compositeObjects="//@objects.7 //@objects.6" compositionalGroup="//@objects.9"/>
+  <compositionalRelations compositeObjects="//@objects.7 //@objects.0" compositionalGroup="//@objects.9"/>
+  <compositionalRelations compositeObjects="//@objects.6 //@objects.0" compositionalGroup="//@objects.9"/>
+</csp:CSPDiagram>

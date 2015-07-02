@@ -23,11 +23,22 @@ Pcode::Pcode(uint32_t &test) :
   // protected region constructor end
 }
 
-Pcode::~Pcode()
+void Pcode::execute()
 {
-  // protected region destructor on begin
+  // protected region execute code on begin
+	//printf(this->test);
+  // protected region execute code end
+}
 
-  // protected region destructor end
+// protected region additional functions on begin
+uint16_t Pcode::convert(int16_t n)
+{
+	if(n>=0 && n<32768)
+		return n|0x8000;
+	else if(n >= -32768 && n<0)
+		return (n^0xFFFF) + 1;
+	else
+		return 0;
 }
 
 void Pcode::execute()

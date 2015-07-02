@@ -21,8 +21,10 @@ MainModel::MainModel() :
 {
   SETNAME(this, "MainModel");
 
+  ThreadCtl(_NTO_TCTL_IO, 0);
+
   // Initialize hardware channels
-  AnyIO::AnyioEncoderSettings myEncoderTesterport_to_encoderportChannelSettings;
+  AnyIO::AnyioEncoderSettingsSim myEncoderTesterport_to_encoderportChannelSettings;
   myEncoderTesterport_to_encoderportChannelSettings.deviceNr = 0;
   myEncoderTesterport_to_encoderportChannelSettings.encoderNr = 0;
   myEncoderTesterport_to_encoderportChannelSettings.baseAddress = 0x0;
@@ -31,7 +33,7 @@ MainModel::MainModel() :
   myEncoderTesterport_to_encoderportChannelSettings.controlRegisterSize = 2;
   myEncoderTesterport_to_encoderportChannelSettings.gModeAddress = 0x52;
   myEncoderTesterport_to_encoderportChannelSettings.encoderEnableBit = 0;
-  myEncoderTesterport_to_encoderportChannel = new AnyIO::AnyioEncoderLinkDriver<uint32_t>(myEncoderTesterport_to_encoderportChannelSettings);
+  myEncoderTesterport_to_encoderportChannel = new AnyIO::AnyioEncoderLinkDriverSim<uint32_t>(myEncoderTesterport_to_encoderportChannelSettings);
 
   // Initialize model objects
   myEncoderTester = new encodertestersubmodel::encodertestersubmodel(myEncoderTesterport_to_encoderportChannel);

@@ -17,7 +17,7 @@
   <properties xsi:type="csp:CSPVariablesProperty">
     <variables name="test" type="//@properties.0/@units.0"/>
   </properties>
-  <properties xsi:type="cpc:CPCSharedDiagramProperty" componentName="encodertestersubmodel"/>
+  <properties xsi:type="cpc:CPCSharedDiagramProperty" componentName="EncoderTester"/>
   <links xsi:type="csp:CSPChannel" ports="//@objects.2 //@objects.0"/>
   <compositionalRelations compositeObjects="//@objects.1 //@objects.2" type="SEQUENTIAL" compositionalGroup="//@objects.3"/>
 </csp:CSPDiagram>
