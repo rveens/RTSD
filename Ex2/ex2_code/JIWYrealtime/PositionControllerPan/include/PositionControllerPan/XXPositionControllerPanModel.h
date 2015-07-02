@@ -27,7 +27,7 @@ class XXPositionControllerPanModel : public CodeBlock
 
 public:
   // Define constructor and destructor
-  XXPositionControllerPanModel(uint32_t &corr, uint32_t &in, uint32_t &out, uint32_t &position);
+  XXPositionControllerPanModel(double &corr, double &in, double &out, double &position);
   virtual ~XXPositionControllerPanModel();
 
   void execute();
@@ -35,10 +35,10 @@ public:
 private:
 
   // Class variables
-  uint32_t &corr;
-  uint32_t &in;
-  uint32_t &out;
-  uint32_t &position;
+  double &corr;
+  double &in;
+  double &out;
+  double &position;
 
   PositionControllerPanModel *m_model;
 };

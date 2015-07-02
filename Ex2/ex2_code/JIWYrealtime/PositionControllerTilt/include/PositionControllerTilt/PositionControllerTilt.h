@@ -27,23 +27,23 @@ class PositionControllerTilt : public Sequential
 
 public:
   // Define constructor and destructor
-  PositionControllerTilt(ChannelOut<uint32_t> *corr, ChannelOut<uint32_t> *in, ChannelIn<uint32_t> *out, ChannelOut<uint32_t> *position);
+  PositionControllerTilt(ChannelOut<double> *corr, ChannelOut<double> *in, ChannelIn<double> *out, ChannelOut<double> *position);
   virtual ~PositionControllerTilt();
 
 private:
 
   // Class variables
-  uint32_t v_corr;
-  uint32_t v_in;
-  uint32_t v_out;
-  uint32_t v_position;
+  double v_corr;
+  double v_in;
+  double v_out;
+  double v_position;
 
   // Model objects
   XXPositionControllerTiltModel::XXPositionControllerTiltModel *myXXPositionControllerTiltModel;
-  Reader<uint32_t> *myr_corr;
-  Reader<uint32_t> *myr_in;
-  Reader<uint32_t> *myr_position;
-  Writer<uint32_t> *myw_out;
+  Reader<double> *myr_corr;
+  Reader<double> *myr_in;
+  Reader<double> *myr_position;
+  Writer<double> *myw_out;
 
   // Model groups
   Parallel *myINS;

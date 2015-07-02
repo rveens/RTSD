@@ -17,7 +17,7 @@
 
 namespace PositionControllerPan { namespace XXPositionControllerPanModel { 
 
-XXPositionControllerPanModel::XXPositionControllerPanModel(uint32_t &corr, uint32_t &in, uint32_t &out, uint32_t &position) :
+XXPositionControllerPanModel::XXPositionControllerPanModel(double &corr, double &in, double &out, double &position) :
     CodeBlock(), corr(corr), in(in), out(out), position(position){
   SETNAME(this, "XXPositionControllerPanModel");
 

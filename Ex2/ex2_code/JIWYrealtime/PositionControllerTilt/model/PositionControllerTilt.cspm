@@ -30,7 +30,7 @@
   </objects>
   <properties xsi:type="cpc:CPCSharedDiagramProperty" componentName="PositionControllerTilt"/>
   <properties xsi:type="cpc:CPCUnitsProperty">
-    <units name="IO" type="unsigned 32-bit" unit="xxsim"/>
+    <units name="IO" type="real" unit="xxsim"/>
   </properties>
   <properties xsi:type="csp:CSPVariablesProperty">
     <variables name="v_out" type="//@properties.1/@units.0"/>

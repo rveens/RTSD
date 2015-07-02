@@ -27,7 +27,7 @@ class XXPositionControllerTiltModel : public CodeBlock
 
 public:
   // Define constructor and destructor
-  XXPositionControllerTiltModel(uint32_t &corr, uint32_t &in, uint32_t &out, uint32_t &position);
+  XXPositionControllerTiltModel(double &corr, double &in, double &out, double &position);
   virtual ~XXPositionControllerTiltModel();
 
   void execute();
@@ -35,10 +35,10 @@ public:
 private:
 
   // Class variables
-  uint32_t &corr;
-  uint32_t &in;
-  uint32_t &out;
-  uint32_t &position;
+  double &corr;
+  double &in;
+  double &out;
+  double &position;
 
   PositionControllerTiltModel *m_model;
 };
