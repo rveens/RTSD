@@ -14,7 +14,7 @@
 
 namespace PositionControllerTilt { 
 
-PositionControllerTilt::PositionControllerTilt(ChannelOut<uint32_t> *corr, ChannelOut<uint32_t> *in, ChannelIn<uint32_t> *out, ChannelOut<uint32_t> *position) :
+PositionControllerTilt::PositionControllerTilt(ChannelOut<double> *corr, ChannelOut<double> *in, ChannelIn<double> *out, ChannelOut<double> *position) :
     Sequential(NULL)
 {
   SETNAME(this, "PositionControllerTilt");
@@ -22,13 +22,13 @@ PositionControllerTilt::PositionControllerTilt(ChannelOut<uint32_t> *corr, Chann
   // Initialize model objects
   myXXPositionControllerTiltModel = new XXPositionControllerTiltModel::XXPositionControllerTiltModel(v_corr, v_in, v_out, v_position);
   SETNAME(myXXPositionControllerTiltModel, "XXPositionControllerTiltModel");
-  myr_corr = new Reader<uint32_t>(&v_corr, corr);
+  myr_corr = new Reader<double>(&v_corr, corr);
   SETNAME(myr_corr, "r_corr");
-  myr_in = new Reader<uint32_t>(&v_in, in);
+  myr_in = new Reader<double>(&v_in, in);
   SETNAME(myr_in, "r_in");
-  myr_position = new Reader<uint32_t>(&v_position, position);
+  myr_position = new Reader<double>(&v_position, position);
   SETNAME(myr_position, "r_position");
-  myw_out = new Writer<uint32_t>(&v_out, out);
+  myw_out = new Writer<double>(&v_out, out);
   SETNAME(myw_out, "w_out");
 
   // Create INS group

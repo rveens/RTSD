@@ -31,7 +31,7 @@
   <objects xsi:type="csp:CSPCompositionalGroup" name="OUTS" constraints="440,40,80,160" compositionalRelations="//@compositionalRelations.3" relations="//@compositionalRelations.0"/>
   <properties xsi:type="cpc:CPCSharedDiagramProperty" componentName="PositionControllerPan"/>
   <properties xsi:type="cpc:CPCUnitsProperty">
-    <units name="IO" type="unsigned 32-bit" unit="xxsim"/>
+    <units name="IO" type="real" unit="xxsim"/>
   </properties>
   <properties xsi:type="csp:CSPVariablesProperty">
     <variables name="v_position" type="//@properties.1/@units.0"/>
