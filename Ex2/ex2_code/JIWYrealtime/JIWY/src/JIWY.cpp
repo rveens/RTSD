@@ -14,15 +14,15 @@
 
 namespace JIWY { 
 
-JIWY::JIWY(ChannelOut<uint32_t> *joystick_hor_in, ChannelOut<uint32_t> *joystick_vert_in, ChannelOut<uint32_t> *robot_hor_feedback, ChannelIn<uint16_t> *robot_hor_out, ChannelOut<uint32_t> *robot_ver_feedback, ChannelIn<uint16_t> *robot_ver_out) :
+JIWY::JIWY(ChannelOut<double> *joystick_hor_in, ChannelOut<double> *joystick_vert_in, ChannelOut<double> *robot_hor_feedback, ChannelIn<double> *robot_hor_out, ChannelOut<double> *robot_ver_feedback, ChannelIn<double> *robot_ver_out) :
     Parallel(NULL)
 {
   SETNAME(this, "JIWY");
 
   // Initialize channels
-  myHorizontalcorr_to_VerticalcorrChannel = new UnbufferedChannel<uint32_t, One2In, Out2One>();
-  myHorizontalout_to_Checkhor_check_inChannel = new UnbufferedChannel<uint32_t, One2In, Out2One>();
-  myVerticalout_to_Checkvert_check_inChannel = new UnbufferedChannel<uint32_t, One2In, Out2One>();
+  myHorizontalcorr_to_VerticalcorrChannel = new UnbufferedChannel<double, One2In, Out2One>();
+  myHorizontalout_to_Checkhor_check_inChannel = new UnbufferedChannel<double, One2In, Out2One>();
+  myVerticalout_to_Checkvert_check_inChannel = new UnbufferedChannel<double, One2In, Out2One>();
 
   // Initialize model objects
   myCheck = new Check::Check(myHorizontalout_to_Checkhor_check_inChannel, robot_hor_out, myVerticalout_to_Checkvert_check_inChannel, robot_ver_out);
