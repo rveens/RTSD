@@ -20,7 +20,6 @@ MainModel::MainModel() :
     Recursion<CSProcess>()
 {
   SETNAME(this, "MainModel");
-
   //enable IO privileges, due to use of in16() and out16() calls
   ThreadCtl(_NTO_TCTL_IO, 0);
 

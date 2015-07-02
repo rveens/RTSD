@@ -15,7 +15,7 @@
 #include "anyio/AnyioEncoderLinkDriverSim.h"
 
 // Models
-#include "encodertestersubmodel/encodertestersubmodel.h"
+#include "EncoderTester/EncoderTester.h"
 
 using namespace LUNA::CSP;
 
@@ -32,10 +32,10 @@ public:
 private:
 
   // Channel definitions
-  AnyIO::AnyioEncoderLinkDriverSim<uint32_t> *myEncoderTesterport_to_encoderportChannel;
+  AnyIO::AnyioEncoderLinkDriverSim<uint32_t> *myencoderport_to_EncoderTesterinChannel;
 
   // Model objects
-  encodertestersubmodel::encodertestersubmodel *myEncoderTester;
+  EncoderTester::EncoderTester *myEncoderTester;
 
   // Model groups
   Parallel *parallelGroup;

@@ -12,43 +12,39 @@
 // Each additional header should get a corresponding dependency in the Makefile
 // protected region additional headers end
 
-namespace encodertestersubmodel { namespace Pcode { 
+namespace EncoderTester { namespace Pcode { 
 
 Pcode::Pcode(uint32_t &test) :
     CodeBlock(), test(test){
   SETNAME(this, "Pcode");
 
   // protected region constructor on begin
-
   // protected region constructor end
 }
 
+Pcode::~Pcode()
+{
+  // protected region destructor on begin
+  // protected region destructor end
+}
+
 void Pcode::execute()
 {
   // protected region execute code on begin
-	//printf(this->test);
+	printf("%ld - ", convert(this->test));
   // protected region execute code end
 }
 
 // protected region additional functions on begin
-uint16_t Pcode::convert(int16_t n)
+uint32_t Pcode::convert(int32_t n)
 {
-	if(n>=0 && n<32768)
-		return n|0x8000;
-	else if(n >= -32768 && n<0)
-		return (n^0xFFFF) + 1;
+	if(n>=0 && n< 0x80000000)
+		return n| 0x80000000;
+	else if(n >= -0x80000000 && n<0)
+		return (n^0xFFFFFFFF) + 1;
 	else
 		return 0;
 }
-
-void Pcode::execute()
-{
-  // protected region execute code on begin
-
-  // protected region execute code end
-}
-
-// protected region additional functions on begin
 
 // protected region additional functions end
 
