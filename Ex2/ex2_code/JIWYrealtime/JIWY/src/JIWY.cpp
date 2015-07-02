@@ -14,7 +14,7 @@
 
 namespace JIWY { 
 
-JIWY::JIWY(ChannelOut<double> *joystick_hor_in, ChannelOut<double> *joystick_vert_in, ChannelOut<double> *robot_hor_feedback, ChannelIn<double> *robot_hor_out, ChannelOut<double> *robot_ver_feedback, ChannelIn<double> *robot_ver_out) :
+JIWY::JIWY(ChannelOut<double> *joystick_hor_in, ChannelOut<double> *joystick_vert_in, ChannelOut<double> *robot_hor_feedback, ChannelIn<uint16_t> *robot_hor_out, ChannelOut<double> *robot_ver_feedback, ChannelIn<uint16_t> *robot_ver_out) :
     Parallel(NULL)
 {
   SETNAME(this, "JIWY");

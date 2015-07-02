@@ -25,9 +25,9 @@ CPPFLAGS+=-Iinclude -I/opt/LUNA/target-i386-qnx6.6.0_i586_CSP/include
 LIBS+=-lLUNA
 
 # Add external model paths
-CPPFLAGS+= -I ../Encoder_convert/include -I ../IO/include -I ../JIWY/include -I ../Joystick/include
-LDFLAGS+= -L ../Encoder_convert/lib -L ../IO/lib -L ../JIWY/lib -L ../Joystick/lib
-LIBS:= -lEncoder_convert -lIO -lJIWY -lJoystick $(LIBS) -lm
+CPPFLAGS+= -I ../Encoder_convert/include -I ../JIWY/include -I ../Joystick/include -I ../PositionControllerTilt/include -I ../PositionControllerPan/include
+LDFLAGS+= -L ../Encoder_convert/lib -L ../JIWY/lib -L ../Joystick/lib -L ../PositionControllerTilt/lib -L ../PositionControllerPan/lib
+LIBS:= -lPositionControllerTilt -lPositionControllerPan -lEncoder_convert -lJIWY -lJoystick $(LIBS) -lm
 
 
 
@@ -40,7 +40,7 @@ LIBS+=-lsocket
 #CPPFLAGS+=-Ixxsim/PID -Ixxsim/common 
 
 # QNX HID library (eg for Joystick support)
-#LIBS+=-lhiddi
+LIBS+=-lhiddi
 
 ## protected region to add additional statements end
 
@@ -71,12 +71,13 @@ $(eval $(call DirectoryTarget))
 
 # Dependencies
 overview: ../JIWY/lib/libJIWY.a
+overview: ../PositionControllerTilt/lib/libPositionControllerTilt.a
+overview: ../PositionControllerPan/lib/libPositionControllerPan.a
 overview: ../Joystick/lib/libJoystick.a
-overview: ../IO/lib/libIO.a
 overview: ../Encoder_convert/lib/libEncoder_convert.a
 overview: ../Encoder_convert/lib/libEncoder_convert.a
 obj/main.o: include/MainModel.h
-obj/MainModel.o: include/MainModel.h ../Encoder_convert/include/Encoder_convert/Encoder_convert.h ../Encoder_convert/include/Encoder_convert/Encoder_convert.h ../IO/include/IO/IO.h ../JIWY/include/JIWY/JIWY.h ../Joystick/include/Joystick/Joystick.h
+obj/MainModel.o: include/MainModel.h ../Encoder_convert/include/Encoder_convert/Encoder_convert.h ../Encoder_convert/include/Encoder_convert/Encoder_convert.h ../JIWY/include/JIWY/JIWY.h ../Joystick/include/Joystick/Joystick.h ../PositionControllerTilt/include/PositionControllerTilt/PositionControllerTilt.h ../PositionControllerPan/include/PositionControllerPan/PositionControllerPan.h
 
 # protected region additional targets on begin
 # protected region additional targets end

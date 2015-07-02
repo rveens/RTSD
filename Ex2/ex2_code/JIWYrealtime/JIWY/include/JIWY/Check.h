@@ -28,23 +28,23 @@ class Check : public Parallel
 
 public:
   // Define constructor and destructor
-  Check(ChannelOut<double> *hor_check_in, ChannelIn<double> *hor_robot_out, ChannelOut<double> *vert_check_in, ChannelIn<double> *vert_robot_out);
+  Check(ChannelOut<double> *hor_check_in, ChannelIn<uint16_t> *hor_robot_out, ChannelOut<double> *vert_check_in, ChannelIn<uint16_t> *vert_robot_out);
   virtual ~Check();
 
 private:
 
   // Class variables
   double hor_in;
-  double hor_out;
+  uint16_t hor_out;
   double ver_in;
-  double ver_out;
+  uint16_t ver_out;
 
   // Model objects
   ChckHorCalc::ChckHorCalc *myChckHorCalc;
   ChkVerCalc::ChkVerCalc *myChkVerCalc;
-  Writer<double> *myhor_out_writer;
+  Writer<uint16_t> *myhor_out_writer;
   Reader<double> *myhorizontal_horchk_reader;
-  Writer<double> *myver_out_writer;
+  Writer<uint16_t> *myver_out_writer;
   Reader<double> *myvertical_verticalchk_reader;
 
   // Model groups
