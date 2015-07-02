@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{textcomp}
 \usepackage{caption,subcaption}
+\usepackage{placeins}
 
 %----------------------- Macros and Definitions --------------------------
 
@@ -18,7 +19,7 @@
 \newcommand{\cpp}{{\tt C++} }
 
 \newcommand{\solution}[1][todo]{\noindent{\bf Solution to Exercise #1:}}
-\newcommand{\todo}[1]{\textcolor{red}{#1}}
+\newcommand{\todo}[1]{{\Large\sc\textcolor{red}{#1}}}
 
 \renewcommand{\lstlistingname}{Codeblock}
 \captionsetup[lstlisting]{font={small,tt}}
@@ -93,30 +94,86 @@ backgroundcolor=\color{lbcolor},
 
 \section{Timers}
 \subsection{Model}
-\todo{Plaatjes/uitleg over gebruikte model/code?}
+The model is shown in figure~\ref{fig:timermodel}, and code used for the first two tests in codeblock~\ref{code:timer}. The improved code used for the third test is shown in codeblock~\ref{code:timer2}. We used \texttt{octave} to parse the output as csv and perform some statistical analysis.
 
-\subsection{Questions}
+\begin{lstlisting}[caption=Pcode::execute, label=code:timer, language=C++]
+void Pcode::execute()
+{
+  // protected region execute code on begin
+	static struct timespec t1;
+
+
+	struct timespec t2;
+	struct timespec res;
+
+	clock_gettime(CLOCK_REALTIME, &t2);
+	clock_getres(CLOCK_REALTIME, &res);
+	//long int elapsedTime = (t2.tv_usec - t1.tv_usec);
+
+	printf("%ld.%.9ld, %ld.%.9ld, %ld.%.9ld\n", res.tv_sec, res.tv_nsec, t2.tv_sec, t2.tv_nsec, t1.tv_sec, t1.tv_nsec);
+
+	t1 = t2;
+
+	// protected region execute code end
+}
+\end{lstlisting}
+\begin{lstlisting}[caption=Pcode::execute (improved), label=code:timer2, language=C++]
+todo
+\end{lstlisting}
+
+\begin{figure}
+ \centering
+ \begin{subfigure}{\textwidth}
+  \centering
+  \includegraphics[width=0.8\textwidth]{./img/timer-mainmodel.png}
+  \caption{Main model.}
+ \end{subfigure}
+ \begin{subfigure}{\textwidth}
+  \centering
+  \includegraphics[width=0.8\textwidth]{./img/timer-submodel.png}
+  \caption{submodel}
+ \end{subfigure}
+ \caption{Model used for testing the timer}
+ \label{fig:timermodel}
+\end{figure}
+
+\FloatBarrier
+\subsection{Questions} \label{sec:1_4}
 \begin{enumerate}
- \item Measured over \todo{$n$} intervals, the variation is \todo{$\sigma$}. See figure~\ref{fig:interval-jitter} for the exact distribution.
+ \item Measured over $1522$ intervals, the variation is $3.667 \cdot 10^{-8}$ s$^2$ or $0.03667$ ms$^2$. Since the clock resolution of QNX in virtual box ($0.000999848$ s) is so much larger than the observed variation, our measurements are not accurate enough to result in a variation that is representative for the actual variation. With a clock resolution of $0.000999848$ s, and a timer that ticks every $0.250000000$ s without jitter, we expect $\lceil 0.25/0.000999848 \rceil - 0.25/0.000999848 = 96.2\%$ of the measurements to be $\lfloor 0.25/0.000999848 \rfloor \cdot 0.000999848 = 0.249962$ s, and the other $3.8\%$ to be $\lceil 0.25/0.000999848 \rceil \cdot 0.000999848 = 0.250962$ s. In $1522$ measurements we found $96.2\%$ of the intervals to be $0.249962$ s and $3.8\%$ $0.250962$ s. Therefore, our measurements do not provide evidence of jitter.
  
- \item This jitter is the result of simulating a real time OS in an environment that is not real time. Realtime requirements are not met. \todo{Meer uitleg?} Additionally, the way we measure the intervals can also introduce more jitter in the results than there actually is. \todo{Meer uitleg}
+ Up to a jitter bounded by $0.250000 - 0.249962 = 0.00038$ s $= 380$ $\mu$s, we would still expect the same results. For larger jitter, we would expect more and more measurements to be $0.248962$ s. So we can strengthen our claim: our measurements do not provide evidence of jitter larger than $380$ $\mu$s.
  
- \item \todo{depends on the variation, it's probably too big}
+ We performed a second series of measurements, this time with the timer interval set to $0.249962$, an exact multiple of the clock resolution. We measured $1967$ intervals. With this configuration, we are likely to pick up on jitter with a variation larger than $(0.000999848/1967 \cdot 10^6)^2 \approx 0.258$ $\mu$s$^2$.
  
- \item No. Our host system has different priorities, it does not guarantee to meet real time requirements. \todo{Meer uitleg? Is ``No'' wel het goeie antwoord eigenlijk?}
+ Results of the second test is shown in figure~\ref{fig:interval-jitter}. This shows that there is indeed jitter. The variation of our measurements is $0.06$ ms$^2$.
  
+ For a third test we used a method of timing with a resolution that is much higher: \texttt{ClockCycles()} from \texttt{sys/neutrino.h}. We can retrieve the number of clock cycles per second, so we can deduce how much time has passed if we know how many clock cycles passed. We measured $3339$ intervals using this method. The distribution of intervals is shown in figure~\ref{fig:interval-jitter2}. We can clearly see hoe the jitter behaves. It is still distributed somewhat discretely, but smaller deviations are now clearly shown. In this test the variation of the measurements is $7.814$ ms$^2$.
+ 
+ \item This jitter is the result of simulating a real time OS in an environment that is not real time. Since the host OS decided when the virtual OS can run, and the host OS cannot guarantee to meet real time requirements, the virtual OS is unable to meet those requirements either.
+ 
+ \item We observe from figure~\ref{fig:interval-jitter} that the timer tick is occasionally delayed by more than $1$ ms. Such a delay is not acceptable in many real time applications. \todo{Example.}
+ 
+ \item No. Our virtual machines run on a non real time OS (GNU/Linux), so it can happen that the host OS is very busy with tasks that have a higher priority than the virtual machines, postponing execution of the real time OS unboundedly, disabling QNX to meet its real time requirements.
  
 \end{enumerate}
 
 \begin{figure}
  \centering
- \includegraphics{./img/interval-jitter.png}
- \caption{Distribution of intervals.}
+ \includegraphics[width=0.8\textwidth]{./img/interval-jitter.png}
+ \caption{Distribution of intervals in the second test.}
  \label{fig:interval-jitter}
 \end{figure}
+\begin{figure}
+ \centering
+ \includegraphics[width=0.8\textwidth]{./img/interval-jitter2.png}
+ \caption{Distribution of intervals in the third test.}
+ \label{fig:interval-jitter2}
+\end{figure}
 
+\FloatBarrier
 \subsection{Validation}
-\todo{Uitleg}
+We used the clock cycle approach, as described in section~\ref{sec:1_4} answer 1, to determine the exact interval.
 
 \subsection{Questions}
 \begin{enumerate}
@@ -133,10 +190,10 @@ backgroundcolor=\color{lbcolor},
 \begin{enumerate}
  \item \todo{todo}
  \item \todo{What!? ... You want us to tell you how the tool should work? This isn't software specification, and even worse, the tool is not the subject, it's the tool...}
- \item \todo{Zucht...}
+ \item The most obvious drawback is of course that you need to do the exact same edits every time you generate code from the models. Another drawback is that you have to adapt your code to run simulations for testing. It is not possible to test the actual code that will be run in the real environment.
 \end{enumerate}
 
-\subsection{JIWYIO driver componenets in the lab}
+\subsection{JIWYIO driver components in the lab}
 \todo{report}
 
 \subsection{Questions}
