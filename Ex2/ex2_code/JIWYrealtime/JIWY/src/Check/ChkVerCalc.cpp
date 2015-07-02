@@ -14,7 +14,7 @@
 
 namespace JIWY { namespace Check { namespace ChkVerCalc { 
 
-ChkVerCalc::ChkVerCalc(double &ver_in, double &ver_out) :
+ChkVerCalc::ChkVerCalc(double &ver_in, uint16_t &ver_out) :
     CodeBlock(), ver_in(ver_in), ver_out(ver_out)
 {
   SETNAME(this, "ChkVerCalc");

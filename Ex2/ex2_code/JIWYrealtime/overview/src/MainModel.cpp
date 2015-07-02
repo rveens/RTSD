@@ -24,37 +24,35 @@ MainModel::MainModel() :
   // Initialize channels
   myEncoder_horoutputport_to_JIWYrobot_hor_feedbackChannel = new UnbufferedChannel<double, One2In, Out2One>();
   myEncoder_veroutputport_to_JIWYrobot_ver_feedbackChannel = new UnbufferedChannel<double, One2In, Out2One>();
-  myJIWYrobot_hor_out_to_IOhor_inputChannel = new UnbufferedChannel<double, One2In, Out2One>();
-  myJIWYrobot_ver_out_to_IOver_inputChannel = new UnbufferedChannel<double, One2In, Out2One>();
   myJoystickjoystick_hor_to_JIWYjoystick_hor_inChannel = new UnbufferedChannel<double, One2In, Out2One>();
   myJoystickjoystick_ver_to_JIWYjoystick_vert_inChannel = new UnbufferedChannel<double, One2In, Out2One>();
 
   // Initialize hardware channels
-  AnyIO::AnyioPWMSettings myIOhor_output_to_robot_pwm_horChannelSettings;
-  myIOhor_output_to_robot_pwm_horChannelSettings.deviceNr = 0;
-  myIOhor_output_to_robot_pwm_horChannelSettings.pwmNr = 0;
-  myIOhor_output_to_robot_pwm_horChannelSettings.interlaced = false;
-  myIOhor_output_to_robot_pwm_horChannelSettings.bridge_type = 0; //Bert H-Bridge 
-  myIOhor_output_to_robot_pwm_horChannelSettings.baseAddress = 0x30;
-  myIOhor_output_to_robot_pwm_horChannelSettings.registerSize = 2;
-  myIOhor_output_to_robot_pwm_horChannelSettings.baseControlAddress = 0x40;
-  myIOhor_output_to_robot_pwm_horChannelSettings.controlRegisterSize = 2;
-  myIOhor_output_to_robot_pwm_horChannelSettings.gModeAddress = 0x52;
-  myIOhor_output_to_robot_pwm_horChannelSettings.pwmEnableBit = 1;
-  myIOhor_output_to_robot_pwm_horChannel = new AnyIO::AnyioPWMLinkDriver(myIOhor_output_to_robot_pwm_horChannelSettings);
+  AnyIO::AnyioPWMSettings myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings;
+  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.deviceNr = 0;
+  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.pwmNr = 0;
+  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.interlaced = false;
+  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.bridge_type = 0; //Bert H-Bridge 
+  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.baseAddress = 0x30;
+  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.registerSize = 2;
+  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.baseControlAddress = 0x40;
+  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.controlRegisterSize = 2;
+  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.gModeAddress = 0x52;
+  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.pwmEnableBit = 1;
+  myJIWYrobot_hor_out_to_robot_pwm_horChannel = new AnyIO::AnyioPWMLinkDriver(myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings);
 
-  AnyIO::AnyioPWMSettings myIOver_output_to_robot_pwm_vertChannelSettings;
-  myIOver_output_to_robot_pwm_vertChannelSettings.deviceNr = 0;
-  myIOver_output_to_robot_pwm_vertChannelSettings.pwmNr = 0;
-  myIOver_output_to_robot_pwm_vertChannelSettings.interlaced = false;
-  myIOver_output_to_robot_pwm_vertChannelSettings.bridge_type = 0; //Bert H-Bridge 
-  myIOver_output_to_robot_pwm_vertChannelSettings.baseAddress = 0x30;
-  myIOver_output_to_robot_pwm_vertChannelSettings.registerSize = 2;
-  myIOver_output_to_robot_pwm_vertChannelSettings.baseControlAddress = 0x40;
-  myIOver_output_to_robot_pwm_vertChannelSettings.controlRegisterSize = 2;
-  myIOver_output_to_robot_pwm_vertChannelSettings.gModeAddress = 0x52;
-  myIOver_output_to_robot_pwm_vertChannelSettings.pwmEnableBit = 1;
-  myIOver_output_to_robot_pwm_vertChannel = new AnyIO::AnyioPWMLinkDriver(myIOver_output_to_robot_pwm_vertChannelSettings);
+  AnyIO::AnyioPWMSettings myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings;
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.deviceNr = 0;
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.pwmNr = 0;
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.interlaced = false;
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.bridge_type = 0; //Bert H-Bridge 
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.baseAddress = 0x30;
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.registerSize = 2;
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.baseControlAddress = 0x40;
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.controlRegisterSize = 2;
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.gModeAddress = 0x52;
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.pwmEnableBit = 1;
+  myJIWYrobot_ver_out_to_robot_pwm_vertChannel = new AnyIO::AnyioPWMLinkDriver(myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings);
 
   AnyIO::AnyioEncoderSettings myencoder_hor_robot_to_Encoder_horinputportChannelSettings;
   myencoder_hor_robot_to_Encoder_horinputportChannelSettings.deviceNr = 0;
@@ -83,9 +81,7 @@ MainModel::MainModel() :
   SETNAME(myEncoder_hor, "Encoder_hor");
   myEncoder_ver = new Encoder_convert::Encoder_convert(myencoder_ver_robot_to_Encoder_verinputportChannel, myEncoder_veroutputport_to_JIWYrobot_ver_feedbackChannel);
   SETNAME(myEncoder_ver, "Encoder_ver");
-  myIO = new IO::IO(myJIWYrobot_hor_out_to_IOhor_inputChannel, myIOhor_output_to_robot_pwm_horChannel, myJIWYrobot_ver_out_to_IOver_inputChannel, myIOver_output_to_robot_pwm_vertChannel);
-  SETNAME(myIO, "IO");
-  myJIWY = new JIWY::JIWY(myJoystickjoystick_hor_to_JIWYjoystick_hor_inChannel, myJoystickjoystick_ver_to_JIWYjoystick_vert_inChannel, myEncoder_horoutputport_to_JIWYrobot_hor_feedbackChannel, myJIWYrobot_hor_out_to_IOhor_inputChannel, myEncoder_veroutputport_to_JIWYrobot_ver_feedbackChannel, myJIWYrobot_ver_out_to_IOver_inputChannel);
+  myJIWY = new JIWY::JIWY(myJoystickjoystick_hor_to_JIWYjoystick_hor_inChannel, myJoystickjoystick_ver_to_JIWYjoystick_vert_inChannel, myEncoder_horoutputport_to_JIWYrobot_hor_feedbackChannel, myJIWYrobot_hor_out_to_robot_pwm_horChannel, myEncoder_veroutputport_to_JIWYrobot_ver_feedbackChannel, myJIWYrobot_ver_out_to_robot_pwm_vertChannel);
   SETNAME(myJIWY, "JIWY");
   myJoystick = new Joystick::Joystick(myJoystickjoystick_hor_to_JIWYjoystick_hor_inChannel, myJoystickjoystick_ver_to_JIWYjoystick_vert_inChannel);
   SETNAME(myJoystick, "Joystick");
@@ -94,7 +90,6 @@ MainModel::MainModel() :
   parallelGroup = new Parallel(
     (CSPConstruct *) myEncoder_hor,
     (CSPConstruct *) myEncoder_ver,
-    (CSPConstruct *) myIO,
     (CSPConstruct *) myJIWY,
     (CSPConstruct *) myJoystick,
     NULL
@@ -113,17 +108,14 @@ MainModel::~MainModel()
   // Destroy model objects
   delete myJoystick;
   delete myJIWY;
-  delete myIO;
   delete myEncoder_ver;
   delete myEncoder_hor;
 
   // Destroy channels
   delete myEncoder_horoutputport_to_JIWYrobot_hor_feedbackChannel;
   delete myEncoder_veroutputport_to_JIWYrobot_ver_feedbackChannel;
-  delete myIOhor_output_to_robot_pwm_horChannel;
-  delete myIOver_output_to_robot_pwm_vertChannel;
-  delete myJIWYrobot_hor_out_to_IOhor_inputChannel;
-  delete myJIWYrobot_ver_out_to_IOver_inputChannel;
+  delete myJIWYrobot_hor_out_to_robot_pwm_horChannel;
+  delete myJIWYrobot_ver_out_to_robot_pwm_vertChannel;
   delete myJoystickjoystick_hor_to_JIWYjoystick_hor_inChannel;
   delete myJoystickjoystick_ver_to_JIWYjoystick_vert_inChannel;
   delete myencoder_hor_robot_to_Encoder_horinputportChannel;

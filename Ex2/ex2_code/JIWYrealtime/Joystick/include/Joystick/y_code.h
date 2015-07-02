@@ -36,7 +36,7 @@ private:
 
   // protected region additional class members or functions on begin
   LUNA::CSP::HIDAbsAxisChannel *channel;
-  LUNA::CSP::Reader<uint16_t> *reader;
+  LUNA::CSP::Reader<double> *reader;
   // protected region additional class members or functions end
 };
 
