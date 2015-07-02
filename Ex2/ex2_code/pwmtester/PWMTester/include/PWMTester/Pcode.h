@@ -34,7 +34,8 @@ private:
   uint16_t &test;
 
   // protected region additional class members or functions on begin
-  uint16_t convert(int16_t n);
+  uint16_t convert(double n);
+  double normalise(double n);
   // protected region additional class members or functions end
 };
 
