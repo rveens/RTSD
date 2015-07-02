@@ -22,7 +22,7 @@ x_code::x_code(double &x) :
 
   // protected region constructor on begin
   channel = new LUNA::CSP::HIDAbsAxisChannel("joystickx", 1);
-  reader = new LUNA::CSP::Reader<uint16_t>(&x);
+  reader = new LUNA::CSP::Reader<double>(&x);
   // protected region constructor end
 }
 
