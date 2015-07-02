@@ -34,7 +34,8 @@ private:
   uint32_t &test;
 
   // protected region additional class members or functions on begin
-  uint32_t convert(int32_t n);
+  double convert(uint32_t i);
+  double scale(double n);
   // protected region additional class members or functions end
 };
 

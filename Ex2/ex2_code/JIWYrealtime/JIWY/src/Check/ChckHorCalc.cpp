@@ -34,12 +34,53 @@ ChckHorCalc::~ChckHorCalc()
 void ChckHorCalc::execute()
 {
   // protected region execute code on begin
+	this->hor_out = convert(normalise(this->hor_in));
   // protected region execute code end
 }
 
-
-
 // protected region additional functions on begin
+uint16_t ChckHorCalc::convert(double f)
+{
+	int16_t deadzone = 2200;
+
+	int16_t n = f*(32768-deadzone);
+	if(n>0)
+		n += deadzone;
+	else if(n<0)
+		n -= deadzone;
+
+	if(n>=0 && n<32768)
+		return n;
+	else if(n >= -32768 && n<0)
+	{
+		n *= -1;
+		return (n^0xFFFF) + 1;
+	}
+	else
+		return 0;
+}
+
+double ChckHorCalc::normalise(double n)
+{
+	// linear conversion assumed
+	double min=-512, max=512;
+
+	// normalise to [-1,1]
+	n-= min;
+	n/= max - min;
+	n*= 2;
+	n-= 1;
+
+	return n;
+
+	/*
+	// scale to int16_t
+	if(n=1)
+		return 32767;
+	else
+		return n*32768;
+	//*/
+}
 // protected region additional functions end
 
 // Close namespace(s)

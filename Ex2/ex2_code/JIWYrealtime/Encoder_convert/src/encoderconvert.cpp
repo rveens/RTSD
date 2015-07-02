@@ -31,10 +31,26 @@ encoderconvert::~encoderconvert()
 void encoderconvert::execute()
 {
   // protected region execute code on begin
+	this->output = scale(convert(this->input));
   // protected region execute code end
 }
 
 // protected region additional functions on begin
+double encoderconvert::convert(uint32_t i)
+{
+	if(i < 0x80000000)
+		return i;
+	else
+	{
+		i = (i-1) ^ 0x7FFFFFFF;
+		return -1*i;
+	}
+}
+
+double encoderconvert::scale(double n)
+{
+	return n;
+}
 // protected region additional functions end
 
 // Close namespace(s)

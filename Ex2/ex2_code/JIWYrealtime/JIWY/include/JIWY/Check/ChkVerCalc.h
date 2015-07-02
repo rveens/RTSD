@@ -34,9 +34,9 @@ private:
   double &ver_in;
   uint16_t &ver_out;
 
-
-
   // protected region additional class members or functions on begin
+  uint16_t convert(double n);
+  double normalise(double n);
   // protected region additional class members or functions end
 };
 

@@ -35,6 +35,8 @@ private:
   double &output;
 
   // protected region additional class members or functions on begin
+  double convert(uint32_t n);
+  double scale(double n);
   // protected region additional class members or functions end
 };
 

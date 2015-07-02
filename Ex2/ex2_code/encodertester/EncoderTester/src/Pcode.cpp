@@ -28,24 +28,25 @@ Pcode::~Pcode()
   // protected region destructor end
 }
 
+
+
 void Pcode::execute()
 {
   // protected region execute code on begin
-	printf("%ld - ", convert(this->test));
+	printf("%d, %f - ", this->test, convert(this->test));
   // protected region execute code end
 }
 
 // protected region additional functions on begin
-uint32_t Pcode::convert(int32_t n)
+double Pcode::convert(uint32_t i)
 {
-	if(n>=0 && n< 0x80000000)
-		return n| 0x80000000;
-	else if(n >= -0x80000000 && n<0)
-		return (n^0xFFFFFFFF) + 1;
-	else
-		return 0;
+	return (int32_t)i;
 }
 
+double Pcode::scale(double n)
+{
+	return n;
+}
 // protected region additional functions end
 
 // Close namespace(s)
