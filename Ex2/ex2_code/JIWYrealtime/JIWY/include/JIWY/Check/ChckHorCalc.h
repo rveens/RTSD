@@ -24,15 +24,15 @@ class ChckHorCalc : public CodeBlock
 
 public:
   // Define constructor and destructor
-  ChckHorCalc(uint32_t &hor_in, uint32_t &hor_out);
+  ChckHorCalc(double &hor_in, double &hor_out);
   virtual ~ChckHorCalc();
   void execute();
 
 private:
 
   // Class variables
-  uint32_t &hor_in;
-  uint32_t &hor_out;
+  double &hor_in;
+  double &hor_out;
 
 
 

@@ -14,7 +14,7 @@
 
 namespace JIWY { namespace Check { 
 
-Check::Check(ChannelOut<uint32_t> *hor_check_in, ChannelIn<uint16_t> *hor_robot_out, ChannelOut<uint32_t> *vert_check_in, ChannelIn<uint16_t> *vert_robot_out) :
+Check::Check(ChannelOut<double> *hor_check_in, ChannelIn<double> *hor_robot_out, ChannelOut<double> *vert_check_in, ChannelIn<double> *vert_robot_out) :
     Parallel(NULL)
 {
   SETNAME(this, "Check");
@@ -24,13 +24,13 @@ Check::Check(ChannelOut<uint32_t> *hor_check_in, ChannelIn<uint16_t> *hor_robot_
   SETNAME(myChckHorCalc, "ChckHorCalc");
   myChkVerCalc = new ChkVerCalc::ChkVerCalc(hor_in, ver_out);
   SETNAME(myChkVerCalc, "ChkVerCalc");
-  myhor_out_writer = new Writer<uint16_t>(&hor_out, hor_robot_out);
+  myhor_out_writer = new Writer<double>(&hor_out, hor_robot_out);
   SETNAME(myhor_out_writer, "hor_out_writer");
-  myhorizontal_horchk_reader = new Reader<uint32_t>(&hor_in, hor_check_in);
+  myhorizontal_horchk_reader = new Reader<double>(&hor_in, hor_check_in);
   SETNAME(myhorizontal_horchk_reader, "horizontal_horchk_reader");
-  myver_out_writer = new Writer<uint16_t>(&ver_out, vert_robot_out);
+  myver_out_writer = new Writer<double>(&ver_out, vert_robot_out);
   SETNAME(myver_out_writer, "ver_out_writer");
-  myvertical_verticalchk_reader = new Reader<uint32_t>(&ver_in, vert_check_in);
+  myvertical_verticalchk_reader = new Reader<double>(&ver_in, vert_check_in);
   SETNAME(myvertical_verticalchk_reader, "vertical_verticalchk_reader");
 
   // Create SEQUENTIAL group

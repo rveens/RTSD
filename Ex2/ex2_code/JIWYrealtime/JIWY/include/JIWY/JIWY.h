@@ -29,18 +29,15 @@ class JIWY : public Parallel
 
 public:
   // Define constructor and destructor
-  JIWY(ChannelOut<uint32_t> *joystick_hor_in, ChannelOut<uint32_t> *joystick_vert_in, ChannelOut<uint32_t> *robot_hor_feedback, ChannelIn<uint16_t> *robot_hor_out, ChannelOut<uint32_t> *robot_ver_feedback, ChannelIn<uint16_t> *robot_ver_out);
+  JIWY(ChannelOut<double> *joystick_hor_in, ChannelOut<double> *joystick_vert_in, ChannelOut<double> *robot_hor_feedback, ChannelIn<double> *robot_hor_out, ChannelOut<double> *robot_ver_feedback, ChannelIn<double> *robot_ver_out);
   virtual ~JIWY();
 
 private:
 
-  // Class variables
-  uint16_t Test;
-
   // Channel definitions
-  UnbufferedChannel<uint32_t, One2In, Out2One> *myHorizontalcorr_to_VerticalcorrChannel;
-  UnbufferedChannel<uint32_t, One2In, Out2One> *myHorizontalout_to_Checkhor_check_inChannel;
-  UnbufferedChannel<uint32_t, One2In, Out2One> *myVerticalout_to_Checkvert_check_inChannel;
+  UnbufferedChannel<double, One2In, Out2One> *myHorizontalcorr_to_VerticalcorrChannel;
+  UnbufferedChannel<double, One2In, Out2One> *myHorizontalout_to_Checkhor_check_inChannel;
+  UnbufferedChannel<double, One2In, Out2One> *myVerticalout_to_Checkvert_check_inChannel;
 
   // Model objects
   Check::Check *myCheck;

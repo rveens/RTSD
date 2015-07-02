@@ -12,11 +12,15 @@
 #include "csp/CSP.h"
 
 // Hardware Channels
-#include "anyio/AnyioEncoderLinkDriver.h"
 #include "anyio/AnyioPWMLinkDriver.h"
+#include "anyio/AnyioEncoderLinkDriver.h"
 
 // Models
+#include "Encoder_convert/Encoder_convert.h"
+#include "Encoder_convert/Encoder_convert.h"
+#include "IO/IO.h"
 #include "JIWY/JIWY.h"
+#include "Joystick/Joystick.h"
 
 using namespace LUNA::CSP;
 
@@ -33,15 +37,23 @@ public:
 private:
 
   // Channel definitions
-  AnyIO::AnyioPWMLinkDriver *myJIWYrobot_hor_out_to_robot_pwm_horChannel;
-  AnyIO::AnyioPWMLinkDriver *myJIWYrobot_ver_out_to_robot_pwm_vertChannel;
-  AnyIO::AnyioEncoderLinkDriver<uint32_t> *myencoder_hor_feedback_to_JIWYjoystick_hor_inChannel;
-  AnyIO::AnyioEncoderLinkDriver<uint32_t> *myencoder_hor_robot_to_JIWYrobot_hor_feedbackChannel;
-  AnyIO::AnyioEncoderLinkDriver<uint32_t> *myencoder_ver_robot_to_JIWYrobot_ver_feedbackChannel;
-  AnyIO::AnyioEncoderLinkDriver<uint32_t> *myencoder_vert_feedback_to_JIWYjoystick_vert_inChannel;
+  UnbufferedChannel<double, One2In, Out2One> *myEncoder_horoutputport_to_JIWYrobot_hor_feedbackChannel;
+  UnbufferedChannel<double, One2In, Out2One> *myEncoder_veroutputport_to_JIWYrobot_ver_feedbackChannel;
+  AnyIO::AnyioPWMLinkDriver *myIOhor_output_to_robot_pwm_horChannel;
+  AnyIO::AnyioPWMLinkDriver *myIOver_output_to_robot_pwm_vertChannel;
+  UnbufferedChannel<double, One2In, Out2One> *myJIWYrobot_hor_out_to_IOhor_inputChannel;
+  UnbufferedChannel<double, One2In, Out2One> *myJIWYrobot_ver_out_to_IOver_inputChannel;
+  UnbufferedChannel<double, One2In, Out2One> *myJoystickjoystick_hor_to_JIWYjoystick_hor_inChannel;
+  UnbufferedChannel<double, One2In, Out2One> *myJoystickjoystick_ver_to_JIWYjoystick_vert_inChannel;
+  AnyIO::AnyioEncoderLinkDriver<uint32_t> *myencoder_hor_robot_to_Encoder_horinputportChannel;
+  AnyIO::AnyioEncoderLinkDriver<uint32_t> *myencoder_ver_robot_to_Encoder_verinputportChannel;
 
   // Model objects
+  Encoder_convert::Encoder_convert *myEncoder_hor;
+  Encoder_convert::Encoder_convert *myEncoder_ver;
+  IO::IO *myIO;
   JIWY::JIWY *myJIWY;
+  Joystick::Joystick *myJoystick;
 
   // Model groups
   Parallel *parallelGroup;

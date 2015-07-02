@@ -14,7 +14,7 @@
 
 namespace JIWY { namespace Check { namespace ChckHorCalc { 
 
-ChckHorCalc::ChckHorCalc(uint32_t &hor_in, uint32_t &hor_out) :
+ChckHorCalc::ChckHorCalc(double &hor_in, double &hor_out) :
     CodeBlock(), hor_in(hor_in), hor_out(hor_out)
 {
   SETNAME(this, "ChckHorCalc");
