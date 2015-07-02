@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <arch:ArchitectureDiagram file-version="0" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:arch="http:///nl/utwente/ce/terra/arch/model/architecture.ecore" xmlns:cpc="http:///nl/utwente/ce/terra/cpc/model/cpc.ecore" xmlns:hwanyio="http:///nl/utwente/ce/terra/arch/model/hw/anyio/hwanyio.ecore">
   <objects xsi:type="arch:ArchExternalModel" name="EncoderTester" constraints="112,192,140,53" externalSubmodel="/encodertester/model/EncoderTester.cspm">
-    <objects xsi:type="arch:ArchPort" direction="OUTGOING" link="//@links.0" unitType="//@properties.0/@units.1" name="port" constraints="130,23,10,10"/>
+    <objects xsi:type="arch:ArchPort" link="//@links.0" name="in" constraints="130,21,10,10"/>
   </objects>
-  <objects xsi:type="arch:ArchHWPort" link="//@links.0" name="encoderport" constraints="465,209,10,10">
+  <objects xsi:type="arch:ArchHWPort" direction="OUTGOING" link="//@links.0" unitType="//@properties.0/@units.1" name="encoderport" constraints="413,213,10,10">
     <configuration xsi:type="hwanyio:AnyioEncoderConfiguration" encodernr="2" encoderEnableBit="1"/>
   </objects>
   <properties xsi:type="cpc:CPCUnitsProperty">

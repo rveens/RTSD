@@ -21,22 +21,24 @@ MainModel::MainModel() :
 {
   SETNAME(this, "MainModel");
 
+  //enable IO privileges, due to use of in16() and out16() calls
   ThreadCtl(_NTO_TCTL_IO, 0);
 
+
   // Initialize hardware channels
-  AnyIO::AnyioEncoderSettingsSim myEncoderTesterport_to_encoderportChannelSettings;
-  myEncoderTesterport_to_encoderportChannelSettings.deviceNr = 0;
-  myEncoderTesterport_to_encoderportChannelSettings.encoderNr = 0;
-  myEncoderTesterport_to_encoderportChannelSettings.baseAddress = 0x0;
-  myEncoderTesterport_to_encoderportChannelSettings.registerSize = 4;
-  myEncoderTesterport_to_encoderportChannelSettings.baseControlAddress = 0x20;
-  myEncoderTesterport_to_encoderportChannelSettings.controlRegisterSize = 2;
-  myEncoderTesterport_to_encoderportChannelSettings.gModeAddress = 0x52;
-  myEncoderTesterport_to_encoderportChannelSettings.encoderEnableBit = 0;
-  myEncoderTesterport_to_encoderportChannel = new AnyIO::AnyioEncoderLinkDriverSim<uint32_t>(myEncoderTesterport_to_encoderportChannelSettings);
+  AnyIO::AnyioEncoderSettingsSim myencoderport_to_EncoderTesterinChannelSettings;
+  myencoderport_to_EncoderTesterinChannelSettings.deviceNr = 0;
+  myencoderport_to_EncoderTesterinChannelSettings.encoderNr = 2;
+  myencoderport_to_EncoderTesterinChannelSettings.baseAddress = 0x0;
+  myencoderport_to_EncoderTesterinChannelSettings.registerSize = 4;
+  myencoderport_to_EncoderTesterinChannelSettings.baseControlAddress = 0x20;
+  myencoderport_to_EncoderTesterinChannelSettings.controlRegisterSize = 2;
+  myencoderport_to_EncoderTesterinChannelSettings.gModeAddress = 0x52;
+  myencoderport_to_EncoderTesterinChannelSettings.encoderEnableBit = 1;
+  myencoderport_to_EncoderTesterinChannel = new AnyIO::AnyioEncoderLinkDriverSim<uint32_t>(myencoderport_to_EncoderTesterinChannelSettings);
 
   // Initialize model objects
-  myEncoderTester = new encodertestersubmodel::encodertestersubmodel(myEncoderTesterport_to_encoderportChannel);
+  myEncoderTester = new EncoderTester::EncoderTester(myencoderport_to_EncoderTesterinChannel);
   SETNAME(myEncoderTester, "EncoderTester");
 
   // Create Parallel group containing all architecture components
@@ -59,7 +61,7 @@ MainModel::~MainModel()
   delete myEncoderTester;
 
   // Destroy channels
-  delete myEncoderTesterport_to_encoderportChannel;
+  delete myencoderport_to_EncoderTesterinChannel;
 }
 
 // Close namespace(s)
