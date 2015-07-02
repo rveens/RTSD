@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<csp:CSPDiagram file-version="3" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cpc="http:///nl/utwente/ce/terra/cpc/model/cpc.ecore" xmlns:csp="http:///nl/utwente/ce/terra/csp/model/csp.ecore">
-  <objects xsi:type="csp:CSPPort" link="//@links.0" name="testport" constraints="666,217,10,10"/>
-  <objects xsi:type="csp:CSPWriter" name="testwr" constraints="485,208,40,40" link="//@links.0" variable="//@properties.0/@variables.0"/>
+<csp:CSPDiagram file-version="3" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cpc="http:///nl/utwente/ce/terra/cpc/model/cpc.ecore" xmlns:cpp="http:///nl/utwente/ce/terra/cpp/model/cpp.ecore" xmlns:csp="http:///nl/utwente/ce/terra/csp/model/csp.ecore">
+  <objects xsi:type="csp:CSPWriter" name="testwr" constraints="485,208,40,40" compositionalRelations="//@compositionalRelations.0" link="//@links.0" variable="//@properties.0/@variables.0"/>
+  <objects xsi:type="csp:CSPPort" link="//@links.0" name="port" constraints="757,228,10,10"/>
+  <objects xsi:type="csp:CSPModel" name="Pcode" constraints="325,201,71,61" compositionalRelations="//@compositionalRelations.0">
+    <submodel xsi:type="csp:CSPDiagram">
+      <properties xsi:type="csp:CSPVariablesProperty">
+        <variables name="test" linkedParent="//@properties.0/@variables.0"/>
+      </properties>
+    </submodel>
+    <configuration xsi:type="cpp:CPPCodeBlockConfiguration"/>
+  </objects>
+  <objects xsi:type="csp:CSPCompositionalGroup" name="SEQUENTIAL" constraints="300,176,250,111" relations="//@compositionalRelations.0"/>
   <properties xsi:type="csp:CSPVariablesProperty">
     <variables name="test" type="//@properties.1/@units.0"/>
   </properties>
   <properties xsi:type="cpc:CPCUnitsProperty">
-    <units name="test" unit="test"/>
+    <units name="test" type="time period" unit="test"/>
   </properties>
-  <links xsi:type="csp:CSPChannel" ports="//@objects.1 //@objects.0"/>
+  <properties xsi:type="cpc:CPCSharedDiagramProperty" componentName="submodel"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.0 //@objects.1"/>
+  <compositionalRelations compositeObjects="//@objects.2 //@objects.0" type="SEQUENTIAL" compositionalGroup="//@objects.3"/>
 </csp:CSPDiagram>
