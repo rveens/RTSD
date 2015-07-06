@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csp:CSPDiagram file-version="3" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cpc="http:///nl/utwente/ce/terra/cpc/model/cpc.ecore" xmlns:cpp="http:///nl/utwente/ce/terra/cpp/model/cpp.ecore" xmlns:csp="http:///nl/utwente/ce/terra/csp/model/csp.ecore">
+  <objects xsi:type="csp:CSPPort" link="//@links.0" name="joystick_hor" constraints="381,163,10,10"/>
+  <objects xsi:type="csp:CSPPort" link="//@links.1" name="joystick_ver" constraints="383,311,10,10"/>
+  <objects xsi:type="csp:CSPWriter" name="x_writer" constraints="253,154,40,40" compositionalRelations="//@compositionalRelations.0" link="//@links.0" variable="//@properties.2/@variables.0"/>
+  <objects xsi:type="csp:CSPWriter" name="y_writer" constraints="262,299,40,40" compositionalRelations="//@compositionalRelations.1" link="//@links.1" variable="//@properties.2/@variables.1"/>
+  <objects xsi:type="csp:CSPModel" name="x_code" constraints="113,152,50,50" compositionalRelations="//@compositionalRelations.0">
+    <submodel xsi:type="csp:CSPDiagram">
+      <properties xsi:type="csp:CSPVariablesProperty">
+        <variables name="x" linkedParent="//@properties.2/@variables.0"/>
+      </properties>
+    </submodel>
+    <configuration xsi:type="cpp:CPPCodeBlockConfiguration"/>
+  </objects>
+  <objects xsi:type="csp:CSPModel" name="y_code" constraints="101,311,50,50" compositionalRelations="//@compositionalRelations.1">
+    <submodel xsi:type="csp:CSPDiagram">
+      <properties xsi:type="csp:CSPVariablesProperty">
+        <variables name="y" linkedParent="//@properties.2/@variables.1"/>
+      </properties>
+    </submodel>
+    <configuration xsi:type="cpp:CPPCodeBlockConfiguration"/>
+  </objects>
+  <objects xsi:type="csp:CSPCompositionalGroup" name="SEQUENTIAL" constraints="88,127,230,100" compositionalRelations="//@compositionalRelations.2" relations="//@compositionalRelations.0"/>
+  <objects xsi:type="csp:CSPCompositionalGroup" name="SEQUENTIAL1" constraints="76,274,251,112" compositionalRelations="//@compositionalRelations.2" relations="//@compositionalRelations.1"/>
+  <objects xsi:type="csp:CSPCompositionalGroup" name="PARALLEL" constraints="51,102,301,309" relations="//@compositionalRelations.2"/>
+  <properties xsi:type="cpc:CPCSharedDiagramProperty" componentName="Joystick"/>
+  <properties xsi:type="cpc:CPCUnitsProperty">
+    <units name="double" type="real" unit="bit"/>
+  </properties>
+  <properties xsi:type="csp:CSPVariablesProperty">
+    <variables name="x" type="//@properties.1/@units.0"/>
+    <variables name="y" type="//@properties.1/@units.0"/>
+  </properties>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.2 //@objects.0"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.3 //@objects.1"/>
+  <compositionalRelations compositeObjects="//@objects.4 //@objects.2" type="SEQUENTIAL" compositionalGroup="//@objects.6"/>
+  <compositionalRelations compositeObjects="//@objects.5 //@objects.3" type="SEQUENTIAL" compositionalGroup="//@objects.7"/>
+  <compositionalRelations compositeObjects="//@objects.6 //@objects.7" compositionalGroup="//@objects.8"/>
+</csp:CSPDiagram>

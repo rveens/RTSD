@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arch:ArchitectureDiagram file-version="0" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:arch="http:///nl/utwente/ce/terra/arch/model/architecture.ecore" xmlns:cpc="http:///nl/utwente/ce/terra/cpc/model/cpc.ecore" xmlns:hwanyio="http:///nl/utwente/ce/terra/arch/model/hw/anyio/hwanyio.ecore">
+  <objects xsi:type="arch:ArchHWPort" link="//@links.4" name="robot_pwm_hor" constraints="414,191,10,10">
+    <configuration xsi:type="hwanyio:AnyioPWMConfiguration" pwmnr="2" bridgeType="Thiemo H-Bridge"/>
+  </objects>
+  <objects xsi:type="arch:ArchHWPort" link="//@links.5" name="robot_pwm_vert" constraints="418,237,10,10">
+    <configuration xsi:type="hwanyio:AnyioPWMConfiguration" pwmnr="3" bridgeType="Thiemo H-Bridge"/>
+  </objects>
+  <objects xsi:type="arch:ArchExternalModel" name="JIWY" constraints="218,164,113,98" externalSubmodel="/JIWYrealtime/model/JIWY.cspm">
+    <objects xsi:type="arch:ArchPort" link="//@links.3" unitType="//@properties.0/@units.5" name="robot_hor_feedback" constraints="50,0,10,10"/>
+    <objects xsi:type="arch:ArchPort" link="//@links.0" unitType="//@properties.0/@units.5" name="joystick_hor_in" constraints="0,18,10,10"/>
+    <objects xsi:type="arch:ArchPort" link="//@links.7" unitType="//@properties.0/@units.5" name="robot_ver_feedback" constraints="50,88,10,10"/>
+    <objects xsi:type="arch:ArchPort" direction="OUTGOING" link="//@links.4" unitType="//@properties.0/@units.2" name="robot_hor_out" constraints="103,31,10,10"/>
+    <objects xsi:type="arch:ArchPort" direction="OUTGOING" link="//@links.5" unitType="//@properties.0/@units.2" name="robot_ver_out" constraints="103,71,10,10"/>
+    <objects xsi:type="arch:ArchPort" link="//@links.1" unitType="//@properties.0/@units.5" name="joystick_vert_in" constraints="0,69,10,10"/>
+  </objects>
+  <objects xsi:type="arch:ArchHWPort" direction="OUTGOING" link="//@links.2" name="encoder_hor_robot" constraints="274,25,10,10">
+    <configuration xsi:type="hwanyio:AnyioEncoderConfiguration" encodernr="2" encoderEnableBit="1"/>
+  </objects>
+  <objects xsi:type="arch:ArchHWPort" direction="OUTGOING" link="//@links.6" name="encoder_ver_robot" constraints="269,402,10,10">
+    <configuration xsi:type="hwanyio:AnyioEncoderConfiguration" encodernr="3" encoderEnableBit="1"/>
+  </objects>
+  <objects xsi:type="arch:ArchExternalModel" name="Joystick" constraints="39,167,91,70" externalSubmodel="/JIWYrealtime/model/Joystick.cspm">
+    <objects xsi:type="arch:ArchPort" direction="OUTGOING" link="//@links.0" name="joystick_hor" constraints="81,0,10,10"/>
+    <objects xsi:type="arch:ArchPort" direction="OUTGOING" link="//@links.1" name="joystick_ver" constraints="81,60,10,10"/>
+  </objects>
+  <objects xsi:type="arch:ArchExternalModel" name="Encoder_hor" constraints="233,54,97,67" externalSubmodel="/JIWYrealtime/model/Encoder_convert.cspm">
+    <objects xsi:type="arch:ArchPort" link="//@links.2" unitType="//@properties.0/@units.6" name="inputport" constraints="40,0,10,10"/>
+    <objects xsi:type="arch:ArchPort" direction="OUTGOING" link="//@links.3" name="outputport" constraints="46,57,10,10"/>
+  </objects>
+  <objects xsi:type="arch:ArchExternalModel" name="Encoder_vert" constraints="250,307,50,50" externalSubmodel="/JIWYrealtime/model/Encoder_vert.cspm">
+    <objects xsi:type="arch:ArchPort" link="//@links.6" unitType="//@properties.0/@units.6" name="inputport" constraints="21,40,10,10"/>
+    <objects xsi:type="arch:ArchPort" direction="OUTGOING" link="//@links.7" unitType="//@properties.0/@units.5" name="outputport" constraints="21,0,10,10"/>
+  </objects>
+  <properties xsi:type="cpc:CPCUnitsProperty">
+    <units name="IO" type="unsigned 32-bit" unit="xxsim"/>
+    <units name="IO" type="unsigned 32-bit" unit="xxsim"/>
+    <units name="16" type="unsigned 16 bit" unit="bit"/>
+    <units name="16" type="real" unit="bit"/>
+    <units name="double" type="real" unit="bit"/>
+    <units name="IO" type="real" unit="xxsim"/>
+    <units name="input" type="unsigned 32-bit" unit="encoder"/>
+    <units name="output" type="real" unit="jiwy"/>
+  </properties>
+  <links xsi:type="arch:ArchLink" ports="//@objects.5/@objects.0 //@objects.2/@objects.1"/>
+  <links xsi:type="arch:ArchLink" ports="//@objects.5/@objects.1 //@objects.2/@objects.5"/>
+  <links xsi:type="arch:ArchLink" ports="//@objects.3 //@objects.6/@objects.0"/>
+  <links xsi:type="arch:ArchLink" ports="//@objects.6/@objects.1 //@objects.2/@objects.0"/>
+  <links xsi:type="arch:ArchLink" ports="//@objects.2/@objects.3 //@objects.0"/>
+  <links xsi:type="arch:ArchLink" ports="//@objects.2/@objects.4 //@objects.1"/>
+  <links xsi:type="arch:ArchLink" ports="//@objects.4 //@objects.7/@objects.0"/>
+  <links xsi:type="arch:ArchLink" ports="//@objects.7/@objects.1 //@objects.2/@objects.2"/>
+</arch:ArchitectureDiagram>

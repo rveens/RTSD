@@ -1,0 +1,4 @@
+binaryPath=/opt/LUNA/target-i386-qnx6.5.0_i586_CSP/lib
+eclipse.preferences.version=1
+includePath=/opt/LUNA/target-i386-qnx6.5.0_i586_CSP/include
+targetPlatform=QNX

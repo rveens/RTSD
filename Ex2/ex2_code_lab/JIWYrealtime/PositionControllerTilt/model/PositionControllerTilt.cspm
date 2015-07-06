@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ASCII"?>
+<csp:CSPDiagram file-version="3" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cpc="http:///nl/utwente/ce/terra/cpc/model/cpc.ecore" xmlns:csp="http:///nl/utwente/ce/terra/csp/model/csp.ecore" xmlns:xxsim="http:///nl/utwente/ce/terra/xxsim/model/xxsim.ecore">
+  <objects xsi:type="csp:CSPPort" link="//@links.0" name="out" constraints="555,75,10,10"/>
+  <objects xsi:type="csp:CSPWriter" name="w_out" constraints="460,60,40,40" compositionalRelations="//@compositionalRelations.3" link="//@links.0" variable="//@properties.2/@variables.0"/>
+  <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.1" name="corr" constraints="75,75,10,10"/>
+  <objects xsi:type="csp:CSPReader" name="r_corr" constraints="140,60,40,40" compositionalRelations="//@compositionalRelations.0" link="//@links.1" variable="//@properties.2/@variables.1"/>
+  <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.2" name="in" constraints="75,155,10,10"/>
+  <objects xsi:type="csp:CSPReader" name="r_in" constraints="140,140,40,40" compositionalRelations="//@compositionalRelations.0 //@compositionalRelations.1" link="//@links.2" variable="//@properties.2/@variables.2"/>
+  <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.3" name="position" constraints="75,235,10,10"/>
+  <objects xsi:type="csp:CSPReader" name="r_position" constraints="140,220,40,40" compositionalRelations="//@compositionalRelations.1" link="//@links.3" variable="//@properties.2/@variables.3"/>
+  <objects xsi:type="csp:CSPCompositionalGroup" name="IOSEQ" constraints="100,20,440,280" relations="//@compositionalRelations.2 //@compositionalRelations.3"/>
+  <objects xsi:type="csp:CSPCompositionalGroup" name="INS" constraints="120,40,80,240" compositionalRelations="//@compositionalRelations.2" relations="//@compositionalRelations.0 //@compositionalRelations.1"/>
+  <objects xsi:type="csp:CSPModel" name="XXPositionControllerTiltModel" constraints="285,135,70,50" compositionalRelations="//@compositionalRelations.2 //@compositionalRelations.3">
+    <submodel xsi:type="csp:CSPDiagram">
+      <properties xsi:type="csp:CSPVariablesProperty">
+        <variables name="out" linkedParent="//@properties.2/@variables.0"/>
+        <variables name="corr" linkedParent="//@properties.2/@variables.1"/>
+        <variables name="in" linkedParent="//@properties.2/@variables.2"/>
+        <variables name="position" linkedParent="//@properties.2/@variables.3"/>
+      </properties>
+    </submodel>
+    <configuration xsi:type="xxsim:XXSimCPPCodeBlockConfiguration" xxsimName="PositionControllerTiltModel">
+      <headerFiles>xxsim/PositionControllerTiltModel.hpp</headerFiles>
+      <sourceFiles>src/xxsim/PositionControllerTiltModel.cpp</sourceFiles>
+      <mapping name="out" size="1,1" index="8" io="OUTPUT"/>
+      <mapping name="corr" size="1,1" index="9"/>
+      <mapping name="in" size="1,1" index="10"/>
+      <mapping name="position" size="1,1" index="11"/>
+    </configuration>
+  </objects>
+  <properties xsi:type="cpc:CPCSharedDiagramProperty" componentName="PositionControllerTilt"/>
+  <properties xsi:type="cpc:CPCUnitsProperty">
+    <units name="IO" type="real" unit="xxsim"/>
+  </properties>
+  <properties xsi:type="csp:CSPVariablesProperty">
+    <variables name="v_out" type="//@properties.1/@units.0"/>
+    <variables name="v_corr" type="//@properties.1/@units.0"/>
+    <variables name="v_in" type="//@properties.1/@units.0"/>
+    <variables name="v_position" type="//@properties.1/@units.0"/>
+  </properties>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.0 //@objects.1"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.2 //@objects.3"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.4 //@objects.5"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.6 //@objects.7"/>
+  <compositionalRelations compositeObjects="//@objects.3 //@objects.5" compositionalGroup="//@objects.9"/>
+  <compositionalRelations compositeObjects="//@objects.5 //@objects.7" compositionalGroup="//@objects.9"/>
+  <compositionalRelations compositeObjects="//@objects.9 //@objects.10" type="SEQUENTIAL" compositionalGroup="//@objects.8"/>
+  <compositionalRelations compositeObjects="//@objects.10 //@objects.1" type="SEQUENTIAL" compositionalGroup="//@objects.8"/>
+</csp:CSPDiagram>

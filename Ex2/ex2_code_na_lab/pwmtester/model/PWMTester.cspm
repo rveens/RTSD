@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csp:CSPDiagram file-version="3" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cpc="http:///nl/utwente/ce/terra/cpc/model/cpc.ecore" xmlns:cpp="http:///nl/utwente/ce/terra/cpp/model/cpp.ecore" xmlns:csp="http:///nl/utwente/ce/terra/csp/model/csp.ecore">
+  <objects xsi:type="csp:CSPPort" link="//@links.0" name="pwmport" constraints="491,241,10,10"/>
+  <objects xsi:type="csp:CSPModel" name="Pcode" constraints="194,221,50,50" compositionalRelations="//@compositionalRelations.0">
+    <submodel xsi:type="csp:CSPDiagram">
+      <properties xsi:type="csp:CSPVariablesProperty">
+        <variables name="test" linkedParent="//@properties.2/@variables.0"/>
+      </properties>
+    </submodel>
+    <configuration xsi:type="cpp:CPPCodeBlockConfiguration"/>
+  </objects>
+  <objects xsi:type="csp:CSPWriter" name="pwmwriter" constraints="355,226,40,40" compositionalRelations="//@compositionalRelations.0" link="//@links.0" variable="//@properties.2/@variables.0"/>
+  <objects xsi:type="csp:CSPCompositionalGroup" name="SEQUENTIAL" constraints="169,196,251,100" relations="//@compositionalRelations.0"/>
+  <properties xsi:type="cpc:CPCSharedDiagramProperty" componentName="PWMTester"/>
+  <properties xsi:type="cpc:CPCUnitsProperty">
+    <units name="test" type="unsigned 16 bit" unit="test"/>
+  </properties>
+  <properties xsi:type="csp:CSPVariablesProperty">
+    <variables name="test" type="//@properties.1/@units.0"/>
+  </properties>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.2 //@objects.0"/>
+  <compositionalRelations compositeObjects="//@objects.1 //@objects.2" type="SEQUENTIAL" compositionalGroup="//@objects.3"/>
+</csp:CSPDiagram>

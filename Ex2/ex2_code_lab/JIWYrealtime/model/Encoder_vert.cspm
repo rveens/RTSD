@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csp:CSPDiagram file-version="3" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cpc="http:///nl/utwente/ce/terra/cpc/model/cpc.ecore" xmlns:cpp="http:///nl/utwente/ce/terra/cpp/model/cpp.ecore" xmlns:csp="http:///nl/utwente/ce/terra/csp/model/csp.ecore">
+  <objects xsi:type="csp:CSPCompositionalGroup" name="SEQUENTIAL" constraints="150,180,304,107" relations="//@compositionalRelations.0 //@compositionalRelations.1"/>
+  <objects xsi:type="csp:CSPReader" name="encoder_reader" constraints="175,208,40,40" compositionalRelations="//@compositionalRelations.0" link="//@links.0" variable="//@properties.1/@variables.0"/>
+  <objects xsi:type="csp:CSPModel" name="encodervert" constraints="271,212,50,50" compositionalRelations="//@compositionalRelations.0 //@compositionalRelations.1">
+    <submodel xsi:type="csp:CSPDiagram">
+      <properties xsi:type="csp:CSPVariablesProperty">
+        <variables name="input" linkedParent="//@properties.1/@variables.0"/>
+        <variables name="output" type="//@properties.0/@units.0" linkedParent="//@properties.1/@variables.1"/>
+      </properties>
+    </submodel>
+    <configuration xsi:type="cpp:CPPCodeBlockConfiguration"/>
+  </objects>
+  <objects xsi:type="csp:CSPWriter" name="endocer_writer" constraints="389,205,40,40" compositionalRelations="//@compositionalRelations.1" link="//@links.1" variable="//@properties.1/@variables.1"/>
+  <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@links.0" name="inputport" constraints="53,212,10,10"/>
+  <objects xsi:type="csp:CSPPort" link="//@links.1" name="outputport" constraints="483,219,10,10"/>
+  <properties xsi:type="cpc:CPCUnitsProperty">
+    <units name="IO" type="real" unit="xxsim"/>
+    <units name="input" type="unsigned 32-bit" unit="encoder"/>
+  </properties>
+  <properties xsi:type="csp:CSPVariablesProperty">
+    <variables name="input" type="//@properties.0/@units.1"/>
+    <variables name="output" type="//@properties.0/@units.0"/>
+  </properties>
+  <properties xsi:type="cpc:CPCSharedDiagramProperty" componentName="Encoder_vert"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.4 //@objects.1"/>
+  <links xsi:type="csp:CSPChannel" ports="//@objects.3 //@objects.5"/>
+  <compositionalRelations compositeObjects="//@objects.1 //@objects.2" type="SEQUENTIAL" compositionalGroup="//@objects.0"/>
+  <compositionalRelations compositeObjects="//@objects.2 //@objects.3" type="SEQUENTIAL" compositionalGroup="//@objects.0"/>
+</csp:CSPDiagram>
