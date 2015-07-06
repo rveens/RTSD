@@ -20,6 +20,7 @@
 #include "Encoder_vert/Encoder_vert.h"
 #include "JIWY/JIWY.h"
 #include "Joystick/Joystick.h"
+#include "IO/IO.h"
 
 using namespace LUNA::CSP;
 
@@ -38,18 +39,21 @@ private:
   // Channel definitions
   UnbufferedChannel<double, One2In, Out2One> *myEncoder_horoutputport_to_JIWYrobot_hor_feedbackChannel;
   UnbufferedChannel<double, One2In, Out2One> *myEncoder_vertoutputport_to_JIWYrobot_ver_feedbackChannel;
-  AnyIO::AnyioPWMLinkDriver *myJIWYrobot_hor_out_to_robot_pwm_horChannel;
-  AnyIO::AnyioPWMLinkDriver *myJIWYrobot_ver_out_to_robot_pwm_vertChannel;
+  UnbufferedChannel<double, One2In, Out2One> *myJIWYrobot_hor_out_to_iohorinChannel;
+  UnbufferedChannel<double, One2In, Out2One> *myJIWYrobot_ver_out_to_ioverinChannel;
   UnbufferedChannel<double, One2In, Out2One> *myJoystickjoystick_hor_to_JIWYjoystick_hor_inChannel;
   UnbufferedChannel<double, One2In, Out2One> *myJoystickjoystick_ver_to_JIWYjoystick_vert_inChannel;
   AnyIO::AnyioEncoderLinkDriver<uint32_t> *myencoder_hor_robot_to_Encoder_horinputportChannel;
   AnyIO::AnyioEncoderLinkDriver<uint32_t> *myencoder_ver_robot_to_Encoder_vertinputportChannel;
+  AnyIO::AnyioPWMLinkDriver *myiohorout_to_robot_pwm_horChannel;
+  AnyIO::AnyioPWMLinkDriver *myioverout_to_robot_pwm_vertChannel;
 
   // Model objects
   Encoder_convert::Encoder_convert *myEncoder_hor;
   Encoder_vert::Encoder_vert *myEncoder_vert;
   JIWY::JIWY *myJIWY;
   Joystick::Joystick *myJoystick;
+  IO::IO *myio;
 
   // Model groups
   Parallel *parallelGroup;

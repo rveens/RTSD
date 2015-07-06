@@ -16,7 +16,8 @@ bin/overview: overview/overview | bin
 	@echo "Build $@"
 
 # Additional dependencies to ensure that bin/overview gets properly rebuild
-overview/overview: overview/src/main.cpp JIWY/lib/libJIWY.a Joystick/lib/libJoystick.a Encoder_convert/lib/libEncoder_convert.a Encoder_vert/lib/libEncoder_vert.a PositionControllerPan/lib/libPositionControllerPan.a PositionControllerTilt/lib/libPositionControllerTilt.a
-overview/overview: overview/src/MainModel.cpp overview/include/MainModel.h Encoder_convert/include/Encoder_convert/Encoder_convert.h Encoder_vert/include/Encoder_vert/Encoder_vert.h JIWY/include/JIWY/JIWY.h Joystick/include/Joystick/Joystick.h PositionControllerTilt/include/PositionControllerTilt/PositionControllerTilt.h PositionControllerPan/include/PositionControllerPan/PositionControllerPan.h
+overview/overview: overview/src/main.cpp JIWY/lib/libJIWY.a Joystick/lib/libJoystick.a Encoder_convert/lib/libEncoder_convert.a Encoder_vert/lib/libEncoder_vert.a IO/lib/libIO.a PositionControllerPan/lib/libPositionControllerPan.a PositionControllerTilt/lib/libPositionControllerTilt.a
+overview/overview: overview/src/MainModel.cpp overview/include/MainModel.h Encoder_convert/include/Encoder_convert/Encoder_convert.h Encoder_vert/include/Encoder_vert/Encoder_vert.h JIWY/include/JIWY/JIWY.h Joystick/include/Joystick/Joystick.h IO/include/IO/IO.h PositionControllerTilt/include/PositionControllerTilt/PositionControllerTilt.h PositionControllerPan/include/PositionControllerPan/PositionControllerPan.h
+
 # protected region additional dependencies on begin
 # protected region additional dependencies end

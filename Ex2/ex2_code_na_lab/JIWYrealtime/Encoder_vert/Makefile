@@ -10,7 +10,7 @@ SOURCE_FILES=src/Encoder_vert.cpp src/encodervert.cpp
 .SECONDEXPANSION:
 
 # Contains the compiler commands that were used to build LUNA
--include /opt/LUNA/target-i386-qnx6.5.0_i586_CSP/lib/../tools.mk
+-include /opt/LUNA/target-i386-qnx6.6.0_i586_CSP/lib/../tools.mk
 ifneq ($(QNX_BUILD),1)
   $(warning The generated code is for QNX, while tools.mk does not indicate that LUNA is build for QNX)
 endif
@@ -20,8 +20,8 @@ RM=rm -rf
 MKDIR=mkdir -p
 
 # Compiler/Linker flags
-LDFLAGS+=-L/opt/LUNA/target-i386-qnx6.5.0_i586_CSP/lib
-CPPFLAGS+=-Iinclude/Encoder_vert -I/opt/LUNA/target-i386-qnx6.5.0_i586_CSP/include
+LDFLAGS+=-L/opt/LUNA/target-i386-qnx6.6.0_i586_CSP/lib
+CPPFLAGS+=-Iinclude/Encoder_vert -I/opt/LUNA/target-i386-qnx6.6.0_i586_CSP/include
 LIBS+=-lLUNA
 
 

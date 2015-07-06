@@ -20,7 +20,6 @@ encodervert::encodervert(uint32_t &input, double &output) :
   SETNAME(this, "encodervert");
 
   // protected region constructor on begin
-
   // protected region constructor end
 }
 
@@ -46,8 +45,9 @@ double encodervert::convert(uint32_t i)
 
 double encodervert::scale(double n)
 {
-	return (n/8000)*2*M_PI;
+	return (n/6000)*2*M_PI;
 }
+// protected region additional functions end
 
 // Close namespace(s)
 } } 

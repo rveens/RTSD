@@ -14,8 +14,8 @@
 
 namespace JIWY { namespace Check { namespace ChckHorCalc { 
 
-ChckHorCalc::ChckHorCalc(double &hor_in, uint16_t &hor_out) :
-    CodeBlock(), hor_in(hor_in), hor_out(hor_out)
+ChckHorCalc::ChckHorCalc(double &hor) :
+    CodeBlock(), hor(hor)
 {
   SETNAME(this, "ChckHorCalc");
 
@@ -34,26 +34,13 @@ ChckHorCalc::~ChckHorCalc()
 void ChckHorCalc::execute()
 {
   // protected region execute code on begin
-	this->hor_out = convert(this->hor_in);
-	printf("Horizontal: in: %f, out: %d\n", hor_in, hor_out);
+
   // protected region execute code end
 }
 
 
 
 // protected region additional functions on begin
-uint16_t ChckHorCalc::convert(double f)
-{
-	int16_t deadzone = 1000;
-
-	int16_t n = f*(32768-deadzone);
-	if(n>0)
-		n += deadzone;
-	else if(n<0)
-		n -= deadzone;
-
-	return (uint16_t)n;
-}
 // protected region additional functions end
 
 // Close namespace(s)
