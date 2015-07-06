@@ -10,7 +10,7 @@ SOURCE_FILES=src/main.cpp src/MainModel.cpp
 .SECONDEXPANSION:
 
 # Contains the compiler commands that were used to build LUNA
--include /opt/LUNA/target-i386-qnx6.5.0_i586_CSP/lib/../tools.mk
+-include /opt/LUNA/target-i386-qnx6.6.0_i586_CSP/lib/../tools.mk
 ifneq ($(QNX_BUILD),1)
   $(warning The generated code is for QNX, while tools.mk does not indicate that LUNA is build for QNX)
 endif
@@ -20,14 +20,14 @@ RM=rm -rf
 MKDIR=mkdir -p
 
 # Compiler/Linker flags
-LDFLAGS+=-L/opt/LUNA/target-i386-qnx6.5.0_i586_CSP/lib
-CPPFLAGS+=-Iinclude -I/opt/LUNA/target-i386-qnx6.5.0_i586_CSP/include
+LDFLAGS+=-L/opt/LUNA/target-i386-qnx6.6.0_i586_CSP/lib
+CPPFLAGS+=-Iinclude -I/opt/LUNA/target-i386-qnx6.6.0_i586_CSP/include
 LIBS+=-lLUNA
 
 # Add external model paths
-CPPFLAGS+= -I ../Encoder_convert/include -I ../Encoder_vert/include -I ../JIWY/include -I ../Joystick/include -I ../PositionControllerTilt/include -I ../PositionControllerPan/include
-LDFLAGS+= -L ../Encoder_convert/lib -L ../Encoder_vert/lib -L ../JIWY/lib -L ../Joystick/lib -L ../PositionControllerTilt/lib -L ../PositionControllerPan/lib
-LIBS:= -lPositionControllerTilt -lPositionControllerPan -lEncoder_convert -lEncoder_vert -lJIWY -lJoystick $(LIBS) -lm
+CPPFLAGS+= -I ../Encoder_convert/include -I ../Encoder_vert/include -I ../JIWY/include -I ../Joystick/include -I ../IO/include -I ../PositionControllerTilt/include -I ../PositionControllerPan/include
+LDFLAGS+= -L ../Encoder_convert/lib -L ../Encoder_vert/lib -L ../JIWY/lib -L ../Joystick/lib -L ../IO/lib -L ../PositionControllerTilt/lib -L ../PositionControllerPan/lib
+LIBS:= -lPositionControllerTilt -lPositionControllerPan -lEncoder_convert -lEncoder_vert -lJIWY -lJoystick -lIO $(LIBS) -lm
 
 
 
@@ -74,10 +74,11 @@ overview: ../JIWY/lib/libJIWY.a
 overview: ../Joystick/lib/libJoystick.a
 overview: ../Encoder_convert/lib/libEncoder_convert.a
 overview: ../Encoder_vert/lib/libEncoder_vert.a
+overview: ../IO/lib/libIO.a
 overview: ../PositionControllerTilt/lib/libPositionControllerTilt.a
 overview: ../PositionControllerPan/lib/libPositionControllerPan.a
 obj/main.o: include/MainModel.h
-obj/MainModel.o: include/MainModel.h ../Encoder_convert/include/Encoder_convert/Encoder_convert.h ../Encoder_vert/include/Encoder_vert/Encoder_vert.h ../JIWY/include/JIWY/JIWY.h ../Joystick/include/Joystick/Joystick.h ../PositionControllerTilt/include/PositionControllerTilt/PositionControllerTilt.h ../PositionControllerPan/include/PositionControllerPan/PositionControllerPan.h
+obj/MainModel.o: include/MainModel.h ../Encoder_convert/include/Encoder_convert/Encoder_convert.h ../Encoder_vert/include/Encoder_vert/Encoder_vert.h ../JIWY/include/JIWY/JIWY.h ../Joystick/include/Joystick/Joystick.h ../IO/include/IO/IO.h ../PositionControllerTilt/include/PositionControllerTilt/PositionControllerTilt.h ../PositionControllerPan/include/PositionControllerPan/PositionControllerPan.h
 
 # protected region additional targets on begin
 # protected region additional targets end

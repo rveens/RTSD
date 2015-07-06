@@ -17,16 +17,14 @@
       <objects xsi:type="csp:CSPModel" name="ChckHorCalc" constraints="237,163,102,53" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.0 //@objects.0/@submodel/@compositionalRelations.2">
         <submodel xsi:type="csp:CSPDiagram">
           <properties xsi:type="csp:CSPVariablesProperty">
-            <variables name="hor_in" linkedParent="//@objects.0/@submodel/@properties.0/@variables.0"/>
-            <variables name="hor_out" linkedParent="//@objects.0/@submodel/@properties.0/@variables.3"/>
+            <variables name="hor" linkedParent="//@objects.0/@submodel/@properties.0/@variables.0"/>
           </properties>
         </submodel>
       </objects>
       <objects xsi:type="csp:CSPModel" name="ChkVerCalc" constraints="230,352,99,52" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.1 //@objects.0/@submodel/@compositionalRelations.3">
         <submodel xsi:type="csp:CSPDiagram">
           <properties xsi:type="csp:CSPVariablesProperty">
-            <variables name="ver_in" linkedParent="//@objects.0/@submodel/@properties.0/@variables.1"/>
-            <variables name="ver_out" linkedParent="//@objects.0/@submodel/@properties.0/@variables.2"/>
+            <variables name="ver" linkedParent="//@objects.0/@submodel/@properties.0/@variables.1"/>
           </properties>
         </submodel>
       </objects>
@@ -35,17 +33,15 @@
       <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@objects.0/@submodel/@links.0" name="hor_check_in" constraints="36,165,10,10"/>
       <objects xsi:type="csp:CSPPort" direction="OUTGOING" link="//@objects.0/@submodel/@links.1" name="vert_check_in" constraints="33,383,10,10"/>
       <objects xsi:type="csp:CSPPort" link="//@objects.0/@submodel/@links.2" name="hor_robot_out" constraints="538,158,10,10"/>
-      <objects xsi:type="csp:CSPPort" link="//@objects.0/@submodel/@links.3" unitType="//@properties.0/@units.1" name="vert_robot_out" constraints="551,388,10,10"/>
-      <objects xsi:type="csp:CSPWriter" name="hor_out_writer" constraints="401,180,40,40" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.2" link="//@objects.0/@submodel/@links.2" variable="//@objects.0/@submodel/@properties.0/@variables.3"/>
-      <objects xsi:type="csp:CSPWriter" name="ver_out_writer" constraints="406,371,40,40" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.3" link="//@objects.0/@submodel/@links.3" variable="//@objects.0/@submodel/@properties.0/@variables.2"/>
+      <objects xsi:type="csp:CSPPort" link="//@objects.0/@submodel/@links.3" unitType="//@properties.0/@units.0" name="vert_robot_out" constraints="551,388,10,10"/>
+      <objects xsi:type="csp:CSPWriter" name="hor_out_writer" constraints="401,180,40,40" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.2" link="//@objects.0/@submodel/@links.2" variable="//@objects.0/@submodel/@properties.0/@variables.0"/>
+      <objects xsi:type="csp:CSPWriter" name="ver_out_writer" constraints="406,371,40,40" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.3" link="//@objects.0/@submodel/@links.3" variable="//@objects.0/@submodel/@properties.0/@variables.1"/>
       <objects xsi:type="csp:CSPCompositionalGroup" name="SEQUENTIAL1" constraints="87,138,379,107" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.4" relations="//@objects.0/@submodel/@compositionalRelations.0 //@objects.0/@submodel/@compositionalRelations.2"/>
       <objects xsi:type="csp:CSPCompositionalGroup" name="SEQUENTIAL" constraints="95,327,376,109" compositionalRelations="//@objects.0/@submodel/@compositionalRelations.4" relations="//@objects.0/@submodel/@compositionalRelations.3 //@objects.0/@submodel/@compositionalRelations.1"/>
       <objects xsi:type="csp:CSPCompositionalGroup" name="PARALLEL" constraints="62,113,434,348" relations="//@objects.0/@submodel/@compositionalRelations.4"/>
       <properties xsi:type="csp:CSPVariablesProperty">
-        <variables name="hor_in" type="//@properties.0/@units.0"/>
-        <variables name="ver_in" type="//@properties.0/@units.0"/>
-        <variables name="ver_out" type="//@properties.0/@units.1"/>
-        <variables name="hor_out" type="//@properties.0/@units.1"/>
+        <variables name="hor" type="//@properties.0/@units.0"/>
+        <variables name="ver" type="//@properties.0/@units.0"/>
       </properties>
       <links xsi:type="csp:CSPChannel" ports="//@objects.0/@submodel/@objects.4 //@objects.0/@submodel/@objects.2"/>
       <links xsi:type="csp:CSPChannel" ports="//@objects.0/@submodel/@objects.5 //@objects.0/@submodel/@objects.3"/>

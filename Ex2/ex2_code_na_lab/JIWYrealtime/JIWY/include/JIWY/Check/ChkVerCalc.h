@@ -24,15 +24,14 @@ class ChkVerCalc : public CodeBlock
 
 public:
   // Define constructor and destructor
-  ChkVerCalc(double &ver_in, uint16_t &ver_out);
+  ChkVerCalc(double &ver);
   virtual ~ChkVerCalc();
   void execute();
 
 private:
 
   // Class variables
-  double &ver_in;
-  uint16_t &ver_out;
+  double &ver;
 
 
 

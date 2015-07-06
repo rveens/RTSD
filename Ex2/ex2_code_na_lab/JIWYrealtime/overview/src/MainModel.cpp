@@ -24,36 +24,12 @@ MainModel::MainModel() :
   // Initialize channels
   myEncoder_horoutputport_to_JIWYrobot_hor_feedbackChannel = new UnbufferedChannel<double, One2In, Out2One>();
   myEncoder_vertoutputport_to_JIWYrobot_ver_feedbackChannel = new UnbufferedChannel<double, One2In, Out2One>();
+  myJIWYrobot_hor_out_to_iohorinChannel = new UnbufferedChannel<double, One2In, Out2One>();
+  myJIWYrobot_ver_out_to_ioverinChannel = new UnbufferedChannel<double, One2In, Out2One>();
   myJoystickjoystick_hor_to_JIWYjoystick_hor_inChannel = new UnbufferedChannel<double, One2In, Out2One>();
   myJoystickjoystick_ver_to_JIWYjoystick_vert_inChannel = new UnbufferedChannel<double, One2In, Out2One>();
 
   // Initialize hardware channels
-  AnyIO::AnyioPWMSettings myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings;
-  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.deviceNr = 0;
-  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.pwmNr = 2;
-  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.interlaced = false;
-  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.bridge_type = 1; //Thiemo H-Bridge 
-  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.baseAddress = 0x30;
-  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.registerSize = 2;
-  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.baseControlAddress = 0x40;
-  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.controlRegisterSize = 2;
-  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.gModeAddress = 0x52;
-  myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings.pwmEnableBit = 1;
-  myJIWYrobot_hor_out_to_robot_pwm_horChannel = new AnyIO::AnyioPWMLinkDriver(myJIWYrobot_hor_out_to_robot_pwm_horChannelSettings);
-
-  AnyIO::AnyioPWMSettings myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings;
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.deviceNr = 0;
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.pwmNr = 3;
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.interlaced = false;
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.bridge_type = 1; //Thiemo H-Bridge 
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.baseAddress = 0x30;
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.registerSize = 2;
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.baseControlAddress = 0x40;
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.controlRegisterSize = 2;
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.gModeAddress = 0x52;
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings.pwmEnableBit = 1;
-  myJIWYrobot_ver_out_to_robot_pwm_vertChannel = new AnyIO::AnyioPWMLinkDriver(myJIWYrobot_ver_out_to_robot_pwm_vertChannelSettings);
-
   AnyIO::AnyioEncoderSettings myencoder_hor_robot_to_Encoder_horinputportChannelSettings;
   myencoder_hor_robot_to_Encoder_horinputportChannelSettings.deviceNr = 0;
   myencoder_hor_robot_to_Encoder_horinputportChannelSettings.encoderNr = 2;
@@ -76,15 +52,43 @@ MainModel::MainModel() :
   myencoder_ver_robot_to_Encoder_vertinputportChannelSettings.encoderEnableBit = 1;
   myencoder_ver_robot_to_Encoder_vertinputportChannel = new AnyIO::AnyioEncoderLinkDriver<uint32_t>(myencoder_ver_robot_to_Encoder_vertinputportChannelSettings);
 
+  AnyIO::AnyioPWMSettings myiohorout_to_robot_pwm_horChannelSettings;
+  myiohorout_to_robot_pwm_horChannelSettings.deviceNr = 0;
+  myiohorout_to_robot_pwm_horChannelSettings.pwmNr = 2;
+  myiohorout_to_robot_pwm_horChannelSettings.interlaced = false;
+  myiohorout_to_robot_pwm_horChannelSettings.bridge_type = 1; //Thiemo H-Bridge 
+  myiohorout_to_robot_pwm_horChannelSettings.baseAddress = 0x30;
+  myiohorout_to_robot_pwm_horChannelSettings.registerSize = 2;
+  myiohorout_to_robot_pwm_horChannelSettings.baseControlAddress = 0x40;
+  myiohorout_to_robot_pwm_horChannelSettings.controlRegisterSize = 2;
+  myiohorout_to_robot_pwm_horChannelSettings.gModeAddress = 0x52;
+  myiohorout_to_robot_pwm_horChannelSettings.pwmEnableBit = 1;
+  myiohorout_to_robot_pwm_horChannel = new AnyIO::AnyioPWMLinkDriver(myiohorout_to_robot_pwm_horChannelSettings);
+
+  AnyIO::AnyioPWMSettings myioverout_to_robot_pwm_vertChannelSettings;
+  myioverout_to_robot_pwm_vertChannelSettings.deviceNr = 0;
+  myioverout_to_robot_pwm_vertChannelSettings.pwmNr = 3;
+  myioverout_to_robot_pwm_vertChannelSettings.interlaced = false;
+  myioverout_to_robot_pwm_vertChannelSettings.bridge_type = 1; //Thiemo H-Bridge 
+  myioverout_to_robot_pwm_vertChannelSettings.baseAddress = 0x30;
+  myioverout_to_robot_pwm_vertChannelSettings.registerSize = 2;
+  myioverout_to_robot_pwm_vertChannelSettings.baseControlAddress = 0x40;
+  myioverout_to_robot_pwm_vertChannelSettings.controlRegisterSize = 2;
+  myioverout_to_robot_pwm_vertChannelSettings.gModeAddress = 0x52;
+  myioverout_to_robot_pwm_vertChannelSettings.pwmEnableBit = 1;
+  myioverout_to_robot_pwm_vertChannel = new AnyIO::AnyioPWMLinkDriver(myioverout_to_robot_pwm_vertChannelSettings);
+
   // Initialize model objects
   myEncoder_hor = new Encoder_convert::Encoder_convert(myencoder_hor_robot_to_Encoder_horinputportChannel, myEncoder_horoutputport_to_JIWYrobot_hor_feedbackChannel);
   SETNAME(myEncoder_hor, "Encoder_hor");
   myEncoder_vert = new Encoder_vert::Encoder_vert(myencoder_ver_robot_to_Encoder_vertinputportChannel, myEncoder_vertoutputport_to_JIWYrobot_ver_feedbackChannel);
   SETNAME(myEncoder_vert, "Encoder_vert");
-  myJIWY = new JIWY::JIWY(myJoystickjoystick_hor_to_JIWYjoystick_hor_inChannel, myJoystickjoystick_ver_to_JIWYjoystick_vert_inChannel, myEncoder_horoutputport_to_JIWYrobot_hor_feedbackChannel, myJIWYrobot_hor_out_to_robot_pwm_horChannel, myEncoder_vertoutputport_to_JIWYrobot_ver_feedbackChannel, myJIWYrobot_ver_out_to_robot_pwm_vertChannel);
+  myJIWY = new JIWY::JIWY(myJoystickjoystick_hor_to_JIWYjoystick_hor_inChannel, myJoystickjoystick_ver_to_JIWYjoystick_vert_inChannel, myEncoder_horoutputport_to_JIWYrobot_hor_feedbackChannel, myJIWYrobot_hor_out_to_iohorinChannel, myEncoder_vertoutputport_to_JIWYrobot_ver_feedbackChannel, myJIWYrobot_ver_out_to_ioverinChannel);
   SETNAME(myJIWY, "JIWY");
   myJoystick = new Joystick::Joystick(myJoystickjoystick_hor_to_JIWYjoystick_hor_inChannel, myJoystickjoystick_ver_to_JIWYjoystick_vert_inChannel);
   SETNAME(myJoystick, "Joystick");
+  myio = new IO::IO(myJIWYrobot_hor_out_to_iohorinChannel, myiohorout_to_robot_pwm_horChannel, myJIWYrobot_ver_out_to_ioverinChannel, myioverout_to_robot_pwm_vertChannel);
+  SETNAME(myio, "io");
 
   // Create Parallel group containing all architecture components
   parallelGroup = new Parallel(
@@ -92,6 +96,7 @@ MainModel::MainModel() :
     (CSPConstruct *) myEncoder_vert,
     (CSPConstruct *) myJIWY,
     (CSPConstruct *) myJoystick,
+    (CSPConstruct *) myio,
     NULL
   );
   SETNAME(parallelGroup, "parallelGroup");
@@ -106,6 +111,7 @@ MainModel::~MainModel()
   // TODO Properly destroy all additional objects that got defined in the constructor
 
   // Destroy model objects
+  delete myio;
   delete myJoystick;
   delete myJIWY;
   delete myEncoder_vert;
@@ -114,12 +120,14 @@ MainModel::~MainModel()
   // Destroy channels
   delete myEncoder_horoutputport_to_JIWYrobot_hor_feedbackChannel;
   delete myEncoder_vertoutputport_to_JIWYrobot_ver_feedbackChannel;
-  delete myJIWYrobot_hor_out_to_robot_pwm_horChannel;
-  delete myJIWYrobot_ver_out_to_robot_pwm_vertChannel;
+  delete myJIWYrobot_hor_out_to_iohorinChannel;
+  delete myJIWYrobot_ver_out_to_ioverinChannel;
   delete myJoystickjoystick_hor_to_JIWYjoystick_hor_inChannel;
   delete myJoystickjoystick_ver_to_JIWYjoystick_vert_inChannel;
   delete myencoder_hor_robot_to_Encoder_horinputportChannel;
   delete myencoder_ver_robot_to_Encoder_vertinputportChannel;
+  delete myiohorout_to_robot_pwm_horChannel;
+  delete myioverout_to_robot_pwm_vertChannel;
 }
 
 // Close namespace(s)
