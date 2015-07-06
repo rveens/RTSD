@@ -184,13 +184,109 @@ We used the clock cycle approach, as described in section~\ref{sec:1_4} answer 1
 
 \section{JIWYIO Linkdrivers}
 \subsection{JIWYIO driver components}
-\todo{Uitleg}
+We made the two models suggested in the exercise description.
+\subsubsection{PWMTester}
+We tested writing some values to the simulated port, first (codeblock~\ref{code:pwmex}).
+After that we made a function to convert from int16$\_$t to uint16$\_$t by using bit-shift operations.
+However, we later found that this convert function could be replaced by a simple 
+cast from int16\_t to uint16\_t (codeblock~\ref{code:pwmcon}). \\
+\todo{Reasoning normalize function.}
+\begin{lstlisting}[caption=Pcode::execute, label=code:pwmex, language=C++]
+void Pcode::execute()
+{
+  // protected region execute code on begin
+	static double t = 1.0;
+
+	//t = -32768; // fast reverse
+	//t = 32767; // fast forward
+	//t = 32768; // stop
+	//t = -1000; // deadzone?
+
+	//this->test = (uint16_t) t;
+
+	this->test = convert(normalise(t));
+	printf("%lf, %lf, %d \n", t, normalise(t), convert(normalise(t)));
+	//t+= 6.28318;
+	while(t>512)
+		t-= 1024;
+
+  // protected region execute code end
+}
+\end{lstlisting}
+\begin{lstlisting}[caption=Pcode::convert, label=code:pwmcon, language=C++]
+// protected region additional functions on begin
+uint16_t Pcode::convert(double f)
+{
+	int16_t deadzone = 2200;
+
+	int16_t n = f*(32768-deadzone);
+	if(n>0)
+		n += deadzone;
+	else if(n<0)
+		n -= deadzone;
+
+	if(n>=0 && n<32768)
+		return n;
+	else if(n >= -32768 && n<0)
+	{
+		return (uint16_t)n;
+	}
+	else
+		return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption=Pcode::normalise, label=code:pwmnor, language=C++]
+double Pcode::normalise(double n)
+{
+	// linear conversion assumed
+	double min=-512, max=512;
+
+	// normalise to [-1,1]
+	n-= min;
+	n/= max - min;
+	n*= 2;
+	n-= 1;
+
+	return n;
+
+	/*
+	// scale to int16_t
+	if(n=1)
+		return 32767;
+	else
+		return n*32768;
+	//*/
+}
+\end{lstlisting}
+\subsubsection{EncoderTester}
+The EncoderTester model merely prints values read from the port. We found out 
+that converting from uint32\_t to int32\_t could be done by a simple cast. 
+\begin{lstlisting}[caption=Relevant EncoderTester functions, label=code:enc, language=C++]
+void Pcode::execute()
+{
+  // protected region execute code on begin
+	printf("%d, %f - ", this->test, convert(this->test));
+  // protected region execute code end
+}
+
+// protected region additional functions on begin
+double Pcode::convert(uint32_t i)
+{
+	return (int32_t)i;
+}
+\end{lstlisting}
 
 \subsection{Questions}
 \begin{enumerate}
- \item \todo{todo}
- \item \todo{What!? ... You want us to tell you how the tool should work? This isn't software specification, and even worse, the tool is not the subject, it's the tool...}
- \item The most obvious drawback is of course that you need to do the exact same edits every time you generate code from the models. Another drawback is that you have to adapt your code to run simulations for testing. It is not possible to test the actual code that will be run in the real environment.
+	\item The advantage of testing the link driver with a software simulation 
+		allows us to run the program without requiring hardware.
+		If in a project the hardware and software where to be developed 
+		separately, this allows the software to be developed in parallel to the hardware.
+		So, in this project, it allows us to make sure our program (reading/writing from a port) works correctly without being in the lab.
+	\item One could attempt to make use of C++ sub-classing with a clear defined interface.
+		This would mean one subclass for simulation and one for the actual hardware.
+		This seems to be already implemented. The manual code changes could be solved by clever usage of regular expressions. The user interface is not really an issue here.
+	\item The most obvious drawback is of course that you need to do the exact same edits every time you generate code from the models. Another drawback is that you have to adapt your code to run simulations for testing. It is not possible to test the actual code that will be run in the real environment.
 \end{enumerate}
 
 \subsection{JIWYIO driver components in the lab}
@@ -203,7 +299,13 @@ run 2: 100Hz, timer_test2.csv - oscilloscope: 20.0 ms
 \subsection{Questions}
 \begin{enumerate}
  \item \todo{todo}
- \item \todo{todo}
+ \item The 'first a dry-run and then testing in the lab'-approach is effective, because, it allows the software to be developed in parallel to the hardware.
+	 This requires the interface to the hardware to be clearly defined.
+	 \smallskip
+
+	 One should take note that the dry-run software simulation is not a 
+	 substitute for testing the code on real hardware.
+	 The code might work in the simulation, but not on the real hardware.
 \end{enumerate}
 
 \section{Controlling JIWY with QNX \& CSP}
