@@ -118,7 +118,29 @@ void Pcode::execute()
 }
 \end{lstlisting}
 \begin{lstlisting}[caption=Pcode::execute (improved), label=code:timer2, language=C++]
-todo
+void Pcode::execute()
+{
+  // protected region execute code on begin
+	static struct timespec t1;
+	static uint64_t clockcycle;
+
+	struct timespec t2;
+	struct timespec res;
+	uint64_t currentcycle = ClockCycles();
+
+	clock_gettime(CLOCK_REALTIME, &t2);
+	clock_getres(CLOCK_REALTIME, &res);
+	int64_t dcycle= currentcycle-clockcycle;
+	uint64_t cps = SYSPAGE_ENTRY(qtime)->cycles_per_sec;
+
+	if(currentcycle > clockcycle)
+		printf("%lld, %lld, %lld, %ld.%.9ld, %ld.%.9ld, %ld.%.9ld\n", currentcycle, clockcycle, cps, res.tv_sec, res.tv_nsec, t2.tv_sec, t2.tv_nsec, t1.tv_sec, t1.tv_nsec);
+
+	t1 = t2;
+	clockcycle = currentcycle;
+
+	// protected region execute code end
+}
 \end{lstlisting}
 
 \begin{figure}
@@ -142,13 +164,13 @@ todo
 \begin{enumerate}
  \item Measured over $1522$ intervals, the variation is $3.667 \cdot 10^{-8}$ s$^2$ or $0.03667$ ms$^2$. Since the clock resolution of QNX in virtual box ($0.000999848$ s) is so much larger than the observed variation, our measurements are not accurate enough to result in a variation that is representative for the actual variation. With a clock resolution of $0.000999848$ s, and a timer that ticks every $0.250000000$ s without jitter, we expect $\lceil 0.25/0.000999848 \rceil - 0.25/0.000999848 = 96.2\%$ of the measurements to be $\lfloor 0.25/0.000999848 \rfloor \cdot 0.000999848 = 0.249962$ s, and the other $3.8\%$ to be $\lceil 0.25/0.000999848 \rceil \cdot 0.000999848 = 0.250962$ s. In $1522$ measurements we found $96.2\%$ of the intervals to be $0.249962$ s and $3.8\%$ $0.250962$ s. Therefore, our measurements do not provide evidence of jitter.
  
- Up to a jitter bounded by $0.250000 - 0.249962 = 0.00038$ s $= 380$ $\mu$s, we would still expect the same results. For larger jitter, we would expect more and more measurements to be $0.248962$ s. So we can strengthen our claim: our measurements do not provide evidence of jitter larger than $380$ $\mu$s.
+ Up to a jitter bounded by $0.250000 - 0.249962 = 0.00038$ s $= 380$ $\mu$s, we would still expect the same results. For larger jitter, we would expect to occasionally measure intervals of $0.248962$ s. So we can strengthen our claim: our measurements do not provide evidence of jitter larger than $380$ $\mu$s.
  
- We performed a second series of measurements, this time with the timer interval set to $0.249962$, an exact multiple of the clock resolution. We measured $1967$ intervals. With this configuration, we are likely to pick up on jitter with a variation larger than $(0.000999848/1967 \cdot 10^6)^2 \approx 0.258$ $\mu$s$^2$.
+ We performed a second series of measurements, this time with the timer interval set to $0.249962$, an exact multiple of the clock resolution. We measured $1967$ intervals. With this configuration, we are likely to pick up on a variation larger than $(0.000999848/1967 \cdot 10^6)^2 \approx 0.258$ $\mu$s$^2$.
  
  Results of the second test is shown in figure~\ref{fig:interval-jitter}. This shows that there is indeed jitter. The variation of our measurements is $0.06$ ms$^2$.
  
- For a third test we used a method of timing with a resolution that is much higher: \texttt{ClockCycles()} from \texttt{sys/neutrino.h}. We can retrieve the number of clock cycles per second, so we can deduce how much time has passed if we know how many clock cycles passed. We measured $3339$ intervals using this method. The distribution of intervals is shown in figure~\ref{fig:interval-jitter2}. We can clearly see hoe the jitter behaves. It is still distributed somewhat discretely, but smaller deviations are now clearly shown. In this test the variation of the measurements is $7.814$ ms$^2$.
+ For a third test we used a method of timing with a resolution that is much higher: \texttt{ClockCycles()} from \texttt{sys/neutrino.h}. We can retrieve the number of clock cycles per second, so we can deduce how much time has passed from the number of clock cycles that have passed. We measured $3339$ intervals using this method. The distribution of intervals is shown in figure~\ref{fig:interval-jitter2}. We can clearly see how the jitter behaves. It is still distributed somewhat discretely, but smaller deviations are now clearly shown. In this test the variation of the measurements is $0.078$ ms$^2$.
  
  \item This jitter is the result of simulating a real time OS in an environment that is not real time. Since the host OS decided when the virtual OS can run, and the host OS cannot guarantee to meet real time requirements, the virtual OS is unable to meet those requirements either.
  
@@ -173,15 +195,65 @@ todo
 
 \FloatBarrier
 \subsection{Validation}
-We used the clock cycle approach, as described in section~\ref{sec:1_4} answer 1, to determine the exact interval.
+We further extended the code measuring the intervals to send an alternating signal to an output pin (see codeblock~\ref{code:timer3} \todo{and figure x}). The signal switches from high to low, or form low to high at each timer tick, producing a square wave of which we can measure the period using an oscilloscope.
+
+\begin{lstlisting}[caption=Pcode::execute (extended), label=code:timer3, language=C++]
+void Pcode::execute()
+{
+  // protected region execute code on begin
+	static struct timespec t1;
+	static uint64_t clockcycle;
+
+	if (oc)
+		oc = 0;
+	else
+		oc = 1;
+
+	//printf("oc: %d\n", oc);
+
+	struct timespec t2;
+	struct timespec res;
+	uint64_t currentcycle = ClockCycles();
+
+	clock_gettime(CLOCK_REALTIME, &t2);
+	clock_getres(CLOCK_REALTIME, &res);
+	int64_t dcycle= currentcycle-clockcycle;
+	uint64_t cps = SYSPAGE_ENTRY(qtime)->cycles_per_sec;
+
+	if(currentcycle > clockcycle)
+		printf("%lld, %lld, %lld, %ld.%.9ld, %ld.%.9ld, %ld.%.9ld\n", currentcycle, clockcycle, cps, res.tv_sec, res.tv_nsec, t2.tv_sec, t2.tv_nsec, t1.tv_sec, t1.tv_nsec);
+
+	t1 = t2;
+	clockcycle = currentcycle;
+
+	// protected region execute code end
+}
+\end{lstlisting}
 
 \subsection{Questions}
 \begin{enumerate}
- \item \todo{todo}
- \item \todo{todo}
- \item \todo{todo}
+ \item Using the oscilloscope has the obvious disadvantages: it requires the availability of the oscilloscope, and an output pin. This output pin is not (easily) available for our dry-runs in a virtual machine. An additional disadvantage is that the supplied oscilloscope did not appear to have a function to measure a series of intervals easily. Only one measurement was shown on screen, updating frequently, making it very hard to generate a list of 1000-3000 measurements for an accurate assessment of the jitter like we did with the software method.
+ 
+ The software method uses the same timing hardware to both produce the timer ticks, as to measure the intervals. This method only accurately measures the timer intervals, if the timing hardware is reliable.
+ \item We ran two tests in the lab, one with a frequency of 4 Hz, and one with a frequency of 100 Hz. The readings from the oscilloscope seemed to agree with the measurements using the number of clockcycles, showing a period of 500.0 ms, sometimes 501.0 or 499.0 in the first run, and a period of 20.0 ms during the second run. We measured $758$ and $936$ intervals for 4 Hz and 100Hz respectively, using the number of clock cycles. Distribution of these measurements are shown in figure~\ref{fig:interval-jitter-rt} and figure~\ref{fig:interval-jitter-rt2}. Variation of these measurements are $0.053$ ms$^2$ and $0.0011$ ms$^2$ respectively. We see from the distribution that the test with 4 Hz resulted in two narrow peaks. We don't have an explanation for this \todo{(try to explain, or not)}, but clearly observe that the variation is a lot less than when using the virtual machine, more so than the actual variation of $0.053$ ms$^2$ would suggest.
+ 
+ \item \todo{What theory?}
 \end{enumerate}
 
+\begin{figure}
+ \centering
+ \includegraphics[width=0.8\textwidth]{./img/interval-jitter-rt.png}
+ \caption{Distribution of intervals in the lab, with the timer set to 4 Hz.}
+ \label{fig:interval-jitter-rt}
+\end{figure}
+\begin{figure}
+ \centering
+ \includegraphics[width=0.8\textwidth]{./img/interval-jitter-rt2.png}
+ \caption{Distribution of intervals in the lab, with the timer set to 100 Hz.}
+ \label{fig:interval-jitter-rt2}
+\end{figure}
+
+\FloatBarrier
 \section{JIWYIO Linkdrivers}
 \subsection{JIWYIO driver components}
 We made the two models suggested in the exercise description.
@@ -290,11 +362,7 @@ double Pcode::convert(uint32_t i)
 \end{enumerate}
 
 \subsection{JIWYIO driver components in the lab}
-\todo{Notes uitwerken}
-
-run 1: 4Hz, timer_test1.csv - oscilloscope: 500.0 ms (sometimes 501.0 or 499.0)
-
-run 2: 100Hz, timer_test2.csv - oscilloscope: 20.0 ms
+\todo{todo}
 
 \subsection{Questions}
 \begin{enumerate}
