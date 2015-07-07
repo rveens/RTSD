@@ -308,9 +308,24 @@ run 2: 100Hz, timer_test2.csv - oscilloscope: 20.0 ms
 	 The code might work in the simulation, but not on the real hardware.
 \end{enumerate}
 
+\newpage
+
 \section{Controlling JIWY with QNX \& CSP}
+Before the lab, we prepaired a TERRA project that contains the following functionality in submodels:
+\begin{enumerate}
+	\item Joystick input handling.
+	\item JIWY model of Ex1 with TERRA-models of the provided 20sim models.
+	\item IO output handling. Transforming double to int16\_t.
+	\item Vertical and Horizonal encoding handling.
+\end{enumerate}
+See figure~\ref{fig:jiwy-overview}.
+\begin{figure}
+ \centering
+ \includegraphics[width=0.8\textwidth]{./img/jiwy-overview.png}
+ \caption{Top architecture model of the Ex2 JIWY model.}
+ \label{fig:jiwy-overview}
+\end{figure}
 \subsection{Test at the lab}
-\todo{report}
 
 \subsection{Questions}
 \begin{enumerate}
