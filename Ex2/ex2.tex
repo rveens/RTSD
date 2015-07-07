@@ -583,9 +583,20 @@ We implemented joystick button functionality and a way to exit the program witho
 	\item Moving parts could by obstructed by, in the worst case, bodyparts. In this case, the motors are not powerful enough to really inflict damage on its surrounding, but it could damage its own motors or mechanics by hitting obstructions. When the software detects unexpected values from its sensors, signalling that the hardware is not doing what it should do, all moving parts could be stopped to prevent damage. This is best implemented in a similar place as the check for hitting endstops.
 	
 	Another possibility is misfunctioning sensors, giving a static signal or a very noisy one. This would make it impossible for JIWY to function properly. To implement this, the faulty behaviour needs to be detected. This should be done by comparing the actual sensor data to the expected values. If the actual data is very different from the expected values, the process should switch to another mode (simplest would be just to stop). This needs an adjustment in the 20-sim model, to generate expected sensor values, and then CSP submodel need to be added to compare expected values with the actual values.
+	
 	\item We could hold the camera, keeping it from moving to test how the system deals with physical obstructions. We could simulate faulty sensor data to test the fault detected, or actually break the sensors. This last option is of course not desirable.
-	\item \todo{todo}
+	
+	\item See figure~\ref{fig:slide}. The exercises on JIWY started with a given CSP model that was mostly filled in and that had to be checked for deadlocks/livelocks (exercise 1.4.x). This part corresponds to 1b and 2b. Part 2c (Control laws) is given in this exercise set, it is the 20sim model of the JIWY controller in exercise 2. Part 3a corresponds with the work in exercise 2 that was done at home: the generation of TERRA CSP models of the given 20sim model, the addition of Joystick input and adding encoder/PWM ports. The simulations done at home correspond to step 3b. Lastly, the exercise in the lab corresponds to step 4.
+
+	The parts of the design flow that are related to the plant dynamics modeling did not appear in the  JIWY exercise set, they were given. This is, presumably, because the course is focused on the software development of real-time embedded systems. 
 \end{enumerate}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{./img/slide.png}
+	\caption{061-Law-Code.pptx.pdf slide 14}
+	\label{fig:slide}
+\end{figure}
 
 \begin{figure}[ht]
 	\begin{subfigure}{\textwidth}
