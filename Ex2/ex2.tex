@@ -381,25 +381,24 @@ We wired up the fly wheel and started the EncoderTester. In the console, the val
 \section{Controlling JIWY with QNX \& CSP}
 Before the lab, we prepared a TERRA project that contains Joystick, JIWY, IO and 
 encoder conversion submodels. See figure~\ref{fig:jiwy-overview} for a screenshot of the top architecture model.
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.7\textwidth]{./img/jiwy-overview.png}
 	\caption{Top architecture model of the Ex2 JIWY model.}
 	\label{fig:jiwy-overview}
 \end{figure}
-\subsubsection{Joystick input handling.} \\
-This model (figure~\ref{fig:jiwy-joystick}) contains C++ code blocks that implement the Joystick 
+\subsubsection{Joystick input handling.}
+This model (figure~\ref{fig:jiwy-joystick}) contains \cpp code blocks that implement the Joystick 
 functionality as suggested in Appendix B of the assignment document.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.4\textwidth]{./img/jiwy-joystick.png}
 	\caption{The JIWY Joystick submodel}
 	\label{fig:jiwy-joystick}
 \end{figure}
-See codeblock~\ref{code:x_code} for relevant code of the x\_code codeblock. y\_code is almost identical.
+See codeblock~\ref{code:x_code} for relevant code of the \texttt{x\_code} codeblock. \texttt{y\_code} is almost identical.
 
-\newpage 
 \begin{lstlisting}[caption=x\_code Joystick C++ code block, label=code:x_code, language=C++]
 /**
  * Source file for the x_code model
@@ -470,7 +469,7 @@ void x_code::execute()
 The overview model's (figure~\ref{fig:jiwy-overview}) JIWY model (figure~\ref{fig:jiwy-jiwy}) 
 is very similar to the model we looked at in exercise 1. The only difference is that 
 It has imported models from the given 20sim JIWY model, 'Horizontal' and 'Vertical'.
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 		\includegraphics[width=0.6\textwidth]{./img/jiwy-jiwy.png}
 		\caption{JIWY}
@@ -479,10 +478,10 @@ It has imported models from the given 20sim JIWY model, 'Horizontal' and 'Vertic
 
 See figure~\ref{fig:jiwysubmodel} for the submodels of Horizontal, Vertical and Check.
 \subsubsection{IO output handling.}
-The IO model of our top-level model (figure~\ref{fig:jiwy-overview}) converts input from JIWY (double) to HW port (uint16\_t). See figure~\ref{fig:jiwy-IO}.
+The IO model of our top-level model (figure~\ref{fig:jiwy-overview}) converts input from JIWY (double) to HW port (\texttt{uint16\_t}). See figure~\ref{fig:jiwy-IO}.
 Codeblock~\ref{code:IO} presents the relevant code that is used to do the conversion.
-Note that the code of hor\_convert and ver\_convert is identical.
-\begin{figure}[h]
+Note that the code of \texttt{hor\_convert} and \texttt{ver\_convert} is identical.
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.7\textwidth]{./img/jiwy-IO.png}
 	\caption{IO}
@@ -513,13 +512,12 @@ uint16_t ver_convert::convert(double f)
 \end{lstlisting}
 
 \subsubsection{Vertical and Horizonal encoding handling.}
-Encoder\_hor and Encoder\_vert of the top-level model (figure~\ref{fig:jiwy-overview}) are very similar.
-They both consist of a C++ codeblock that does some conversion. 
-Specifically, converting from uint32\_t to double. 
+\texttt{Encoder\_hor} and \texttt{Encoder\_vert} of the top-level model (figure~\ref{fig:jiwy-overview}) are very similar. They both consist of a \cpp codeblock that does some conversion. 
+Specifically, converting from \texttt{uint32\_t} to \texttt{double}. 
 
 See figure~\ref{fig:jiwy-encoder} for a screenshot of the encoder model, and 
-codeblock~\ref{code:encoder} for the code (same code in Encoder\_Hor and Encoder\_vert).
-\begin{figure}[h]
+codeblock~\ref{code:encoder} for the code (same code in \texttt{Encoder\_Hor} and \texttt{Encoder\_vert}).
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.7\textwidth]{./img/jiwy-encoder.png}
 	\caption{Encoder}
@@ -550,24 +548,30 @@ During the lab test we had a few problems. However, we got it working in the end
 
 Here is a list of things that we had to adjust in the lab:
 \begin{itemize}
-	\item Joystick input was not working: when creating the HIDAbsAxisChannel we entered an arbitrary string instead of the '/dev/joystick2' device file.
-	\item The output of our Joystick component was not normalized to -1 .. 1.
+	\item Joystick input was not working: when creating the \texttt{HIDAbsAxisChannel} we entered an arbitrary string instead of the `/dev/joystick2' device file.
+	\item The output of our Joystick component was not normalized to $-1$ .. $1$.
 
-		We understood from the 20sim model that the JIWY controller model input was a value between -512 and 512, this is wrong.
-	\item The IO sub-module's C++ codeblocks had their variables erroneously linked with the wrong parent variables.
-	\item The Joystick input was reversed, so we changed it around.
+		We understood from the 20sim model that the JIWY controller model input was a value between $-512$ and $512$, this is wrong.
+	\item The IO sub-module's \cpp codeblocks had their variables erroneously linked with the wrong parent variables.
+	\item The Joystick input was reversed, so we multiplied it by $-1$.
 	\item The conversion code of the IO block was initially in the check part of the JIWY model.
-		We changed this to a separate model because it makes more sense.
-		The conversion to uint16\_t has nothing to do with the JIWY model.
+		We changed this to a separate model because it makes more sense. The conversion to \texttt{uint16\_t} has nothing to do with the JIWY model.
+	\item The JIWY model expected radian values for the angles of the motors. We had to do some scaling to achieve this.
+	\item The JIWY model output for PWM ranged from $-1$ to $1$, not from $-512$ to $512$ as we initially thought. This was easily fixed.
+	\item JIWY had trouble keeping the camera still when we mapped every non-zero value to a PWM value outside the deadzone. So we re\"introduced a deadzone, slightly smaller than the original one, by assuming a deadzone between $-1000$ and $1000$, instead of $-2200$ and $2200$. This maps small values to within the actual deadzone of the motor.
 \end{itemize}
 
 \subsection{Questions}
 \begin{enumerate}
-	\item We put the scaling code in two models called Encoder\_hor and 
-		Encoder\_vert. See figure~\ref{fig:jiwy-overview} and codeblock~\ref{code:encoder} for the code.
+	\item We put scaling code in two models called \texttt{Encoder\_hor} and 
+		\texttt{Encoder\_vert}. See figure~\ref{fig:jiwy-overview} and codeblock~\ref{code:encoder} for the code.
+		
+		We put scaling code in the Joystick submodel, see codeblock~\ref{code:x_code} line $49$.
+		
+		We put scaling code in the IO submodel, see codeblock~\ref{code:IO}
 
-		We put the scaler-code models outside of the JIWY model because we see it as an extra layer to the JIWY model, instead of a part of the JIWY model itself.
-	\item \todo{todo}
+		We put the scaling code models outside of the JIWY model because we see it as an extra layer to the JIWY model, instead of a part of the JIWY model itself.
+	\item This is best implemented inside the check JIWY submodel, shown in figure~\ref{fig:jiwysubmodel-check}, as a layer between the JIWY calculation, and the actual IO conversion.
 \end{enumerate}
 
 \subsection{Further functionality}
@@ -575,13 +579,13 @@ We implemented joystick button functionality and a way to exit the program witho
 
 \subsection{Questions}
 \begin{enumerate}
-	\item \todo{todo}
+	\item Not applicable
 	\item \todo{todo}
 	\item \todo{todo}
 	\item \todo{todo}
 \end{enumerate}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\begin{subfigure}{\textwidth}
 		\centering
 		\includegraphics[width=0.8\textwidth]{./img/jiwy-jiwy-hor.png}
@@ -596,6 +600,7 @@ We implemented joystick button functionality and a way to exit the program witho
 		\centering
 		\includegraphics[width=0.7\textwidth]{./img/jiwy-jiwy-check.png}
 		\caption{Check}
+		\label{fig:jiwysubmodel-check}
 	\end{subfigure}
 	\caption{JIWY submodels.}
 	\label{fig:jiwysubmodel}
