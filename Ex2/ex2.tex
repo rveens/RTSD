@@ -175,7 +175,7 @@ void Pcode::execute()
  
  \item This jitter is the result of simulating a real time OS in an environment that is not real time. Since the host OS decided when the virtual OS can run, and the host OS cannot guarantee to meet real time requirements, the virtual OS is unable to meet those requirements either.
  
- \item We observe from figure~\ref{fig:interval-jitter} that the timer tick is occasionally delayed by more than $1$ ms. Such a delay is not acceptable in many real time applications. \todo{Example.}
+ \item We observe from figure~\ref{fig:interval-jitter} that the timer tick is occasionally delayed by more than $1$ ms. Such a delay is not acceptable in many real time applications. What is worse, we have no guarantee that the delay is bounded. This could be catastrophic for an Anti-lock Brake System, or Autopilot.
  
  \item No. Our virtual machines run on a non real time OS (GNU/Linux), so it can happen that the host OS is very busy with tasks that have a higher priority than the virtual machines, postponing execution of the real time OS unboundedly, disabling QNX to meet its real time requirements.
  
@@ -196,7 +196,7 @@ void Pcode::execute()
 
 \FloatBarrier
 \subsection{Validation}
-We further extended the code measuring the intervals to send an alternating signal to an output pin (see codeblock~\ref{code:timer3} \todo{and figure x}). The signal switches from high to low, or form low to high at each timer tick, producing a square wave of which we can measure the period using an oscilloscope.
+We further extended the code measuring the intervals to send an alternating signal to an output pin (see codeblock~\ref{code:timer3}). The signal switches from high to low, or form low to high at each timer tick, producing a square wave of which we can measure the period using an oscilloscope.
 
 \begin{lstlisting}[caption=Pcode::execute (extended), label=code:timer3, language=C++]
 void Pcode::execute()
@@ -236,9 +236,9 @@ void Pcode::execute()
  \item Using the oscilloscope has the obvious disadvantages: it requires the availability of the oscilloscope, and an output pin. This output pin is not (easily) available for our dry-runs in a virtual machine. An additional disadvantage is that the supplied oscilloscope did not appear to have a function to measure a series of intervals easily. Only one measurement was shown on screen, updating frequently, making it very hard to generate a list of 1000-3000 measurements for an accurate assessment of the jitter like we did with the software method.
  
  The software method uses the same timing hardware to both produce the timer ticks, as to measure the intervals. This method only accurately measures the timer intervals, if the timing hardware is reliable.
- \item We ran two tests in the lab, one with a frequency of 4 Hz, and one with a frequency of 100 Hz. The readings from the oscilloscope seemed to agree with the measurements using the number of clockcycles, showing a period of 500.0 ms, sometimes 501.0 or 499.0 in the first run, and a period of 20.0 ms during the second run. We measured $758$ and $936$ intervals for 4 Hz and 100Hz respectively, using the number of clock cycles. Distribution of these measurements are shown in figure~\ref{fig:interval-jitter-rt} and figure~\ref{fig:interval-jitter-rt2}. Variation of these measurements are $0.053$ ms$^2$ and $0.0011$ ms$^2$ respectively. We see from the distribution that the test with 4 Hz resulted in two narrow peaks. We don't have an explanation for this \todo{(try to explain, or not)}, but clearly observe that the variation is a lot less than when using the virtual machine, more so than the actual variation of $0.053$ ms$^2$ would suggest.
+ \item We ran two tests in the lab, one with a frequency of 4 Hz, and one with a frequency of 100 Hz. The readings from the oscilloscope seemed to agree with the measurements using the number of clockcycles, showing a period of 500.0 ms, sometimes 501.0 or 499.0 in the first run, and a period of 20.0 ms during the second run. We measured $758$ and $936$ intervals for 4 Hz and 100Hz respectively, using the number of clock cycles. Distribution of these measurements are shown in figure~\ref{fig:interval-jitter-rt} and figure~\ref{fig:interval-jitter-rt2}. Variation of these measurements are $0.053$ ms$^2$ and $0.0011$ ms$^2$ respectively. We see from the distribution that the test with 4 Hz resulted in two narrow peaks. We don't have an explanation for this, but clearly observe that the variation is a lot less than when using the virtual machine, more so than the actual variation of $0.053$ ms$^2$ would suggest.
  
- \item \todo{What theory?}
+ \item Not completely. We cannot explain that a small, though significant, amount of timer ticks is delayed by $1$ ms. We do expect this kind of behaviour on non real time systems, but not on a real time system. If we look at figure~\ref{fig:interval-jitter-rt2}, we see the timer behave according to theory: often right on time, occasionally slightly off, but always within a tight timeframe. When we compare figure~\ref{fig:interval-jitter-rt} and \ref{fig:interval-jitter2}, we see a similar improvement. The peaks become narrower, signalling that the timeframe is smaller. However we are unable to explain the presence of multiple of these peaks.
 \end{enumerate}
 
 \begin{figure}
@@ -580,8 +580,10 @@ We implemented joystick button functionality and a way to exit the program witho
 \subsection{Questions}
 \begin{enumerate}
 	\item Not applicable
-	\item \todo{todo}
-	\item \todo{todo}
+	\item Moving parts could by obstructed by, in the worst case, bodyparts. In this case, the motors are not powerful enough to really inflict damage on its surrounding, but it could damage its own motors or mechanics by hitting obstructions. When the software detects unexpected values from its sensors, signalling that the hardware is not doing what it should do, all moving parts could be stopped to prevent damage. This is best implemented in a similar place as the check for hitting endstops.
+	
+	Another possibility is misfunctioning sensors, giving a static signal or a very noisy one. This would make it impossible for JIWY to function properly. To implement this, the faulty behaviour needs to be detected. This should be done by comparing the actual sensor data to the expected values. If the actual data is very different from the expected values, the process should switch to another mode (simplest would be just to stop). This needs an adjustment in the 20-sim model, to generate expected sensor values, and then CSP submodel need to be added to compare expected values with the actual values.
+	\item We could hold the camera, keeping it from moving to test how the system deals with physical obstructions. We could simulate faulty sensor data to test the fault detected, or actually break the sensors. This last option is of course not desirable.
 	\item \todo{todo}
 \end{enumerate}
 
